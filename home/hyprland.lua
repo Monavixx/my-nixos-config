@@ -42,6 +42,12 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("AmneziaVPN")
     hl.exec_cmd(browser)
 end)
+hl.window_rule({
+    match = {
+        class = "AmneziaVPN"
+    },
+    workspace = "special:magic"
+})
 
 
 -------------------------------
@@ -343,7 +349,14 @@ hl.window_rule({
     match = {
         class = "^vicinae$"
     },
-    opacity = "0.7 override"
+    opacity = "0.7 override",
+    xray = true
+})
+hl.window_rule({
+    match = {
+        class = "^jetbrains-rider"
+    },
+    opacity = "0.8 override"
 })
 
 -- Layer rules also return a handle.
