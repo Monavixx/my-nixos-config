@@ -2,7 +2,8 @@
 
 let 
   rebuild = pkgs.writeShellScriptBin "rebuild" ''
-    sudo nixos-rebuild switch --flake ./nixos
+    cd ~/nixos && git add .
+    sudo nixos-rebuild switch --flake ~/nixos
   '';
 in
 {
@@ -17,36 +18,19 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.luks.devices."luks-3815679e-a773-4c82-be2c-ca08327105af".device = "/dev/disk/by-uuid/3815679e-a773-4c82-be2c-ca08327105af";
   boot.initrd.systemd.enable = true;
-  boot.initrd.systemd.services.numlock-on = {
-    description = "Enable NumLock before LUKS prompt";
-    wantedBy = [ "initrd.target" ];
-    before = [ "systemd-cryptsetup@luks-3815679e-a773-4c82-be2c-ca08327105af.service" ];
-    unitConfig.DefaultDependencies = false;
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.kbd}/bin/setleds -D +num";
-      RemainAfterExit = true;
-    };
+
+  
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
-  #systemd.services.numlock-tty = {
-  #  description = "Enable NumLock on all TTYs";
-  #  wantedBy = [ "multi-user.target" ];
-  #  serviceConfig = {
-  #    Type = "oneshot";
-  #    RemainAfterExit = true;
-  #    ExecStart = ''
-  #      ${pkgs.bash}/bin/bash -c '
-  #        for tty in /dev/tty1 /dev/tty2 /dev/tty3 /dev/tty4 /dev/tty5 /dev/tty6; do
-  #          ${pkgs.kbd}/bin/setleds -D +num < "$tty" > /dev/null 2>&1 || true
-  #        done
-  #      '
-  #    '';
-  #  };
-  #};
 
   networking.hostName = "nixos"; # must match flake.nix's nixosConfigurations.<name>
   networking.networkmanager.enable = true;
 
+  services.logind.settings.Login.HandlePowerKey = "ignore";
+  services.pipewire.pulse.enable = true;
+  services.pipewire.enable = true;
   hardware.bluetooth.enable = true;
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
@@ -74,7 +58,7 @@ in
   users.users."monavixx" = {
     isNormalUser = true;
     description = "monavixx";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" ];
     packages = with pkgs; [ ];
   };
 
@@ -84,6 +68,11 @@ in
   environment.systemPackages = with pkgs; [
     kitty
     rebuild
+  ];
+  
+  fonts.packages = with pkgs; [
+    nerd-fonts.fantasque-sans-mono
+    font-awesome_4
   ];
 
   programs = {

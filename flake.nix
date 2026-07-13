@@ -14,11 +14,12 @@
       url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-jetbrains-plugins, vicinae, ... }@inps: 
+  outputs = { self, nixpkgs, home-manager, nix-jetbrains-plugins, vicinae, catppuccin, ... }@inps: 
     let 
-	system = "x86_64-linux";
+	    system = "x86_64-linux";
     in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
@@ -26,6 +27,7 @@
       specialArgs = { inherit self; inputs = inps; };
 
       modules = [
+        catppuccin.nixosModules.catppuccin
         ./hosts/nixos/configuration.nix
 	vicinae.nixosModules.default
         home-manager.nixosModules.home-manager

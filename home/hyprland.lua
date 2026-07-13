@@ -50,9 +50,9 @@ end)
 
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
-hl.env("NIXOS_OZONE_HL", "1")
+-- hl.env("XCURSOR_SIZE", "24")
+-- hl.env("HYPRCURSOR_SIZE", "24")
+-- hl.env("NIXOS_OZONE_HL", "1")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -81,7 +81,7 @@ hl.env("NIXOS_OZONE_HL", "1")
 hl.config({
     general = {
         gaps_in  = 5,
-        gaps_out = 20,
+        gaps_out = 10,
 
         border_size = 2,
 
@@ -105,7 +105,7 @@ hl.config({
 
         -- Change transparency of focused and unfocused windows
         active_opacity   = 1.0,
-        inactive_opacity = 1.0,
+        inactive_opacity = 0.95,
 
         shadow = {
             enabled      = true,
@@ -225,6 +225,7 @@ hl.config({
         touchpad = {
             natural_scroll = true,
         },
+        numlock_by_default = true
     },
 })
 
@@ -242,6 +243,9 @@ hl.gesture({
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("vicinae close || vicinae open"))
+hl.bind("XF86PowerOff", hl.dsp.exec_cmd("wlogout"))
+hl.bind("switch:Lid Switch", hl.dsp.exec_cmd("hyprlock"));
+hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"));
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
@@ -325,6 +329,21 @@ hl.window_rule({
     },
 
     no_focus = true,
+})
+
+
+hl.layer_rule({
+    match = {
+        namespace = "^vicinae$"
+    },
+    blur = true;
+})
+hl.window_rule({
+    name = "vicinae",
+    match = {
+        class = "^vicinae$"
+    },
+    opacity = "0.7 override"
 })
 
 -- Layer rules also return a handle.
