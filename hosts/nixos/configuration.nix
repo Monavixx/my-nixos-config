@@ -84,6 +84,7 @@ in
       };
     };
     hyprland = {
+      withUWSM  = true;
       enable = true;
       xwayland.enable = true;
     };

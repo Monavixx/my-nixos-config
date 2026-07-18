@@ -1,14 +1,15 @@
-{ config, pkgs, ...}:
+{ config, pkgs, awww-random, ...}:
 {
   systemd.user.services.awww-random = {
     Unit.Description = "Set a random wallpaper via awww";
     Service = {
       Type = "oneshot";
-      ExecStart = "%h/.local/bin/awww-random.sh";
+      ExecStart = "${awww-random}/bin/awww-random";
     };
   };
 
   systemd.user.timers.awww-random = {
+    Unit.PartOf = [ "awww-random.service" ];
     Unit.Description = "Run awww-random every 30 minutes";
     Timer = {
       OnBootSec = "1min";

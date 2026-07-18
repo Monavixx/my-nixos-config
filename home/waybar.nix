@@ -26,7 +26,7 @@
         };
         "network" = {
             "format" = "{ifname}"; 
-            "format-wifi" = "  {icon}";
+            "format-wifi" = "{icon}";
             "format-ethernet" = "󰣺";
             "format-disconnected" = "󰤮";
             "format-icons" = [
@@ -37,10 +37,9 @@
                 "󰤨"
             ];
             "tooltip-format" = "{ifname}";
-            "tooltip-format-wifi" = "{essid} ( ) {icon}";
+            "tooltip-format-wifi" = "{essid} {icon}";
             "tooltip-format-ethernet" = "{ifname} 󰣺";
             "tooltip-format-disconnected" = "Disconnected";
-            "max-length" = 50;
             "on-click" = "kitty nmtui";
         };
         "hyprland/window" = {
@@ -115,7 +114,11 @@
     }
 
     #waybar {
-    background: transparent;
+    background: linear-gradient(
+        to bottom, 
+        rgba(0, 0, 0, 0.3) 0%, 
+        rgba(0, 0, 0, 0.0) 100%
+    );
     color: @text;
     margin: 5px 5px;
     }
@@ -123,7 +126,11 @@
     #workspaces {
     border-radius: 1rem;
     margin: 5px;
-    background-color: @surface0;
+    background: linear-gradient(
+        to bottom, 
+        alpha(@surface0, 0.8) 0%,
+        alpha(@surface0, 0.5) 100%
+    );
     margin-left: 1rem;
     }
 
@@ -135,7 +142,12 @@
 
     #workspaces button.active {
     color: @sky;
-    border-radius: 1rem;
+    border-radius: 50%;
+    background: linear-gradient(
+        to bottom, 
+        alpha(@surface1, 0.8) 0%,
+        alpha(@surface1, 0.5) 100%
+    );
     }
 
     #workspaces button:hover {
@@ -152,9 +164,23 @@
     #pulseaudio,
     #custom-lock,
     #custom-power {
-    background-color: @surface0;
+    background: linear-gradient(
+        to bottom, 
+        alpha(@surface0, 0.8) 0%,
+        alpha(@surface0, 0.5) 100%
+    );
     padding: 0.5rem 1rem;
     margin: 5px 0;
+    }
+
+    #tray widget:hover {
+    background: linear-gradient(
+        to bottom, 
+        alpha(@surface1, 0.8) 0%,
+        alpha(@surface1, 0.5) 100%
+    );
+    margin: 5px;
+    border-radius: 50%;
     }
 
     #clock {

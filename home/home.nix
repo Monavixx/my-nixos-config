@@ -4,6 +4,7 @@ let
 	  "com.github.copilot"
     "ca.nosuchcompany.rider.plugins.mediatr"
 	];
+  awww-random = (pkgs.writeShellScriptBin "awww-random" (builtins.readFile ./scripts/awww-random.sh));
 in
 {
   home.username = "monavixx";
@@ -28,20 +29,26 @@ in
     accent = "flamingo";
   };
   programs.home-manager.enable = true;
-
+  
   services.swaync = {
     enable = true;
   };
 
   services.playerctld.enable = true;
+  _module.args.awww-random = awww-random;
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.catppuccin-cursors.mochaDark;
+    name = "catppuccin-mocha-dark-cursors";
+    size = 24;
+  };
   # user-level packages (no root needed, only visible when logged in as you)
   home.packages = with pkgs; [
     wl-clipboard
     grim
     slurp
-    networkmanagerapplet
-    (pkgs.writeShellScriptBin "awww-random" (builtins.readFile ./scripts/awww-random.sh))
+    awww-random
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
     hyprpolkitagent
     libnotify #notify-send
@@ -134,6 +141,10 @@ in
       jnoortheen.nix-ide
       sumneko.lua
     ];
+    userSettings = {
+      "editor.fontFamily" = "'FantasqueSansM Nerd Font', 'JetBrains Mono', monospace";
+      "editor.fontLigatures" = true;
+    };
   };
 
   programs.vicinae =
@@ -152,7 +163,8 @@ in
     };
     settings = {
       close_on_focus_loss = true;
-      close_on_escape = true;
+      closeOnEscape = true;
+      applicationLaunchPrefix = "uwsm app -- ";
       launcher_window = {
         opacity = 0.7;
       };

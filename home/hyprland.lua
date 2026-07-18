@@ -20,7 +20,6 @@ hl.monitor({
 local terminal    = "kitty"
 local fileManager = "kitty yazi"
 -- local menu        = "hyprlauncher"
-local taskbar = "waybar"
 local browser = "google-chrome"
 local appLauncher = "vicinae"
 -------------------
@@ -38,11 +37,11 @@ local appLauncher = "vicinae"
 --   hl.exec_cmd("waybar & hyprpaper & firefox")
 -- end)
 hl.on("hyprland.start", function ()
-    hl.exec_cmd(taskbar)
-    hl.exec_cmd("AmneziaVPN")
-    hl.exec_cmd(browser)
+    hl.exec_cmd("uwsm app -- waybar")
+    hl.exec_cmd("uwsm app -- AmneziaVPN")
+    hl.exec_cmd("uwsm app -- google-chrome")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
-    hl.exec_cmd("awww-daemon")
+    hl.exec_cmd("uwsm app -- awww-daemon")
     -- hl.exec_cmd("nm-applet --indicator")
 end)
 hl.window_rule({
@@ -51,7 +50,7 @@ hl.window_rule({
     },
     workspace = "special:magic silent"
 })
-
+hl.layer_rule({ match = { namespace = "waybar" }, blur = true })
 
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
@@ -262,7 +261,7 @@ hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm app -- " .. fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
@@ -383,12 +382,9 @@ hl.window_rule({
 })
 hl.window_rule({
     match = {
-        title = "^Picture in picture$"
+        class = "^code$"
     },
-    float = false,
-    tile = true,
-    opacity = "0.85 override",
-    content = "video"
+    opacity = "0.85 override"
 })
 
 
