@@ -15,6 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
+    awww.url = "git+https://codeberg.org/LGFae/awww";
   };
 
   outputs = { self, nixpkgs, home-manager, nix-jetbrains-plugins, vicinae, catppuccin, ... }@inps: 
@@ -29,10 +30,10 @@
       modules = [
         catppuccin.nixosModules.catppuccin
         ./hosts/nixos/configuration.nix
-	vicinae.nixosModules.default
+	      vicinae.nixosModules.default
         home-manager.nixosModules.home-manager
         {
-	  home-manager.backupFileExtension = "backup";
+	        home-manager.backupFileExtension = "backup";
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inputs = inps; };

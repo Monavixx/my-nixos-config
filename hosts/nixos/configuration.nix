@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let 
   rebuild = pkgs.writeShellScriptBin "rebuild" ''
@@ -18,7 +18,7 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.luks.devices."luks-3815679e-a773-4c82-be2c-ca08327105af".device = "/dev/disk/by-uuid/3815679e-a773-4c82-be2c-ca08327105af";
   boot.initrd.systemd.enable = true;
-
+  security.polkit.enable = true;
   
   xdg.portal = {
     enable = true;
@@ -66,7 +66,8 @@ in
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   environment.systemPackages = with pkgs; [
-    kitty
+    brightnessctl
+    #kitty
     rebuild
   ];
   

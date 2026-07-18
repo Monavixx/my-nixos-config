@@ -16,20 +16,32 @@
         "layer" = "top";
         "position" = "top";
         "modules-left" = ["hyprland/workspaces"];
-        "modules-center" = ["hyprland/window" "custom/music"];
-        "modules-right" = ["pulseaudio" "backlight" "battery" "clock" "tray" "custom/lock" "custom/power"];
+        "modules-center" = ["hyprland/window" ]; #"custom/music"];
+        "modules-right" = ["pulseaudio" "backlight" "battery" "network" "clock" "tray" "custom/lock" "custom/power"];
         "hyprland/workspaces" = {
-            #"on-scroll-up" = "hyprctl dispatch 'hl.dsp.focus({workspace=\"e+1\"})' ";
-            #"on-scroll-down" = "hyprctl dispatch 'hl.dsp.focus({workspace=\"e-1\"})' ";
             "format" = " {icon} ";
             "format-icons" = {
                 "default" = "";
             };
-            "on-click" = "activate";
-            "tooltips" = {
-                "default" = "{name}: {windows}";
-                "empty" = "";
-            };
+        };
+        "network" = {
+            "format" = "{ifname}"; 
+            "format-wifi" = "  {icon}";
+            "format-ethernet" = "󰣺";
+            "format-disconnected" = "󰤮";
+            "format-icons" = [
+                "󰤯"
+                "󰤟"
+                "󰤢"
+                "󰤥"
+                "󰤨"
+            ];
+            "tooltip-format" = "{ifname}";
+            "tooltip-format-wifi" = "{essid} ( ) {icon}";
+            "tooltip-format-ethernet" = "{ifname} 󰣺";
+            "tooltip-format-disconnected" = "Disconnected";
+            "max-length" = 50;
+            "on-click" = "kitty nmtui";
         };
         "hyprland/window" = {
             "separate-outputs" = true;
@@ -39,15 +51,15 @@
             "icon-size" = 17;
             "spacing" = 10;
         };
-        "custom/music" = {
-            "format" = "  {}";
-            "escape" = true;
-            "interval" = 5;
-            "tooltip" = false;
-            "exec" = "playerctl metadata --format='{{ title }}'";
-            "on-click" = "playerctl play-pause";
-            "max-length" = 50;
-        };
+        #"custom/music" = {
+        #    "format" = "  {}";
+        #    "escape" = true;
+        #    "interval" = 5;
+        #    "tooltip" = false;
+        #    "exec" = "playerctl metadata --format='{{ title }}'";
+        #    "on-click" = "playerctl play-pause";
+        #    "max-length" = 50;
+        #};
         "clock" = {
             "timezone" = "Europe/Moscow";
             "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
@@ -131,6 +143,7 @@
     border-radius: 1rem;
     }
 
+    #network,
     #custom-music,
     #tray,
     #backlight,

@@ -2,6 +2,7 @@
 let
 	rider-plugins = inputs.nix-jetbrains-plugins.lib.pluginsForIde pkgs pkgs.jetbrains.rider [
 	  "com.github.copilot"
+    "ca.nosuchcompany.rider.plugins.mediatr"
 	];
 in
 {
@@ -10,16 +11,14 @@ in
   home.stateVersion = "26.05";
 
   home.sessionVariables = {
-    XCURSOR_THEME = "catppuccin-mocha-dark-cursors";
-    XCURSOR_SIZE = "24";
-    HYPRCURSOR_SIZE = "24";
-    NIXOS_OZONE_HL = "1";
+    
   };
-
+  
   imports = [
+    ./awww.nix
+    ./hourly-productivity-control.nix
     ./waybar.nix
     ./hyprland.nix
-    #./theme.nix
     inputs.catppuccin.homeModules.catppuccin
   ];
   catppuccin = {
@@ -29,8 +28,25 @@ in
     accent = "flamingo";
   };
   programs.home-manager.enable = true;
+
+  services.swaync = {
+    enable = true;
+  };
+
+  services.playerctld.enable = true;
+
   # user-level packages (no root needed, only visible when logged in as you)
   home.packages = with pkgs; [
+    wl-clipboard
+    grim
+    slurp
+    networkmanagerapplet
+    (pkgs.writeShellScriptBin "awww-random" (builtins.readFile ./scripts/awww-random.sh))
+    inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
+    hyprpolkitagent
+    libnotify #notify-send
+    obsidian
+    bruno
     pkgs.catppuccin-cursors.mochaDark
     google-chrome
     telegram-desktop
@@ -55,11 +71,56 @@ in
         export XCURSOR_THEME="catppuccin-mocha-dark-cursors"
         export XCURSOR_SIZE="24"
         export HYPRCURSOR_SIZE="24"
+        export PATH="$HOME/.dotnet/tools:$PATH"
         exec rider "$@"
       '';
     })
   ];
+  programs.zed-editor = {
+    enable = true;
+    extensions = [
+      "nix"
+    ];
+  };
+  programs.mpv = {
+    enable = true;
+    package = (
+      pkgs.mpv.override {
+        scripts = with pkgs.mpvScripts; [
+          #uosc
+          sponsorblock
+          quality-menu
+        ];
 
+        mpv-unwrapped = pkgs.mpv-unwrapped.override {
+          waylandSupport = true;
+        };
+      }
+    );
+
+    config = {
+      profile = "high-quality";
+      ytdl-format = "bestvideo+bestaudio";
+      cache-default = 4000000;
+    };
+  };
+
+  programs.yt-dlp = {
+    enable = true;
+  };
+
+  xdg.desktopEntries.rider = {
+    name = "Rider";
+    genericName = "IDE";
+    exec = "rider %F";
+    icon = "rider"; # or a path to an icon if the name doesn't resolve
+    terminal = false;
+    categories = [ "Development" "IDE" ];
+  };
+
+  programs.yazi = {
+    enable = true;
+  };
   programs.kitty = {
     enable = true;
     settings = {
@@ -74,7 +135,16 @@ in
       sumneko.lua
     ];
   };
-  programs.vicinae = {
+
+  programs.vicinae =
+    let
+      vicinae-extensions = pkgs.fetchFromGitHub {
+        owner = "vicinaehq";
+        repo = "extensions";
+        rev = "5d1d31a698d5ac0b25b7391fcce3d920cd9c552e";
+        hash = "sha256-u9QmD1FnLf+64o60L4ldx81m88eeK5/EgNYTEAt9qIo=";
+      } + "/extensions";
+    in {
     enable = true;
     systemd = {
       enable = true;
@@ -82,10 +152,22 @@ in
     };
     settings = {
       close_on_focus_loss = true;
+      close_on_escape = true;
       launcher_window = {
         opacity = 0.7;
       };
     };
+    extensions = [
+      (config.lib.vicinae.mkExtension {
+        name = "nix";
+        src = vicinae-extensions + "/nix";
+      })
+      (config.lib.vicinae.mkRayCastExtension {
+        name = "obsidian";
+        rev = "14455eda4fb82586bd177c8805cb37b08f2a1336";
+        sha256 = "sha256-3qBCTZIHTyUn7vYwd2HoZJ6RAcba+bDbcGm1dn07DSI=";
+      })
+    ];
   };
   programs.git = {
     enable = true;
