@@ -237,11 +237,16 @@ hl.config({
     },
 })
 
+
 hl.gesture({
     fingers = 3,
     direction = "horizontal",
     action = "workspace"
 })
+--hl.plugin.hyprgrass.bind {
+--    pattern = {kind = "tap", fingers = 4},
+--    action = hl.dsp.cmd_exec("playerctl play-pause")
+--}
 
 
 ---------------------

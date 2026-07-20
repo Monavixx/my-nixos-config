@@ -45,6 +45,7 @@
         "hyprland/window" = {
             "separate-outputs" = true;
             tooltip = false;
+            "max-length" = 40;
         };
         "tray" = {
             "icon-size" = 17;
@@ -60,10 +61,20 @@
         #    "max-length" = 50;
         #};
         "clock" = {
-            "timezone" = "Europe/Moscow";
-            "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-            "format-alt" = " {:%d/%m/%Y}";
-            "format" = " {:%H:%M}";
+            "tooltip-format" = "<big>{:%d/%m/%Y}</big>\n<tt><small>{calendar}</small></tt>";
+            "format" = "{:%I:%M %p %d %B}";
+            "calendar" = {
+                "mode"             = "year";
+                "mode-mon-col"     = 3;
+                "on-click-right"   = "mode";
+                "format" = {
+                    "months" =     "<span color='#ffead3'><b>{}</b></span>";
+                    "days" =       "<span color='#ecc6d9'><b>{}</b></span>";
+                    "weeks" =      "<span color='#99ffdd'><b>W{}</b></span>";
+                    "weekdays" =   "<span color='#ffcc66'><b>{}</b></span>";
+                    "today" =      "<span color='#fcbeff' background='#ff5757'><b>{}</b></span>";
+                };
+            };
         };
         "backlight" = {
             "device" = "intel_backlight";
@@ -72,15 +83,21 @@
             tooltip = false;
         };
         "battery" = {
+            "format" = "{capacity}% {icon}";
+            "tooltip-format" = "{timeTo}";
             "states" = {
                 "warning" = 30;
                 "critical" = 15;
             };
-            "format" = "{icon}";
-            "format-charging" = "";
-            "format-plugged" = "";
-            "format-alt" = "{icon}";
-            "format-icons" = ["" "" "" "" "" "" "" "" "" "" "" ""];
+            "events" = {
+                "on-discharging-warning" = "notify-send -u normal 'Low Battery'";
+                "on-discharging-critical" = "notify-send -u critical 'Very Low Battery'";
+            };
+            "format-icons" = {
+                "default" = ["" "" "" "" ""];
+                "charging" = ["󱐋" "󱐋" "󱐋" "󱐋" "󱐋"];
+            };
+            "max-length" = 6;
         };
         "pulseaudio" = {
             "scroll-step" = 1;
@@ -173,16 +190,6 @@
     margin: 5px 0;
     }
 
-    #tray widget:hover {
-    background: linear-gradient(
-        to bottom, 
-        alpha(@surface1, 0.8) 0%,
-        alpha(@surface1, 0.5) 100%
-    );
-    margin: 5px;
-    border-radius: 50%;
-    }
-
     #clock {
     color: @blue;
     border-radius: 0px 1rem 1rem 0px;
@@ -197,7 +204,8 @@
     color: @green;
     }
 
-    #battery.warning:not(.charging) {
+    #battery.warning:not(.charging),
+    #battery.critical:not(.charging) {
     color: @red;
     }
 

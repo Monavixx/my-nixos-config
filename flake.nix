@@ -16,6 +16,17 @@
     };
     catppuccin.url = "github:catppuccin/nix";
     awww.url = "git+https://codeberg.org/LGFae/awww";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
+    inputactions-ctl = {
+      url = "git+https://github.com/InputActions/ctl?submodules=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    inputactions-hyprland = {
+      url = "git+https://github.com/InputActions/hyprland?submodules=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nix-jetbrains-plugins, vicinae, catppuccin, ... }@inps: 
@@ -43,7 +54,9 @@
     };
     homeConfigurations.monavixx = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages."${system}";
-      modules = [vicinae.homeManagerModules.default];
+      modules = [
+        vicinae.homeManagerModules.default
+      ];
     };
   };
 }

@@ -5,6 +5,7 @@ let
     cd ~/nixos && git add .
     sudo nixos-rebuild switch --flake ~/nixos
   '';
+  hyprland-pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   imports = [
@@ -13,13 +14,24 @@ in
     ./hardware-configuration.nix
   ];
 
+  hardware.graphics = {
+    package = hyprland-pkgs-unstable.mesa;
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.luks.devices."luks-3815679e-a773-4c82-be2c-ca08327105af".device = "/dev/disk/by-uuid/3815679e-a773-4c82-be2c-ca08327105af";
   boot.initrd.systemd.enable = true;
   security.polkit.enable = true;
-  
+
+  nix.optimise.automatic = true;
+  nix.optimise.dates = [ "daily" ];
+  nix.gc = {
+    automatic = true;
+    dates = "*-*-* 00:00:00/3"; 
+    options = "--delete-older-than 14d";
+  };
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
@@ -87,6 +99,9 @@ in
       withUWSM  = true;
       enable = true;
       xwayland.enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      # make sure to also set the portal package, so that they are in sync
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
     kdeconnect.enable = true;
     amnezia-vpn.enable = true;

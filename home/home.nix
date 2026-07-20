@@ -37,14 +37,39 @@ in
   services.playerctld.enable = true;
   _module.args.awww-random = awww-random;
 
+  gtk = {
+    enable = true;
+    theme = {
+      name = "catppuccin-mocha-flamingo-standard";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "flamingo" ];
+        size = "standard";
+        variant = "mocha";
+      };
+    };
+    iconTheme = {
+      name = "Papirus-Dark";
+    };
+  };
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk3";
+    style.name = "kvantum";
+  };
   home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.catppuccin-cursors.mochaDark;
     name = "catppuccin-mocha-dark-cursors";
+    package = pkgs.catppuccin-cursors.mochaDark;
     size = 24;
+    gtk.enable = true;
+    x11.enable = true;
+  };
+  dconf.settings."org/gnome/desktop/interface" = {
+    color-scheme = "prefer-dark";
+    gtk-theme = "catppuccin-mocha-flamingo-standard";
   };
   # user-level packages (no root needed, only visible when logged in as you)
   home.packages = with pkgs; [
+    inputs.inputactions-ctl.packages.${pkgs.stdenv.hostPlatform.system}.default
     wl-clipboard
     grim
     slurp
@@ -141,7 +166,7 @@ in
       jnoortheen.nix-ide
       sumneko.lua
     ];
-    userSettings = {
+    profiles.default.userSettings = {
       "editor.fontFamily" = "'FantasqueSansM Nerd Font', 'JetBrains Mono', monospace";
       "editor.fontLigatures" = true;
     };
