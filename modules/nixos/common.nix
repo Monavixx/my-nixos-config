@@ -1,17 +1,16 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, hostname, ... }:
 
 let 
   rebuild = pkgs.writeShellScriptBin "rebuild" ''
     cd ~/nixos && git add .
-    sudo nixos-rebuild switch --flake ~/nixos
+    sudo nixos-rebuild switch --flake ~/nixos#${hostname}
   '';
   hyprland-pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   imports = [
     ./docker.nix
-    ../../home/thunar.nix
-    ./hardware-configuration.nix
+    ./thunar.nix
   ];
 
   hardware.graphics = {
@@ -21,7 +20,6 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.luks.devices."luks-3815679e-a773-4c82-be2c-ca08327105af".device = "/dev/disk/by-uuid/3815679e-a773-4c82-be2c-ca08327105af";
   boot.initrd.systemd.enable = true;
   security.polkit.enable = true;
 
@@ -37,15 +35,12 @@ in
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  networking.hostName = "nixos"; # must match flake.nix's nixosConfigurations.<name>
+  networking.hostName = hostname; # must match flake.nix's nixosConfigurations.<name>
   networking.networkmanager.enable = true;
 
   services.logind.settings.Login.HandlePowerKey = "ignore";
   services.pipewire.pulse.enable = true;
   services.pipewire.enable = true;
-  hardware.bluetooth.enable = true;
-  services.power-profiles-daemon.enable = true;
-  services.upower.enable = true;
 
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -78,8 +73,6 @@ in
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   environment.systemPackages = with pkgs; [
-    brightnessctl
-    #kitty
     rebuild
   ];
   
@@ -100,7 +93,6 @@ in
       enable = true;
       xwayland.enable = true;
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      # make sure to also set the portal package, so that they are in sync
       portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
     kdeconnect.enable = true;

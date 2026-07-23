@@ -15,48 +15,39 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
-    awww.url = "git+https://codeberg.org/LGFae/awww";
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-    };
-    inputactions-ctl = {
-      url = "git+https://github.com/InputActions/ctl?submodules=1";
+    awww = {
+      url = "git+https://codeberg.org/LGFae/awww";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    inputactions-hyprland = {
-      url = "git+https://github.com/InputActions/hyprland?submodules=1";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-jetbrains-plugins, vicinae, catppuccin, ... }@inps: 
+  outputs = { self, nixpkgs, home-manager, nix-jetbrains-plugins, vicinae, catppuccin, ... }@inputs: 
     let 
 	    system = "x86_64-linux";
+      mkHost = { hostname, system ? "x86_64-linux" }:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs hostname; };
+          modules = [
+            ./hosts/${hostname}/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+	            home-manager.backupFileExtension = "backup";
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserHomeModules = true;
+              home-manager.extraSpecialArgs = { inherit inputs hostname; };
+              home-manager.users.yourname = import ./hosts/${hostname}/home.nix;
+            }
+          ];
+        };
     in {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      inherit system;
-
-      specialArgs = { inherit self; inputs = inps; };
-
-      modules = [
-        catppuccin.nixosModules.catppuccin
-        ./hosts/nixos/configuration.nix
-	      vicinae.nixosModules.default
-        home-manager.nixosModules.home-manager
-        {
-	        home-manager.backupFileExtension = "backup";
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inputs = inps; };
-          home-manager.users.monavixx = import ./home/home.nix;
-        }
-      ];
-    };
-    homeConfigurations.monavixx = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages."${system}";
-      modules = [
-        vicinae.homeManagerModules.default
-      ];
-    };
+      nixosConfigurations = {
+        laptop = mkHost { hostname = "laptop"; };
+        desktop = mkHost { hostname = "desktop"; };
+      };
   };
 }

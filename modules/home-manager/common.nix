@@ -1,10 +1,12 @@
 { config, pkgs, inputs, ... }:
 let
+  flavor = "mocha";
+  accent = "flamingo";
 	rider-plugins = inputs.nix-jetbrains-plugins.lib.pluginsForIde pkgs pkgs.jetbrains.rider [
 	  "com.github.copilot"
     "ca.nosuchcompany.rider.plugins.mediatr"
 	];
-  awww-random = (pkgs.writeShellScriptBin "awww-random" (builtins.readFile ./scripts/awww-random.sh));
+  awww-random = (pkgs.writeShellScriptBin "awww-random" (builtins.readFile ../../scripts/awww-random.sh));
 in
 {
   home.username = "monavixx";
@@ -12,9 +14,12 @@ in
   home.stateVersion = "26.05";
 
   home.sessionVariables = {
-    
+    SAL_USE_VCLPLUGIN = "gtk4"; # or "gtk" for GTK3
+    GDK_BACKEND = "wayland";
+    NIXOS_OZONE_WL = "1";
   };
   
+  _module.args.awww-random = awww-random;
   imports = [
     ./awww.nix
     ./hourly-productivity-control.nix
@@ -25,8 +30,8 @@ in
   catppuccin = {
     enable = true;
     autoEnable = true;
-    flavor = "mocha";
-    accent = "flamingo";
+    inherit flavor;
+    inherit accent;
   };
   programs.home-manager.enable = true;
   
@@ -35,16 +40,15 @@ in
   };
 
   services.playerctld.enable = true;
-  _module.args.awww-random = awww-random;
 
   gtk = {
     enable = true;
     theme = {
-      name = "catppuccin-mocha-flamingo-standard";
+      name = "catppuccin-${flavor}-${accent}-standard";
       package = pkgs.catppuccin-gtk.override {
-        accents = [ "flamingo" ];
+        accents = [ accent ];
         size = "standard";
-        variant = "mocha";
+        variant = flavor;
       };
     };
     iconTheme = {
@@ -57,7 +61,8 @@ in
     style.name = "kvantum";
   };
   home.pointerCursor = {
-    name = "catppuccin-mocha-dark-cursors";
+    enable = true;
+    name = "catppuccin-${flavor}-dark-cursors";
     package = pkgs.catppuccin-cursors.mochaDark;
     size = 24;
     gtk.enable = true;
@@ -65,11 +70,11 @@ in
   };
   dconf.settings."org/gnome/desktop/interface" = {
     color-scheme = "prefer-dark";
-    gtk-theme = "catppuccin-mocha-flamingo-standard";
+    gtk-theme = "catppuccin-${flavor}-${accent}-standard";
   };
   # user-level packages (no root needed, only visible when logged in as you)
-  home.packages = with pkgs; [
-    inputs.inputactions-ctl.packages.${pkgs.stdenv.hostPlatform.system}.default
+  home.packages = with pkgs; [    
+    libreoffice-fresh
     wl-clipboard
     grim
     slurp
@@ -100,7 +105,7 @@ in
         export DOTNET_ROOT="${pkgs.dotnet-sdk_10}"
         export SSL_CERT_FILE="/etc/ssl/certs/ca-bundle.crt"
         export NIXOS_OZONE_HL="1"
-        export XCURSOR_THEME="catppuccin-mocha-dark-cursors"
+        export XCURSOR_THEME="catppuccin-${flavor}-dark-cursors"
         export XCURSOR_SIZE="24"
         export HYPRCURSOR_SIZE="24"
         export PATH="$HOME/.dotnet/tools:$PATH"
@@ -222,25 +227,25 @@ in
     layout = [
       {
         label = "shutdown";
-        action = "systemctl poweroff";
+        action = "uwsm-app -- hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P now'";
         text = "Shutdown";
         keybind = "s";
       }
       {
         label = "reboot";
-        action = "systemctl reboot";
+        action = "uwsm-app -- hyprshutdown -t 'Restarting...' --post-cmd 'reboot'";
         text = "Reboot";
         keybind = "r";
       }
       {
         label = "logout";
-        action = "hyprctl dispatch exit"; # Or your compositor's exit command
+        action = "command -v uwsm >/dev/null 2>&1 && uwsm stop || hyprctl dispatch 'hl.dsp.exit()'";
         text = "Logout";
         keybind = "e";
       }
       {
         label = "lock";
-        action = "hyprlock"; # Assumes you have swaylock installed
+        action = "hyprlock";
         text = "Lock";
         keybind = "l";
       }

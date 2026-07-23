@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, hostname, ... }:
 
 {
   wayland.windowManager.hyprland = {
@@ -9,10 +9,12 @@
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     settings = { };
-    extraConfig = builtins.readFile ./hyprland.lua;
+    extraConfig =''
+      ${builtins.readFile ./hyprland-config/common-hyprland.lua}
+      ${builtins.readFile ../../hosts/${hostname}/hyprland.lua}
+    '';
 
     plugins = [
-      inputs.inputactions-hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 }

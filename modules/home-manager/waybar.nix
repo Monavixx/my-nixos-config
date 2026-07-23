@@ -1,23 +1,20 @@
-{ ... }:
+{ config, pkgs, lib, hostname }:
+let
+    isLaptop = hostname == "laptop";
+in 
 {
  programs.waybar = {
   enable = true;
-  #settings = {
-  #  mainBar = {
-  #    layer = "top";
-  #    position = "top";
-  #    modules-left = ["hyprland/workspaces"];
-  #    modules-center = ["clock"];
-  #    modules-right = ["pulseaudio" "battery"];
-  #  };
-  #};
   settings = {
     mainBar = {
         "layer" = "top";
         "position" = "top";
         "modules-left" = ["hyprland/workspaces"];
         "modules-center" = ["hyprland/window" ]; #"custom/music"];
-        "modules-right" = ["pulseaudio" "backlight" "battery" "network" "clock" "tray" "custom/lock" "custom/power"];
+        "modules-right" = [ "pulseaudio" ]
+          ++ lib.optionals isLaptop [ "backlight" "battery" ]
+          ++ [ "network" "clock" "tray" "custom/lock" "custom/power" ];
+
         "hyprland/workspaces" = {
             "format" = " {icon} ";
             "format-icons" = {
@@ -76,6 +73,28 @@
                 };
             };
         };
+        
+        "pulseaudio" = {
+            "scroll-step" = 1;
+            "reverse-touchpad-scrolling" = false;
+            "format" = "{volume}% {icon}";
+            "format-muted" = "";
+            "format-icons" = {
+                "default" = ["" "" " "];
+            };
+            "on-click" = "pavucontrol";
+        };
+        "custom/lock" = {
+            "tooltip" = false;
+            "on-click" = "hyprlock & disown";
+            "format" = "";
+        };
+        "custom/power" = {
+            "tooltip" = false;
+            "on-click" = "wlogout &";
+            "format" = "";
+        };
+    } // lib.optionalAttrs isLaptop {
         "backlight" = {
             "device" = "intel_backlight";
             "format" = "{icon}";
@@ -97,29 +116,6 @@
                 "default" = ["" "" "" "" ""];
                 "charging" = ["󱐋" "󱐋" "󱐋" "󱐋" "󱐋"];
             };
-            "max-length" = 6;
-        };
-        "pulseaudio" = {
-            "scroll-step" = 1;
-            "reverse-scroll" = true;
-            "reverse-mouse-scrolling" = true;
-            "format" = "{volume}% {icon}";
-            "min-length" = 5;
-            "format-muted" = "";
-            "format-icons" = {
-                "default" = ["" "" " "];
-            };
-            "on-click" = "pavucontrol";
-        };
-        "custom/lock" = {
-            "tooltip" = false;
-            "on-click" = "hyprlock & disown";
-            "format" = "";
-        };
-        "custom/power" = {
-            "tooltip" = false;
-            "on-click" = "wlogout &";
-            "format" = "";
         };
     };
   };
