@@ -38,9 +38,9 @@
             {
 	            home-manager.backupFileExtension = "backup";
               home-manager.useGlobalPkgs = true;
-              home-manager.useUserHomeModules = true;
+              home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs hostname; };
-              home-manager.users.yourname = import ./hosts/${hostname}/home.nix;
+              home-manager.users.monavixx = import ./hosts/${hostname}/home.nix;
             }
           ];
         };

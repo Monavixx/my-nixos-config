@@ -1,4 +1,4 @@
-{ config, pkgs, lib, hostname }:
+{ config, pkgs, lib, hostname, ... }:
 let
     isLaptop = hostname == "laptop";
 in 
