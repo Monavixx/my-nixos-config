@@ -1,4 +1,7 @@
 { config, pkgs, inputs, ...} :
+let 
+  hyprland-pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in 
 {
   imports = [
     ../../modules/nixos/common.nix

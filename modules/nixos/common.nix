@@ -5,7 +5,6 @@ let
     cd ~/nixos && git add .
     sudo nixos-rebuild switch --flake ~/nixos#${hostname}
   '';
-  hyprland-pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   imports = [
