@@ -227,13 +227,13 @@ in
     layout = [
       {
         label = "shutdown";
-        action = "uwsm-app -- hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P now'";
+        action = "systemctl poweroff";
         text = "Shutdown";
         keybind = "s";
       }
       {
         label = "reboot";
-        action = "uwsm-app -- hyprshutdown -t 'Restarting...' --post-cmd 'reboot'";
+        action = "reboot";
         text = "Reboot";
         keybind = "r";
       }
