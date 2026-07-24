@@ -73,7 +73,8 @@ in
     gtk-theme = "catppuccin-${flavor}-${accent}-standard";
   };
   # user-level packages (no root needed, only visible when logged in as you)
-  home.packages = with pkgs; [    
+  home.packages = with pkgs; [   
+    pavucontrol 
     libreoffice-fresh
     wl-clipboard
     grim

@@ -13,10 +13,6 @@ in
     ./thunar.nix
   ];
 
-  hardware.graphics = {
-    package = hyprland-pkgs-unstable.mesa;
-  };
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -39,8 +35,14 @@ in
   networking.networkmanager.enable = true;
 
   services.logind.settings.Login.HandlePowerKey = "ignore";
-  services.pipewire.pulse.enable = true;
-  services.pipewire.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+  security.rtkit.enable = true;
+  hardware.pulseaudio.enable = false;
 
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";

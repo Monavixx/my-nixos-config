@@ -14,4 +14,7 @@
   environment.systemPackages = with pkgs; [
     brightnessctl
   ];
+  hardware.graphics = {
+    package = hyprland-pkgs-unstable.mesa;
+  };
 }

@@ -6,9 +6,11 @@
   ];
 
   services.xserver.videoDrivers = ["nvidia"];
+  boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  boot.blacklistedKernelModules = [ "nouveau" ];
   hardware = {
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.production;
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
       # Modesetting is required.
       modesetting.enable = true;
 
