@@ -13,6 +13,9 @@ hl.config({
     input = {
         scroll_method = "on_button_down",
         scroll_button = 2,
+    },
+    opengl = {
+        nvidia_anti_flicker = false
     }
 })
 

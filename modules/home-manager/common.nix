@@ -6,6 +6,7 @@ let
 	  "com.github.copilot"
     "ca.nosuchcompany.rider.plugins.mediatr"
     "com.github.catppuccin.jetbrains"
+    "Key Promoter X"
 	];
   awww-random = (pkgs.writeShellScriptBin "awww-random" (builtins.readFile ../../scripts/awww-random.sh));
 in
@@ -74,7 +75,8 @@ in
     gtk-theme = "catppuccin-${flavor}-${accent}-standard";
   };
   # user-level packages (no root needed, only visible when logged in as you)
-  home.packages = with pkgs; [   
+  home.packages = with pkgs; [  
+    discord-canary 
     pavucontrol 
     libreoffice-fresh
     wl-clipboard
