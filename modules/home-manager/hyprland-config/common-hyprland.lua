@@ -201,7 +201,7 @@ hl.config({
         kb_layout  = "us,ru",
         kb_variant = "",
         kb_model   = "",
-        kb_options = "grp:alt_shift_toggle",
+        kb_options = "",
         kb_rules   = "",
 
         follow_mouse = 1,
@@ -211,6 +211,9 @@ hl.config({
         numlock_by_default = true
     },
 })
+
+hl.bind("ALT + SHIFT + ALT_L + SHIFT_L", hl.dsp.exec_cmd("hyprctl switchxkblayout main next"), {release = true})
+hl.bind("SHIFT + ALT + SHIFT_L + ALT_L", hl.dsp.exec_cmd("hyprctl switchxkblayout main next"), {release = true})
 
 ---------------------
 ---- KEYBINDINGS ----
