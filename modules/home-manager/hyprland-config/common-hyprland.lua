@@ -307,37 +307,43 @@ hl.window_rule({
     match = {
         class = "^vicinae$"
     },
-    opacity = "0.7 override",
+    opacity = "0.7",
 })
 hl.window_rule({
     match = {
         class = "^bruno$"
     },
-    opacity = "0.8 override",
+    opacity = "0.8",
 })
 hl.window_rule({
     match = {
         class = "^org.telegram.desktop$"
     },
-    opacity = "0.95 override",
+    opacity = "0.95",
 })
 hl.window_rule({
     match = {
         class = "^obsidian$"
     },
-    opacity = "0.9 override",
+    opacity = "0.9",
 })
 hl.window_rule({
     match = {
         class = "^jetbrains-rider$"
     },
-    opacity = "0.9 override"
+    opacity = "0.9"
 })
 hl.window_rule({
     match = {
         class = "^code$"
     },
-    opacity = "0.88 override"
+    opacity = "0.88"
+})
+hl.window_rule({
+    match = {
+        class = "^google-chrome$"
+    },
+    opacity = "0.9"
 })
 
 

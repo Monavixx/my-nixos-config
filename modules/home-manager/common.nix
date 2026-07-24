@@ -5,6 +5,7 @@ let
 	rider-plugins = inputs.nix-jetbrains-plugins.lib.pluginsForIde pkgs pkgs.jetbrains.rider [
 	  "com.github.copilot"
     "ca.nosuchcompany.rider.plugins.mediatr"
+    "com.github.catppuccin.jetbrains"
 	];
   awww-random = (pkgs.writeShellScriptBin "awww-random" (builtins.readFile ../../scripts/awww-random.sh));
 in

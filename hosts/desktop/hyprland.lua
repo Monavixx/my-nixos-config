@@ -9,6 +9,10 @@ hl.config({
     cursor = {
         no_hardware_cursors = 1,
         inactive_timeout = 0
+    },
+    input = {
+        scroll_method = "on_button_down",
+        scroll_button = 2,
     }
 })
 
