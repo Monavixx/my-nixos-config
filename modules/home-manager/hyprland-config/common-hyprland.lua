@@ -166,12 +166,7 @@ hl.config({
     },
 })
 
--- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
-hl.config({
-    master = {
-        new_status = "master",
-    },
-})
+
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/ for more
 hl.config({
@@ -232,7 +227,7 @@ hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v uwsm >/dev/null 2>&1 && u
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm app -- kitty yazi"))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
+-- hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
@@ -265,7 +260,66 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
 
+hl.bind("SUPER + CTRL + right", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind("SUPER + CTRL + left", hl.dsp.focus({ workspace = "e-1" }))
 
+
+hl.bind("SUPER + tab", function ()
+    local layouts     = { "dwindle", "master" }
+    local workspace   = hl.get_active_workspace()
+	if hl.get_active_special_workspace() then
+		workspace = hl.get_active_special_workspace()
+	end
+    local next_layout = "dwindle"
+    if not workspace then
+        return
+    end
+    for i = 1, #layouts do
+        if layouts[i] == workspace.tiled_layout then
+            local next_layout_idx = (i % #layouts) + 1
+            next_layout = layouts[next_layout_idx]
+            break
+        end
+    end
+	if workspace.special then
+		hl.workspace_rule({ workspace = tostring(workspace.name), layout = next_layout })
+	else
+		hl.workspace_rule({ workspace = tostring(workspace.id), layout = next_layout })
+	end
+end)
+
+-- Workspace layout-specific binds
+local function layout_bind(table)
+  return function()
+    local layout = hl.get_active_workspace().tiled_layout
+    if table[layout] then
+      hl.dispatch(table[layout])
+    end
+  end
+end
+
+hl.bind("SUPER + Z", layout_bind({
+    dwindle = hl.dsp.layout("togglesplit")
+}))
+hl.bind("SUPER + S", layout_bind({
+    dwindle = hl.dsp.layout("swapsplit"),
+    master = hl.dsp.layout("swapwithmaster")
+}))
+hl.bind("SUPER + SHIFT + up", layout_bind({
+    dwindle = hl.dsp.layout("movetoroot"),
+    master = hl.dsp.layout("swapprev")
+}))
+hl.bind("SUPER + SHIFT + down", layout_bind({
+    master = hl.dsp.layout("swapnext")
+}))
+hl.bind("SUPER + ALT + left", layout_bind({
+    dwindle = hl.dsp.layout("splitratio -0.1"),
+    master = hl.dsp.layout("mfact -0.1")
+}), {repeating = true})
+hl.bind("SUPER + ALT + right", layout_bind({
+    dwindle = hl.dsp.layout("splitratio +0.1"),
+    master = hl.dsp.layout("mfact +0.1")
+}), {repeating = true})
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
@@ -344,7 +398,8 @@ hl.window_rule({
 })
 hl.window_rule({
     match = {
-        class = "^google-chrome$"
+        class = "^google-chrome$",
+        fullscreen = false
     },
     opacity = "0.9"
 })

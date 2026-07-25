@@ -19,6 +19,16 @@ hl.config({
     }
 })
 
+-- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
+hl.config({
+    master = {
+        new_status = "inherit",
+        mfact = 0.55,
+        orientation = "left",
+        focus_master_on_close = true
+    },
+})
+
 hl.device({
     name = "a4tech-usb-device",
     sensitivity = 0.5,
@@ -31,5 +41,5 @@ hl.env("LIBVA_DRIVER_NAME", "nvidia")
 
 
 -- Scroll through existing workspaces with mainMod + scroll
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
+hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind("SUPER + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
