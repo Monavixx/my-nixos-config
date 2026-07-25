@@ -197,10 +197,22 @@ in
     };
     settings = {
       close_on_focus_loss = true;
-      closeOnEscape = true;
+      pop_to_root_on_close = true;
       applicationLaunchPrefix = "uwsm app -- ";
       launcher_window = {
         opacity = 0.7;
+      };
+      input_server = {
+        enabled = false;
+      };
+      fallbacks = [];
+      providers = {
+        files = {
+          enabled = false;
+          preferences = {
+            autoIndexing = false;
+          };
+        };
       };
     };
     extensions = [

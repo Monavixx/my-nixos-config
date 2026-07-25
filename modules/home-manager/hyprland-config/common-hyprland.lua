@@ -392,16 +392,22 @@ hl.window_rule({
 })
 hl.window_rule({
     match = {
+        class = "^jetbrains",
+        float = true
+    },
+    stay_focused = true
+})
+hl.window_rule({
+    match = {
         class = "^code$"
     },
     opacity = "0.88"
 })
 hl.window_rule({
     match = {
-        class = "^google-chrome$",
-        fullscreen = false
+        class = "^google-chrome$"
     },
-    opacity = "0.9"
+    opacity = "0.9 0.85 1 override"
 })
 
 

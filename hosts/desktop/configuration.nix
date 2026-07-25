@@ -40,4 +40,5 @@
       enable = true;
     };
   };
+  powerManagement.cpuFreqGovernor = "performance";
 }
