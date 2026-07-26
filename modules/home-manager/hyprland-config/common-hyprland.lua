@@ -301,7 +301,7 @@ hl.bind("SUPER + Z", layout_bind({
 }))
 hl.bind("SUPER + S", layout_bind({
     dwindle = hl.dsp.layout("swapsplit"),
-    master = hl.dsp.layout("swapwithmaster")
+    master = hl.dsp.layout("swapwithmaster master")
 }))
 hl.bind("SUPER + SHIFT + up", layout_bind({
     dwindle = hl.dsp.layout("movetoroot"),
