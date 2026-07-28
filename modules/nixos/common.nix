@@ -66,7 +66,7 @@ in
   users.users."monavixx" = {
     isNormalUser = true;
     description = "monavixx";
-    extraGroups = [ "networkmanager" "wheel" "audio" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "video" ];
     packages = with pkgs; [ ];
   };
 

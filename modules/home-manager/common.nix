@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, lib, ... }:
 let
   flavor = "mocha";
   accent = "flamingo";
@@ -43,6 +43,14 @@ in
 
   services.playerctld.enable = true;
 
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/json" = "dev.zed.Zed.desktop";
+      "application/schema+json" = "dev.zed.Zed.desktop";
+    };
+  };
+
   gtk = {
     enable = true;
     theme = {
@@ -59,7 +67,7 @@ in
   };
   qt = {
     enable = true;
-    platformTheme.name = "gtk3";
+    platformTheme.name = "qt6ct";
     style.name = "kvantum";
   };
   home.pointerCursor = {
@@ -75,7 +83,9 @@ in
     gtk-theme = "catppuccin-${flavor}-${accent}-standard";
   };
   # user-level packages (no root needed, only visible when logged in as you)
-  home.packages = with pkgs; [  
+  home.packages = with pkgs; [
+    qt6Packages.qt6ct
+    qt6Packages.qtstyleplugin-kvantum
     discord-canary 
     pavucontrol 
     libreoffice-fresh
@@ -198,12 +208,16 @@ in
     settings = {
       close_on_focus_loss = true;
       pop_to_root_on_close = true;
-      applicationLaunchPrefix = "uwsm app -- ";
       launcher_window = {
         opacity = 0.7;
       };
       input_server = {
         enabled = false;
+      };
+      theme = {
+        dark = {
+          icon_theme = "Papirus-Dark";
+        };
       };
       fallbacks = [];
       providers = {
@@ -211,6 +225,11 @@ in
           enabled = false;
           preferences = {
             autoIndexing = false;
+          };
+        };
+        applications = {
+          preferences = {
+              launchPrefix = "uwsm app -- ";
           };
         };
       };

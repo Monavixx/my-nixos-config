@@ -33,7 +33,7 @@ hl.layer_rule({ match = { namespace = "waybar" }, blur = true })
 
 -- hl.env("XCURSOR_SIZE", "24")
 -- hl.env("HYPRCURSOR_SIZE", "24")
--- hl.env("NIXOS_OZONE_HL", "1")
+hl.env("NIXOS_OZONE_HL", "1")
 
 -----------------------
 ----- PERMISSIONS -----
