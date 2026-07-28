@@ -1,4 +1,8 @@
-{ lib, pkgs, config, inputs, ... }:
+{
+  inputs,
+  hostname,
+  ...
+}:
 {
   imports = [
     inputs.nvf.homeManagerModules.default
@@ -6,20 +10,37 @@
   programs.nvf = {
     enable = true;
     settings = {
-      vim.viAlias = false;
-      vim.vimAlias = true;
-      vim.lsp = {
-        enable = true;
-      };
       vim = {
+        options = {
+          expandtab = true;
+          tabstop = 2;
+          shiftwidth = 2;
+          softtabstop = 2;
+        };
+        viAlias = false;
+        vimAlias = true;
+        diagnostics.enable = true;
+        lsp = {
+          trouble.enable = true;
+          enable = true;
+          formatOnSave = true;
+          servers.nixd.settings = {
+            nixpkgs.expr = "import (builtins.getFlake(toString ./.)).inputs.nixpkgs { }";
+            formatting.command = [ "nixfmt" ];
+            options = {
+              nixos.expr = ''(builtins.getFlake "~/nixos").nixosConfigurations.${hostname}.options'';
+              home-manager.expr = ''(builtins.getFlake "~/nixos").homeConfigurations.monavixx.options'';
+            };
+          };
+        };
         theme = {
           enable = true;
           name = "catppuccin";
           style = "mocha"; # other options: "latte", "frappe", "macchiato"
         };
         autocomplete.blink-cmp = {
-            enable = true;
-            friendly-snippets.enable = true; # community snippet collection
+          enable = true;
+          friendly-snippets.enable = true; # community snippet collection
         };
         languages = {
           csharp = {
@@ -43,7 +64,10 @@
 
             extraDiagnostics = {
               enable = true;
-              types = [ "statix" ]; # anti-pattern linter for Nix
+              types = [
+                "statix"
+                "deadnix"
+              ]; # anti-pattern linter for Nix
             };
           };
         };
