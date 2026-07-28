@@ -1,14 +1,22 @@
-{ config, pkgs, inputs, lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 let
   flavor = "mocha";
   accent = "flamingo";
-	rider-plugins = inputs.nix-jetbrains-plugins.lib.pluginsForIde pkgs pkgs.jetbrains.rider [
-	  "com.github.copilot"
+  rider-plugins = inputs.nix-jetbrains-plugins.lib.pluginsForIde pkgs pkgs.jetbrains.rider [
+    "com.github.copilot"
     "ca.nosuchcompany.rider.plugins.mediatr"
     "com.github.catppuccin.jetbrains"
     "Key Promoter X"
-	];
-  awww-random = (pkgs.writeShellScriptBin "awww-random" (builtins.readFile ../../scripts/awww-random.sh));
+  ];
+  awww-random = (
+    pkgs.writeShellScriptBin "awww-random" (builtins.readFile ../../scripts/awww-random.sh)
+  );
 in
 {
   home.username = "monavixx";
@@ -19,8 +27,12 @@ in
     SAL_USE_VCLPLUGIN = "gtk4"; # or "gtk" for GTK3
     GDK_BACKEND = "wayland";
     NIXOS_OZONE_WL = "1";
+    DOTNET_ROOT = "${pkgs.dotnet-sdk_10}/share/dotnet";
   };
-  
+  home.sessionPath = [
+    "$HOME/.dotnet/tools"
+  ];
+
   _module.args.awww-random = awww-random;
   imports = [
     ./nvf.nix
@@ -37,7 +49,7 @@ in
     inherit accent;
   };
   programs.home-manager.enable = true;
-  
+
   services.swaync = {
     enable = true;
   };
@@ -88,8 +100,8 @@ in
     dotnet-sdk_10
     qt6Packages.qt6ct
     qt6Packages.qtstyleplugin-kvantum
-    discord-canary 
-    pavucontrol 
+    discord-canary
+    pavucontrol
     libreoffice-fresh
     wl-clipboard
     grim
@@ -97,24 +109,25 @@ in
     awww-random
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
     hyprpolkitagent
-    libnotify #notify-send
+    libnotify # notify-send
     obsidian
     bruno
     pkgs.catppuccin-cursors.mochaDark
     google-chrome
     telegram-desktop
     (buildFHSEnv {
-      name = "rider"; 
-      targetPkgs = pkgs: with pkgs; [
-	      (pkgs.jetbrains.plugins.addPlugins jetbrains.rider (lib.attrValues rider-plugins))	
-        dotnet-sdk_10
-	      zlib
-        glibc
-        icu 
-        openssl
-        catppuccin-cursors.mochaDark
-	      curl
-      ];
+      name = "rider";
+      targetPkgs =
+        pkgs: with pkgs; [
+          (pkgs.jetbrains.plugins.addPlugins jetbrains.rider (lib.attrValues rider-plugins))
+          dotnet-sdk_10
+          zlib
+          glibc
+          icu
+          openssl
+          catppuccin-cursors.mochaDark
+          curl
+        ];
       # Inject the variable INSIDE the FHS environment before launching Rider
       runScript = pkgs.writeScript "rider-wrapper" ''
         #!/bin/sh
@@ -168,7 +181,10 @@ in
     exec = "rider %F";
     icon = "rider"; # or a path to an icon if the name doesn't resolve
     terminal = false;
-    categories = [ "Development" "IDE" ];
+    categories = [
+      "Development"
+      "IDE"
+    ];
   };
 
   programs.yazi = {
@@ -177,7 +193,7 @@ in
   programs.kitty = {
     enable = true;
     settings = {
-	    background_opacity = "0.6";
+      background_opacity = "0.6";
     };
   };
   programs.vscode = {
@@ -195,65 +211,68 @@ in
 
   programs.vicinae =
     let
-      vicinae-extensions = pkgs.fetchFromGitHub {
-        owner = "vicinaehq";
-        repo = "extensions";
-        rev = "5d1d31a698d5ac0b25b7391fcce3d920cd9c552e";
-        hash = "sha256-u9QmD1FnLf+64o60L4ldx81m88eeK5/EgNYTEAt9qIo=";
-      } + "/extensions";
-    in {
-    enable = true;
-    systemd = {
+      vicinae-extensions =
+        pkgs.fetchFromGitHub {
+          owner = "vicinaehq";
+          repo = "extensions";
+          rev = "5d1d31a698d5ac0b25b7391fcce3d920cd9c552e";
+          hash = "sha256-u9QmD1FnLf+64o60L4ldx81m88eeK5/EgNYTEAt9qIo=";
+        }
+        + "/extensions";
+    in
+    {
       enable = true;
-      autoStart = true;
-    };
-    settings = {
-      close_on_focus_loss = true;
-      pop_to_root_on_close = true;
-      launcher_window = {
-        opacity = 0.7;
+      systemd = {
+        enable = true;
+        autoStart = true;
       };
-      input_server = {
-        enabled = false;
-      };
-      theme = {
-        dark = {
-          icon_theme = "Papirus-Dark";
+      settings = {
+        close_on_focus_loss = true;
+        pop_to_root_on_close = true;
+        launcher_window = {
+          opacity = 0.7;
         };
-      };
-      fallbacks = [];
-      providers = {
-        files = {
+        input_server = {
           enabled = false;
-          preferences = {
-            autoIndexing = false;
+        };
+        theme = {
+          dark = {
+            icon_theme = "Papirus-Dark";
           };
         };
-        applications = {
-          preferences = {
+        fallbacks = [ ];
+        providers = {
+          files = {
+            enabled = false;
+            preferences = {
+              autoIndexing = false;
+            };
+          };
+          applications = {
+            preferences = {
               launchPrefix = "uwsm app -- ";
+            };
           };
         };
       };
+      extensions = [
+        (config.lib.vicinae.mkExtension {
+          name = "nix";
+          src = vicinae-extensions + "/nix";
+        })
+        (config.lib.vicinae.mkRayCastExtension {
+          name = "obsidian";
+          rev = "14455eda4fb82586bd177c8805cb37b08f2a1336";
+          sha256 = "sha256-3qBCTZIHTyUn7vYwd2HoZJ6RAcba+bDbcGm1dn07DSI=";
+        })
+      ];
     };
-    extensions = [
-      (config.lib.vicinae.mkExtension {
-        name = "nix";
-        src = vicinae-extensions + "/nix";
-      })
-      (config.lib.vicinae.mkRayCastExtension {
-        name = "obsidian";
-        rev = "14455eda4fb82586bd177c8805cb37b08f2a1336";
-        sha256 = "sha256-3qBCTZIHTyUn7vYwd2HoZJ6RAcba+bDbcGm1dn07DSI=";
-      })
-    ];
-  };
   programs.git = {
     enable = true;
     settings = {
       user = {
         name = "monavixx";
-        email = "dperelygin0@gmail.com"; 
+        email = "dperelygin0@gmail.com";
       };
     };
   };
@@ -288,4 +307,5 @@ in
       }
     ];
   };
+  programs.bash.enable = true;
 }

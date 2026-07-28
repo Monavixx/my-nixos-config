@@ -1,6 +1,11 @@
-{ config, pkgs, inputs, hostname, ... }:
+{
+  pkgs,
+  inputs,
+  hostname,
+  ...
+}:
 
-let 
+let
   rebuild = pkgs.writeShellScriptBin "rebuild" ''
     cd ~/nixos && git add .
     sudo nixos-rebuild switch --flake ~/nixos#${hostname}
@@ -22,7 +27,7 @@ in
   nix.optimise.dates = [ "daily" ];
   nix.gc = {
     automatic = true;
-    dates = "*-*-* 00:00:00/3"; 
+    dates = "*-*-* 00:00:00/3";
     options = "--delete-older-than 14d";
   };
   xdg.portal = {
@@ -66,22 +71,30 @@ in
   users.users."monavixx" = {
     isNormalUser = true;
     description = "monavixx";
-    extraGroups = [ "networkmanager" "wheel" "audio" "video" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+      "video"
+    ];
     packages = with pkgs; [ ];
   };
 
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   environment.systemPackages = with pkgs; [
     rebuild
   ];
-  
+
   fonts.packages = with pkgs; [
     nerd-fonts.fantasque-sans-mono
     font-awesome_4
   ];
-
+  programs.nix-ld.enable = true;
   programs = {
     bash = {
       enable = true;
@@ -90,19 +103,30 @@ in
       };
     };
     hyprland = {
-      withUWSM  = true;
+      withUWSM = true;
       enable = true;
       xwayland.enable = true;
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      portalPackage =
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
     kdeconnect.enable = true;
     amnezia-vpn.enable = true;
   };
 
   networking.firewall = {
-    allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-    allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
   };
 
   system.stateVersion = "26.05";

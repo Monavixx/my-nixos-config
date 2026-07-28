@@ -1,4 +1,5 @@
 {
+  pkgs,
   inputs,
   hostname,
   ...
@@ -11,6 +12,20 @@
     enable = true;
     settings = {
       vim = {
+        extraPlugins = {
+          easy-dotnet = {
+            package = pkgs.vimPlugins.easy-dotnet-nvim;
+            setup = ''
+              require("easy-dotnet").setup({})
+            '';
+          };
+          plenary = {
+            package = pkgs.vimPlugins.plenary-nvim; # required dependency
+          };
+          telescope = {
+            package = pkgs.vimPlugins.telescope-nvim; # required dependency, also used for project/test pickers
+          };
+        };
         options = {
           expandtab = true;
           tabstop = 2;
