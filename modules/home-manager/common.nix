@@ -85,6 +85,7 @@ in
   };
   # user-level packages (no root needed, only visible when logged in as you)
   home.packages = with pkgs; [
+    dotnet-sdk_10
     qt6Packages.qt6ct
     qt6Packages.qtstyleplugin-kvantum
     discord-canary 
