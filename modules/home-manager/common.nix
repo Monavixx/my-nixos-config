@@ -23,6 +23,7 @@ in
   
   _module.args.awww-random = awww-random;
   imports = [
+    ./nvf.nix
     ./awww.nix
     ./hourly-productivity-control.nix
     ./waybar.nix
