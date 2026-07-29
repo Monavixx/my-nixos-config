@@ -34,6 +34,7 @@ in
   _module.args.awww-random = awww-random;
   imports = [
     # ./nvf.nix
+    ./neovim/neovim.nix
     ./awww.nix
     ./hourly-productivity-control.nix
     ./waybar.nix
@@ -54,13 +55,13 @@ in
 
   services.playerctld.enable = true;
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "application/json" = "dev.zed.Zed.desktop";
-      "application/schema+json" = "dev.zed.Zed.desktop";
-    };
-  };
+  #xdg.mimeApps = {
+  #  enable = true;
+  #  defaultApplications = {
+  #    "application/json" = "dev.zed.Zed.desktop";
+  #    "application/schema+json" = "dev.zed.Zed.desktop";
+  #  };
+  #};
 
   gtk = {
     enable = true;
