@@ -94,7 +94,6 @@ in
     nerd-fonts.fantasque-sans-mono
     font-awesome_4
   ];
-  programs.nix-ld.enable = true;
   programs = {
     bash = {
       enable = true;

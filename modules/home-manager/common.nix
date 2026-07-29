@@ -27,10 +27,8 @@ in
     SAL_USE_VCLPLUGIN = "gtk4"; # or "gtk" for GTK3
     GDK_BACKEND = "wayland";
     NIXOS_OZONE_WL = "1";
-    DOTNET_ROOT = "${pkgs.dotnet-sdk_10}/share/dotnet";
   };
   home.sessionPath = [
-    "$HOME/.dotnet/tools"
   ];
 
   _module.args.awww-random = awww-random;
@@ -97,7 +95,6 @@ in
   };
   # user-level packages (no root needed, only visible when logged in as you)
   home.packages = with pkgs; [
-    dotnet-sdk_10
     qt6Packages.qt6ct
     qt6Packages.qtstyleplugin-kvantum
     discord-canary
@@ -308,4 +305,6 @@ in
     ];
   };
   programs.bash.enable = true;
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
 }
