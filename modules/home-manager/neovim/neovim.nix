@@ -11,6 +11,7 @@
     vimAlias = true;
     waylandSupport = true;
     plugins = with pkgs.vimPlugins; [
+      nvim-treesitter.withAllGrammars
       nvim-lspconfig
       roslyn-nvim
       blink-cmp
@@ -18,7 +19,7 @@
     extraPackages = with pkgs; [
       roslyn-ls
       nixd
-      nixfmt-rfc-style
+      nixfmt
     ];
   };
   xdg.configFile."nvim/init.lua".source =

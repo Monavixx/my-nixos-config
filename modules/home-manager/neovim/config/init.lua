@@ -20,6 +20,12 @@ vim.diagnostic.config({
     update_in_insert = false,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function()
+        pcall(vim.treesitter.start)
+    end,
+})
+
 -- Nix LSP
 vim.lsp.config("nixd", {})
 vim.lsp.enable("nixd")
