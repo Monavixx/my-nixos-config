@@ -1,8 +1,6 @@
 {
   config,
   pkgs,
-  lib,
-  hostname,
   ...
 }:
 {
@@ -14,19 +12,15 @@
     waylandSupport = true;
     plugins = with pkgs.vimPlugins; [
       nvim-lspconfig
-      # ...your other plugins (treesitter, cmp/blink, etc.)
       roslyn-nvim
+      blink-cmp
     ];
-
     extraPackages = with pkgs; [
-      # C#
       roslyn-ls
-      # Nix
       nixd
-      # optional but recommended alongside nixd
       nixfmt-rfc-style
     ];
   };
-  xdg.configFile."nvim/init.lua".source = 
-  	config.lib.file.mkOutOfStoreSymlink /home/monavixx/nixos/modules/home-manager/neovim/config/init.lua;
+  xdg.configFile."nvim/init.lua".source =
+    config.lib.file.mkOutOfStoreSymlink /home/monavixx/nixos/modules/home-manager/neovim/config/init.lua;
 }
