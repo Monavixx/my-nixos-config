@@ -20,14 +20,6 @@ hl.config({
 })
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
-hl.config({
-    master = {
-        new_status = "inherit",
-        mfact = 0.55,
-        orientation = "left",
-        focus_master_on_close = true
-    },
-})
 
 hl.device({
     name = "a4tech-usb-device",

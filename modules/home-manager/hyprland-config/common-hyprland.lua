@@ -112,6 +112,14 @@ hl.config({
         no_donation_nag = true
     }
 })
+hl.config({
+    master = {
+        new_status = "inherit",
+        mfact = 0.70,
+        orientation = "left",
+        focus_master_on_close = true
+    },
+})
 
 -- Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
 hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1}    } })

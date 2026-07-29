@@ -20,6 +20,7 @@
       roslyn-ls
       nixd
       nixfmt
+      lua-language-server
     ];
   };
   xdg.configFile."nvim/init.lua".source =
