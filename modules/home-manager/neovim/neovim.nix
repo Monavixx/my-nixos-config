@@ -16,9 +16,11 @@
       roslyn-nvim
       blink-cmp
       telescope-nvim
-      plenary-nvim
+      plenary-nvim # required for telescope-nvim
+      nvim-autopairs
     ];
     extraPackages = with pkgs; [
+      ripgrep # required for telescope-nvim
       roslyn-ls
       nixd
       nixfmt

@@ -3,7 +3,7 @@ require("languages.all")
 require("keybinds")
 require("blink-cmp-config")
 require("treesitter-config")
-require("telescope")
+require("telescope-config")
 
 vim.opt.expandtab      = true
 vim.opt.tabstop        = 4
@@ -26,4 +26,10 @@ vim.diagnostic.config({
         prefix = "",
         close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
     },
+})
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*",
+    callback = function()
+        vim.lsp.buf.format({ async = false })
+    end,
 })
