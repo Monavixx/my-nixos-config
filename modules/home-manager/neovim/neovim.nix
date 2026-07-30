@@ -15,6 +15,8 @@
       nvim-lspconfig
       roslyn-nvim
       blink-cmp
+      telescope-nvim
+      plenary-nvim
     ];
     extraPackages = with pkgs; [
       roslyn-ls
