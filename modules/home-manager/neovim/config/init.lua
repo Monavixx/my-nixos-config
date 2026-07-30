@@ -9,6 +9,8 @@ require("catppuccin").setup({
 })
 vim.cmd.colorscheme("catppuccin-nvim")
 
+require("languages.lua")
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.g.mapleader = " "

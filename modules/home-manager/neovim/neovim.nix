@@ -22,7 +22,8 @@
       nixfmt
       lua-language-server
     ];
+    sideloadInitLua = true;
   };
-  xdg.configFile."nvim/init.lua".source =
-    config.lib.file.mkOutOfStoreSymlink /home/monavixx/nixos/modules/home-manager/neovim/config/init.lua;
+  xdg.configFile."nvim".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/modules/home-manager/neovim/config";
 }

@@ -16,17 +16,26 @@
 
     settings = { };
     extraLuaFiles = {
-      common = {
-        content = ./common-hyprland.lua;
+      autostart = {
+        content = ./autostart.lua;
       };
+      config = {
+        content = ./config.lua;
+      };
+      animations = {
+        content = ./animations.lua;
+      };
+      keybinds = {
+        content = ./keybinds.lua;
+      };
+      rules = {
+        content = ./rules.lua;
+      };
+
       user = {
         content = ../../../hosts/${hostname}/hyprland.lua;
       };
     };
-    #extraConfig =''
-    #  ${builtins.readFile ./hyprland-config/common-hyprland.lua}
-    #  ${builtins.readFile ../../hosts/${hostname}/hyprland.lua}
-    #'';
 
     plugins = [
     ];
