@@ -1,5 +1,7 @@
-{ config, pkgs, awww-random, ...}:
-{
+{ config, pkgs, ... }:
+let
+  awww-random = ( import ./awww-random.nix { inherit pkgs; } );
+in {
   systemd.user.services.awww-random = {
     Unit.Description = "Set a random wallpaper via awww";
     Service = {

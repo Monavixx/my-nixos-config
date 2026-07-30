@@ -269,7 +269,6 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 hl.bind("SUPER + CTRL + right", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind("SUPER + CTRL + left", hl.dsp.focus({ workspace = "e-1" }))
 
-
 hl.bind("SUPER + tab", function ()
     local layouts     = { "dwindle", "master" }
     local workspace   = hl.get_active_workspace()
@@ -291,6 +290,9 @@ hl.bind("SUPER + tab", function ()
 		hl.workspace_rule({ workspace = tostring(workspace.name), layout = next_layout })
 	else
 		hl.workspace_rule({ workspace = tostring(workspace.id), layout = next_layout })
+	end
+	if next_layout == "master" then
+		hl.exec_cmd("sleep 0.05 && hyprctl dispatch 'hl.dsp.layout(\"swapwithmaster master\")'")
 	end
 end)
 

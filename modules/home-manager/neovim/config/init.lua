@@ -27,7 +27,18 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Nix LSP
-vim.lsp.config("nixd", {})
+vim.lsp.config("nixd", {
+    settings = {
+        nixd = {
+            nixpkgs = {
+                expr = "import <nixpkgs> { }",
+            },
+            formatting = {
+                command = { "nixfmt" },
+            },
+        },
+    },
+})
 vim.lsp.enable("nixd")
 require("roslyn").setup({
 	filewatching = "auto",
