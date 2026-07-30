@@ -35,29 +35,34 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-jetbrains-plugins, vicinae, catppuccin, ... }@inputs: 
-    let 
-	    system = "x86_64-linux";
-      mkHost = { hostname, system ? "x86_64-linux" }:
+  outputs =
+    { self, nixpkgs, home-manager, ... }@inputs:
+    let
+      mkHost =
+        {
+          hostname,
+          system ? "x86_64-linux",
+        }:
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs hostname; };
+          specialArgs = { inherit inputs hostname self; };
           modules = [
             ./hosts/${hostname}/configuration.nix
             home-manager.nixosModules.home-manager
             {
-	            home-manager.backupFileExtension = "backup";
+              home-manager.backupFileExtension = "backup";
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs hostname; };
+              home-manager.extraSpecialArgs = { inherit inputs hostname self; };
               home-manager.users.monavixx = import ./hosts/${hostname}/home.nix;
             }
           ];
         };
-    in {
+    in
+    {
       nixosConfigurations = {
         laptop = mkHost { hostname = "laptop"; };
         desktop = mkHost { hostname = "desktop"; };
       };
-  };
+    };
 }

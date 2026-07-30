@@ -2,8 +2,6 @@
 let
 in
 {
-  home.username = "monavixx";
-  home.homeDirectory = "/home/monavixx";
   home.stateVersion = "26.05";
 
   home.sessionVariables = {
@@ -15,6 +13,7 @@ in
   ];
 
   imports = [
+    ./options.nix
     ./kitty.nix
     ./yazi.nix
     ./vicinae.nix

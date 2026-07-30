@@ -11,6 +11,10 @@ vim.cmd.colorscheme("catppuccin-nvim")
 
 require("languages.lua")
 
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.g.mapleader = " "
@@ -43,7 +47,7 @@ vim.lsp.config("nixd", {
 })
 vim.lsp.enable("nixd")
 require("roslyn").setup({
-	filewatching = "auto",
+    filewatching = "auto",
 })
 require("blink.cmp").setup({
     keymap = {
@@ -53,24 +57,24 @@ require("blink.cmp").setup({
     signature = { enabled = true },
 
     appearance = {
-	    use_nvim_cmp_as_default = false,
+        use_nvim_cmp_as_default = false,
         nerd_font_variant = "normal",
     },
 
     completion = {
-	    menu = {
-		border = "rounded",
-	    },
-	    list = {
-		selection = {
-		    preselect = true,
-		    auto_insert = false,
-		},
-	    },
+        menu = {
+            border = "rounded",
+        },
+        list = {
+            selection = {
+                preselect = true,
+                auto_insert = false,
+            },
+        },
         documentation = {
-		window = {
-			border = "rounded",
-		},
+            window = {
+                border = "rounded",
+            },
             auto_show = true,
         },
     },

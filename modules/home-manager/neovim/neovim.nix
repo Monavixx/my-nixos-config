@@ -25,5 +25,5 @@
     sideloadInitLua = true;
   };
   xdg.configFile."nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/modules/home-manager/neovim/config";
+    config.lib.file.mkOutOfStoreSymlink "${config.my.flakeRoot}/modules/home-manager/neovim/config";
 }
