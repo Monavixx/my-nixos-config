@@ -19,6 +19,7 @@ in
     vimAlias = true;
     waylandSupport = true;
     plugins = with pkgs.vimPlugins; [
+      copilot-lua
       nui-nvim
       nvim-web-devicons
       neo-tree-nvim

@@ -1,6 +1,8 @@
-{ pkgs, inputs, ...}:
+{ pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
+    nodejs-slim_latest
+    fd
     qt6Packages.qt6ct
     qt6Packages.qtstyleplugin-kvantum
     discord-canary
@@ -9,7 +11,7 @@
     wl-clipboard
     grim
     slurp
-    ( import ./awww-random.nix { inherit pkgs; } )
+    (import ./awww-random.nix { inherit pkgs; })
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
     hyprpolkitagent
     libnotify # notify-send

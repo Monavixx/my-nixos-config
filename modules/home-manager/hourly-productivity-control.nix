@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   systemd.user.timers.productivity-control = {
     Install.WantedBy = [ "timers.target" ];
