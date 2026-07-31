@@ -8,10 +8,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-jetbrains-plugins = {
-      url = "github:nix-community/nix-jetbrains-plugins";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nix-jetbrains-plugins = {
+    #   url = "github:nix-community/nix-jetbrains-plugins";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     vicinae = {
       url = "github:vicinaehq/vicinae";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,16 +29,8 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvf = {
-      url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     boilersharp = {
       url = "github:angeljreyes/boilersharp.nvim";
-      flake = false;
-    };
-    neotest-vstest = {
-      url = "github:nsidorenco/neotest-vstest";
       flake = false;
     };
   };
