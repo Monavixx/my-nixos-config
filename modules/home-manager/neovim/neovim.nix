@@ -19,6 +19,9 @@ in
     vimAlias = true;
     waylandSupport = true;
     plugins = with pkgs.vimPlugins; [
+      nui-nvim
+      nvim-web-devicons
+      neo-tree-nvim
       boilersharp
       nvim-treesitter.withAllGrammars
       nvim-lspconfig
