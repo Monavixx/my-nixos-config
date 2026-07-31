@@ -33,10 +33,19 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    boilersharp = {
+      url = "github:angeljreyes/boilersharp.nvim";
+      flake = false;
+    };
   };
 
   outputs =
-    { self, nixpkgs, home-manager, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
     let
       mkHost =
         {

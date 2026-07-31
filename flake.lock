@@ -55,6 +55,22 @@
         "url": "https://codeberg.org/LGFae/awww"
       }
     },
+    "boilersharp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1761935942,
+        "narHash": "sha256-JOsJxG7CDOFb5yv8LCdbm26OkKH7/JC8P46hxmPCmNM=",
+        "owner": "angeljreyes",
+        "repo": "boilersharp.nvim",
+        "rev": "91dc854d8dc4170815d6a5c0fbdaefa823204fe1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "angeljreyes",
+        "repo": "boilersharp.nvim",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -639,6 +655,7 @@
     "root": {
       "inputs": {
         "awww": "awww",
+        "boilersharp": "boilersharp",
         "catppuccin": "catppuccin",
         "home-manager": "home-manager",
         "hyprland": "hyprland",

@@ -1,8 +1,16 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }:
+let
+  boilersharp = pkgs.vimUtils.buildVimPlugin {
+    pname = "boilersharp.nvim";
+    version = "unstable";
+    src = inputs.boilersharp;
+  };
+in
 {
   programs.neovim = {
     enable = true;
@@ -11,6 +19,7 @@
     vimAlias = true;
     waylandSupport = true;
     plugins = with pkgs.vimPlugins; [
+      boilersharp
       nvim-treesitter.withAllGrammars
       nvim-lspconfig
       roslyn-nvim
