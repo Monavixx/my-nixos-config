@@ -4,6 +4,7 @@ require("keybinds")
 require("blink-cmp-config")
 require("treesitter-config")
 require("telescope-config")
+require("autopairs-config")
 
 vim.opt.expandtab      = true
 vim.opt.tabstop        = 4
