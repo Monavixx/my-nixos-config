@@ -37,6 +37,10 @@
       url = "github:angeljreyes/boilersharp.nvim";
       flake = false;
     };
+    neotest-vstest = {
+      url = "github:nsidorenco/neotest-vstest";
+      flake = false;
+    };
   };
 
   outputs =

@@ -525,6 +525,22 @@
         "type": "github"
       }
     },
+    "neotest-vstest": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774470989,
+        "narHash": "sha256-Bqs3yK5OGkOJUv7lJKpUPyIH74x3SudflEIEbWb8i0o=",
+        "owner": "nsidorenco",
+        "repo": "neotest-vstest",
+        "rev": "8588c3c988c7ed49879dddf937b42681cfa7ce30",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nsidorenco",
+        "repo": "neotest-vstest",
+        "type": "github"
+      }
+    },
     "nix-jetbrains-plugins": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -659,6 +675,7 @@
         "catppuccin": "catppuccin",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "neotest-vstest": "neotest-vstest",
         "nix-jetbrains-plugins": "nix-jetbrains-plugins",
         "nixpkgs": "nixpkgs_2",
         "nvf": "nvf",

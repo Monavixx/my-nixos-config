@@ -6,6 +6,7 @@ require("treesitter-config")
 require("telescope-config")
 require("autopairs-config")
 require("neotree-config")
+require("my-plugins.dotnet-test").setup()
 
 vim.opt.expandtab      = true
 vim.opt.tabstop        = 4
