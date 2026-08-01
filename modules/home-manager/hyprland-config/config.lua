@@ -7,7 +7,7 @@ hl.config({
 
         allow_tearing    = false,
 
-        layout           = "dwindle",
+        layout           = "master",
         border_size      = 0,
     },
 
@@ -52,7 +52,7 @@ hl.config({
 })
 hl.config({
     dwindle = {
-        preserve_split = true, -- You probably want this
+        preserve_split = true,
     },
 })
 hl.config({
