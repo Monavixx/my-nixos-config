@@ -68,12 +68,11 @@ require("blink.cmp").setup({
                 max_items = 3,
             },
         },
-
-        fuzzy = {
-            implementation = "prefer_rust_with_warning",
-        },
-        snippets = {
-            preset = "luasnip",
-        },
-    }
+    },
+    fuzzy = {
+        implementation = "prefer_rust_with_warning",
+    },
+    snippets = {
+        preset = "luasnip",
+    },
 })
