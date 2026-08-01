@@ -20,6 +20,8 @@ in
     waylandSupport = true;
     plugins = with pkgs.vimPlugins; [
       copilot-lua
+      copilot-cmp
+      copilot-lsp
       nui-nvim
       nvim-web-devicons
       neo-tree-nvim
