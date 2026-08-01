@@ -1,25 +1,22 @@
 vim.g.copilot_nes_debounce = 500
 
 require("copilot").setup({
-    nes = {
+    suggestion = {
         enabled = true,
+        auto_trigger = false,
+        hide_during_completion = false,
+        trigger_on_accept = false,
         keymap = {
-            accept_and_goto = "<leader>p",
             accept = false,
-            dismiss = "<Esc>",
+            accept_word = false,
+            accept_line = false,
+            next = false,
+            prev = false,
+            dismiss = false,
+            toggle_auto_trigger = false,
         },
     },
-    filetypes = {
-        cs = true,
-        js = true,
-        ts = true,
-        html = true,
-        css = true,
-        rs = true,
-        py = true,
-        ["*"] = false
-    },
     panel = {
-        auto_refresh = true,
-    }
+        enabled = false,
+    },
 })

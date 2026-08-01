@@ -19,8 +19,9 @@ in
     vimAlias = true;
     waylandSupport = true;
     plugins = with pkgs.vimPlugins; [
+      luasnip
       copilot-lua
-      copilot-cmp
+      blink-cmp-copilot
       copilot-lsp
       nui-nvim
       nvim-web-devicons

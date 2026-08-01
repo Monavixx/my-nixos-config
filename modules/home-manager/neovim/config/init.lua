@@ -8,6 +8,7 @@ require("autopairs-config")
 require("neotree-config")
 require("my-plugins.dotnet-test").setup()
 require("copilot-config")
+require("luasnip-config")
 
 vim.opt.expandtab      = true
 vim.opt.tabstop        = 4

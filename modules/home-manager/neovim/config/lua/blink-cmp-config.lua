@@ -1,6 +1,7 @@
 require("blink.cmp").setup({
     keymap = {
         preset = "enter",
+        ['<Esc>'] = { "hide", "fallback" }
     },
 
     signature = { enabled = true },
@@ -16,24 +17,35 @@ require("blink.cmp").setup({
         },
         sources = function()
             local type = vim.fn.getcmdtype()
-            -- Only use the cmdline source when typing commands (:)
-            if type == ':' then return { 'cmdline' } end
-            -- Disable or use buffer completions during search (/ or ?)
+            if type == ':' then
+                return { 'cmdline' }
+            elseif type == '/' or type == '?' then
+                return { 'buffer' }
+            end
             return {}
         end,
         completion = {
             menu = { auto_show = true },
             list = {
                 selection = {
-                    preselect = false,
-                    auto_insert = true, -- Automatically inserts the choice as you navigate
+                    preselect = true,
+                    auto_insert = false, -- Automatically inserts the choice as you navigate
                 }
             }
         }
     },
     completion = {
+        ghost_text = {
+            enabled = false,
+            -- show_with_menu = true,
+            -- show_without_menu = true,
+        },
         menu = {
             border = "rounded",
+            draw = {
+                columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "source_id" } },
+                treesitter = { 'lsp' },
+            }
         },
         list = {
             selection = {
@@ -50,10 +62,18 @@ require("blink.cmp").setup({
     },
 
     sources = {
-        default = { "lsp", "path", "buffer" },
-    },
+        default = { "lsp", "path", "buffer", "snippets" },
+        providers = {
+            buffer = {
+                max_items = 3,
+            },
+        },
 
-    fuzzy = {
-        implementation = "prefer_rust_with_warning",
-    },
+        fuzzy = {
+            implementation = "prefer_rust_with_warning",
+        },
+        snippets = {
+            preset = "luasnip",
+        },
+    }
 })
