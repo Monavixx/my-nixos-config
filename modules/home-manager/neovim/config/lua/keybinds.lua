@@ -30,7 +30,7 @@ vim.keymap.set("n", "<Tab>", "<C-w>w", options)
 
 -- Dotnet test
 vim.keymap.set("n", "<leader>tt", "<cmd>DotnetTestNearest<cr>")
-vim.keymap.set("n", "<leader>ta", "<cmd>DotnetTestProject<cr>")
+vim.keymap.set("n", "<leader>ta", "<cmd>DotnetTestAll<cr>")
 vim.keymap.set("n", "<leader>tf", "<cmd>DotnetTestFile<cr>")
 
 -- insert mode keybinds
