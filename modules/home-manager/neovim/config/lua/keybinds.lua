@@ -23,7 +23,7 @@ vim.keymap.set("n", "<leader>fb", builtinTelescope.buffers, { desc = "Buffers" }
 vim.keymap.set("n", "<leader>fh", builtinTelescope.help_tags, { desc = "Help" })
 vim.keymap.set("n", "<leader>fr", builtinTelescope.lsp_references, { desc = "References" })
 vim.keymap.set("n", "<leader>fd", builtinTelescope.lsp_definitions, { desc = "Definitions" })
-vim.keymap.set("n", "<leader>ft", ":Telescope")
+vim.keymap.set("n", "<leader>ft", "<cmd>Telescope<CR>")
 
 -- Neotree
 vim.keymap.set("n", "<Tab>", "<C-w>w", options)

@@ -16,6 +16,7 @@ vim.opt.shiftwidth     = 4
 vim.opt.softtabstop    = 4
 vim.opt.number         = true
 vim.opt.relativenumber = true
+vim.opt.laststatus     = 3
 
 vim.diagnostic.config({
     virtual_text = true,

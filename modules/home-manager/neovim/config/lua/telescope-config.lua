@@ -4,6 +4,12 @@ require("telescope").setup({
         layout_config = {
             prompt_position = "bottom",
         },
+        path_display = { "filename_first" }
+    },
+    extensions = {
+        ["ui-select"] = {
+            require("telescope.themes").get_dropdown {}
+        }
     }
 })
 require("telescope").load_extension("ui-select")
