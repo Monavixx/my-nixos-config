@@ -4,9 +4,7 @@ hl.config({
         gaps_out         = 10,
 
         resize_on_border = true,
-
         allow_tearing    = false,
-
         layout           = "master",
         border_size      = 0,
     },
@@ -45,7 +43,7 @@ hl.config({
 hl.config({
     master = {
         new_status = "inherit",
-        mfact = 0.70,
+        mfact = 0.75,
         orientation = "left",
         focus_master_on_close = true
     },
