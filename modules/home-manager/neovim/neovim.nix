@@ -21,6 +21,7 @@ in
     plugins = with pkgs.vimPlugins; [
       luasnip
       copilot-lua
+      CopilotChat-nvim
       blink-cmp-copilot
       copilot-lsp
       nui-nvim
@@ -32,6 +33,7 @@ in
       roslyn-nvim
       blink-cmp
       telescope-nvim
+      telescope-ui-select-nvim
       plenary-nvim # required for telescope-nvim
       nvim-autopairs
     ];
