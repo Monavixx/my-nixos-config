@@ -3,6 +3,9 @@
   home.packages = with pkgs; [
     github-copilot-cli
     nodejs-slim_latest
+    rmpc
+    ffmpeg
+    streamrip
     fd
     qt6Packages.qt6ct
     qt6Packages.qtstyleplugin-kvantum

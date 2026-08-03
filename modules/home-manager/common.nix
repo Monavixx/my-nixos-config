@@ -13,6 +13,7 @@ in
   ];
 
   imports = [
+    ./mpd.nix
     ./options.nix
     ./kitty.nix
     ./yazi.nix
