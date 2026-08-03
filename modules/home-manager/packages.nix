@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
+    github-copilot-cli
     nodejs-slim_latest
     fd
     qt6Packages.qt6ct

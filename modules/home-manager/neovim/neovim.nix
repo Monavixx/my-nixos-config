@@ -21,8 +21,7 @@ in
     plugins = with pkgs.vimPlugins; [
       luasnip
       copilot-lua
-      CopilotChat-nvim
-      blink-cmp-copilot
+      # blink-cmp-copilot
       copilot-lsp
       nui-nvim
       nvim-web-devicons
