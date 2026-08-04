@@ -13,6 +13,7 @@ in
   ];
 
   imports = [
+    ./streamrip.nix
     ./mpd.nix
     ./options.nix
     ./kitty.nix
