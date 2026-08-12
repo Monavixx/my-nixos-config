@@ -1,6 +1,8 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
+    p7zip
+    wev
     github-copilot-cli
     nodejs-slim_latest
     rmpc

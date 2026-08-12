@@ -34,4 +34,6 @@ hl.env("LIBVA_DRIVER_NAME", "nvidia")
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind("SUPER + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
+hl.bind("SUPER + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+
+hl.bind("XF86Tools", hl.dsp.exec_cmd("uwsm app -- kitty rmpc"))
