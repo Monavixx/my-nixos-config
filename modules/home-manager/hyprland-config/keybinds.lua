@@ -1,5 +1,5 @@
-hl.bind("ALT + SHIFT + ALT_L + SHIFT_L", hl.dsp.exec_cmd("hyprctl switchxkblayout main next"), { release = true })
-hl.bind("SHIFT + ALT + SHIFT_L + ALT_L", hl.dsp.exec_cmd("hyprctl switchxkblayout main next"), { release = true })
+hl.bind("ALT + SHIFT_L", hl.dsp.exec_cmd("hyprctl switchxkblayout main next"), { release = true })
+hl.bind("SHIFT + ALT_L", hl.dsp.exec_cmd("hyprctl switchxkblayout main next"), { release = true })
 
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("vicinae close || vicinae open"))
 hl.bind("XF86PowerOff", hl.dsp.exec_cmd("wlogout"))
