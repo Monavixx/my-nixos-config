@@ -33,6 +33,9 @@ vim.keymap.set("n", "<leader>tt", "<cmd>DotnetTestNearest<cr>")
 vim.keymap.set("n", "<leader>ta", "<cmd>DotnetTestAll<cr>")
 vim.keymap.set("n", "<leader>tf", "<cmd>DotnetTestFile<cr>")
 
+-- Run
+vim.keymap.set("n", "<leader>rr", "<cmd>Run<cr>")
+
 -- insert mode keybinds
 vim.keymap.set("i", "<Esc>", function()
     local suggestion = require("copilot.suggestion")

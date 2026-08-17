@@ -13,6 +13,7 @@ in
   ];
 
   imports = [
+    ./custom-commands/new-dotnet.nix
     ./streamrip.nix
     ./mpd.nix
     ./options.nix
