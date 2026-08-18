@@ -13,6 +13,7 @@ let
 in
 {
   imports = [
+    ./rqbit.nix
     ./docker.nix
     ./thunar.nix
   ];
