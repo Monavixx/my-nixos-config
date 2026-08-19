@@ -1,7 +1,7 @@
 hl.bind("ALT + SHIFT_L", hl.dsp.exec_cmd("hyprctl switchxkblayout main next"), { release = true })
 hl.bind("SHIFT + ALT_L", hl.dsp.exec_cmd("hyprctl switchxkblayout main next"), { release = true })
 
-hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("vicinae close || vicinae open"), { release = true })
+hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("vicinae close || vicinae open"))
 hl.bind("XF86PowerOff", hl.dsp.exec_cmd("wlogout"))
 hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"));
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp -d)" - | wl-copy'))
