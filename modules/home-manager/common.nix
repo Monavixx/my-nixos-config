@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 let
 in
 {
@@ -13,6 +13,8 @@ in
   ];
 
   imports = [
+    ./melodec.nix
+    inputs.melodec.homeManagerModules.default
     ./custom-commands/new-dotnet.nix
     ./streamrip.nix
     ./mpd.nix

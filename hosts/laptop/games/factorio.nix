@@ -18,13 +18,6 @@ let
         libxinerama
         libxi
         libxrandr
-        # xorg.libX11
-        # xorg.libXcursor
-        # xorg.libXinerama
-        # xorg.libXi
-        # xorg.libXrandr
-        #
-        # # Audio and System requirements
         alsa-lib
         gsettings-desktop-schemas
         glib
@@ -44,4 +37,13 @@ in
   home.packages = [
     factorio
   ];
+
+  xdg.desktopEntries.factorio = {
+    name = "Factorio";
+    exec = "${factorio}/bin/factorio";
+    icon = "factorio";
+    terminal = false;
+    type = "Application";
+    categories = [ "Game" ];
+  };
 }

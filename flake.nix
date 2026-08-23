@@ -36,6 +36,10 @@
       url = "github:angeljreyes/boilersharp.nvim";
       flake = false;
     };
+    melodec = {
+      url = "github:Monavixx/Melodec";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
