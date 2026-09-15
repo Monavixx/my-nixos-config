@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
+    vlc
     p7zip
     wev
     github-copilot-cli

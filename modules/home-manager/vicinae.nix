@@ -18,6 +18,9 @@
         autoStart = true;
       };
       settings = {
+        tray = {
+          enabled = false;
+        };
         close_on_focus_loss = true;
         pop_to_root_on_close = true;
         launcher_window = {

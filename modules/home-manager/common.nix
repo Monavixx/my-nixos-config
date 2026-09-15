@@ -41,13 +41,20 @@ in
 
   services.playerctld.enable = true;
 
-  #xdg.mimeApps = {
-  #  enable = true;
-  #  defaultApplications = {
-  #    "application/json" = "dev.zed.Zed.desktop";
-  #    "application/schema+json" = "dev.zed.Zed.desktop";
-  #  };
-  #};
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/json" = "nvim.desktop";
+      "application/schema+json" = "nvim.desktop";
+    };
+  };
+  xdg.configFile."mimeapps.list".force = true;
+  xdg.terminal-exec = {
+    enable = true;
+    settings = {
+      default = [ "kitty.desktop" ];
+    };
+  };
 
   programs.hyprlock.enable = true;
   programs.bash.enable = true;

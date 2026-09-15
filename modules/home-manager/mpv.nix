@@ -12,6 +12,7 @@
 
         mpv-unwrapped = pkgs.mpv-unwrapped.override {
           waylandSupport = true;
+          ffmpeg = pkgs.ffmpeg-full;
         };
       }
     );
@@ -19,7 +20,6 @@
     config = {
       profile = "high-quality";
       ytdl-format = "bestvideo+bestaudio";
-      cache-default = 4000000;
     };
   };
   programs.yt-dlp = {
