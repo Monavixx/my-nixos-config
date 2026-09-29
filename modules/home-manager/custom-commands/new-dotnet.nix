@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
-  flakeFile = ./resource-flake.nix;
+  flakeFile = pkgs.replaceVars ./resource-flake.nix {
+    nixpkgsRev = inputs.nixpkgs.rev;
+  };
 
   new-dotnet = pkgs.writeShellScriptBin "new-dotnet" ''
     #!/usr/bin/env bash

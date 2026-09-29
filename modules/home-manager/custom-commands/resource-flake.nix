@@ -2,7 +2,7 @@
   description = "Dotnet development environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/@nixpkgsRev@";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -42,7 +42,7 @@
             export TZDIR="${pkgs.tzdata}/share/zoneinfo"
             export NUGET_PACKAGES="''${DIRENV_DIR:-$PWD}/.nuget-packages"
             docker compose up -d
-            echo "dotnet dev shell ready"
+            echo "dotnet dev shell is ready"
             echo "  dotnet:  $(dotnet --version)"
           '';
         };
