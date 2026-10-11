@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    roslynUpdatePatch = {
+      url = "https://github.com/NixOS/nixpkgs/pull/572156.patch";
+      flake = false;
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -45,8 +49,8 @@
   outputs =
     {
       self,
-      nixpkgs,
       home-manager,
+      nixpkgs,
       ...
     }@inputs:
     let
@@ -55,6 +59,13 @@
           hostname,
           system ? "x86_64-linux",
         }:
+        let
+          patchedNixpkgs = nixpkgs.legacyPackages.${system}.applyPatches {
+            name = "nixpkgs-roslyn-ls-update";
+            src = nixpkgs;
+            patches = [ inputs.roslynUpdatePatch ];
+          };
+        in
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs hostname self; };
@@ -67,6 +78,13 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs hostname self; };
               home-manager.users.monavixx = import ./hosts/${hostname}/home.nix;
+            }
+            {
+              nixpkgs.overlays = [
+                (final: prev: {
+                  roslyn-ls = final.callPackage (patchedNixpkgs + "/pkgs/by-name/ro/roslyn-ls/package.nix") { };
+                })
+              ];
             }
           ];
         };

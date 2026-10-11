@@ -37,8 +37,8 @@ in
       nvim-autopairs
     ];
     extraPackages = with pkgs; [
+      vtsls
       ripgrep # required for telescope-nvim
-      roslyn-ls
       nixd
       nixfmt
       lua-language-server

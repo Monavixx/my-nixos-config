@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
+    roslyn-ls
     vlc
     p7zip
     wev
