@@ -12,3 +12,10 @@ vim.lsp.config("vtsls", {
 })
 
 vim.lsp.enable("vtsls")
+vim.lsp.enable({
+    "html",
+    "cssls",
+    "jsonls",
+    "eslint",
+})
+vim.lsp.enable("tailwindcss")

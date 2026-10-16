@@ -24,6 +24,9 @@ vim.keymap.set("n", "<leader>fh", builtinTelescope.help_tags, { desc = "Help" })
 vim.keymap.set("n", "<leader>fr", builtinTelescope.lsp_references, { desc = "References" })
 vim.keymap.set("n", "<leader>fd", builtinTelescope.lsp_definitions, { desc = "Definitions" })
 vim.keymap.set("n", "<leader>ft", "<cmd>Telescope<CR>")
+vim.keymap.set("n", "<leader>fs", "<cmd>Telescope luasnip<CR>", {
+    desc = "Find snippets",
+})
 
 -- Neotree
 vim.keymap.set("n", "<Tab>", "<C-w>w", options)
