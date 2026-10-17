@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     kdePackages.krdp
+    kdePackages.krdc
     roslyn-ls
     vlc
     p7zip
