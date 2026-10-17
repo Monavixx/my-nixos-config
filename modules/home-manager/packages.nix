@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
+    kdePackages.krdp
     roslyn-ls
     vlc
     p7zip
