@@ -1,8 +1,10 @@
-{ inputs, ... }:
+{ inputs, username, ... }:
 let
 in
 {
   home.stateVersion = "26.05";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   home.sessionVariables = {
     SAL_USE_VCLPLUGIN = "gtk4"; # or "gtk" for GTK3
@@ -18,7 +20,6 @@ in
     ./custom-commands/new-dotnet.nix
     ./streamrip.nix
     ./mpd.nix
-    ./options.nix
     ./kitty.nix
     ./yazi.nix
     ./vicinae.nix

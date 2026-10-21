@@ -1,10 +1,10 @@
-{ ... }:
+{ config, username, ... }:
 {
   services.rqbit = {
     enable = true;
-    downloadDir = "/home/monavixx/Downloads";
+    downloadDir = "${config.users.users.${username}.home}/Downloads";
     httpPort = 3030;
-    user = "monavixx";
+    user = username;
     group = "users";
   };
 }

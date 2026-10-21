@@ -41,8 +41,8 @@
       flake = false;
     };
     telescope-luasnip = {
-	url = "github:benfowler/telescope-luasnip.nvim";
-	flake = false;
+      url = "github:benfowler/telescope-luasnip.nvim";
+      flake = false;
     };
     melodec = {
       url = "github:Monavixx/Melodec";
@@ -58,38 +58,37 @@
       ...
     }@inputs:
     let
+      defaults = rec {
+        username = "monavixx";
+        flakeRoot = "/home/${username}/nixos";
+        system = "x86_64-linux";
+      };
       mkHost =
         {
-          hostname,
-          system ? "x86_64-linux",
-        }:
+          ...
+        }@args:
         let
-          # patchedNixpkgs = nixpkgs.legacyPackages.${system}.applyPatches {
-          #   name = "nixpkgs-roslyn-ls-update";
-          #   src = nixpkgs;
-          #   patches = [ inputs.roslynUpdatePatch ];
-          # };
+          host = defaults // args;
         in
         nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs hostname self; };
+          inherit (host) system;
+          specialArgs = {
+            inherit inputs;
+            inherit (host) hostname username flakeRoot;
+          };
           modules = [
-            ./hosts/${hostname}/configuration.nix
+            ./hosts/${host.hostname}/configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.backupFileExtension = "backup";
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs hostname self; };
-              home-manager.users.monavixx = import ./hosts/${hostname}/home.nix;
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                inherit (host) hostname username flakeRoot;
+              };
+              home-manager.users.${host.username} = import ./hosts/${host.hostname}/home.nix;
             }
-            # {
-            #   nixpkgs.overlays = [
-            #     (final: prev: {
-            #       roslyn-ls = final.callPackage (patchedNixpkgs + "/pkgs/by-name/ro/roslyn-ls/package.nix") { };
-            #     })
-            #   ];
-            # }
           ];
         };
     in

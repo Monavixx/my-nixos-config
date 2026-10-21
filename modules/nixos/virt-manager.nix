@@ -1,16 +1,15 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   virtualisation.libvirtd = {
     enable = true;
 
     qemu.swtpm.enable = true;
-    # qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
   };
 
   programs.virt-manager.enable = true;
 
-  users.users."monavixx".extraGroups = [
+  users.users.${username}.extraGroups = [
     "libvirtd"
   ];
 

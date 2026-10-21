@@ -1,6 +1,7 @@
 {
   hostname,
   config,
+  flakeRoot,
   ...
 }:
 
@@ -25,16 +26,16 @@
     ];
   };
   xdg.configFile."hypr/autostart.lua".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.my.flakeRoot}/modules/home-manager/hyprland-config/autostart.lua";
+    config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/modules/home-manager/hyprland-config/autostart.lua";
   xdg.configFile."hypr/config.lua".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.my.flakeRoot}/modules/home-manager/hyprland-config/config.lua";
+    config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/modules/home-manager/hyprland-config/config.lua";
   xdg.configFile."hypr/animations.lua".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.my.flakeRoot}/modules/home-manager/hyprland-config/animations.lua";
+    config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/modules/home-manager/hyprland-config/animations.lua";
   xdg.configFile."hypr/keybinds.lua".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.my.flakeRoot}/modules/home-manager/hyprland-config/keybinds.lua";
+    config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/modules/home-manager/hyprland-config/keybinds.lua";
   xdg.configFile."hypr/rules.lua".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.my.flakeRoot}/modules/home-manager/hyprland-config/rules.lua";
+    config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/modules/home-manager/hyprland-config/rules.lua";
   xdg.configFile."hypr/host.lua".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.my.flakeRoot}/hosts/${hostname}/hyprland.lua";
+    config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/hosts/${hostname}/hyprland.lua";
 
 }

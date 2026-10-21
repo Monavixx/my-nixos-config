@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Enable Thunar
   programs.thunar.enable = true;
-  
+
   # Install common Thunar plugins (archive, volume management)
   programs.thunar.plugins = with pkgs; [
     thunar-archive-plugin
@@ -14,8 +14,8 @@
   programs.xfconf.enable = true;
 
   # Enable volume auto-mounting and trash support (requires gvfs)
-  services.gvfs.enable = true; 
+  services.gvfs.enable = true;
 
   # Enable image and video thumbnails (requires tumbler)
-  services.tumbler.enable = true; 
+  services.tumbler.enable = true;
 }

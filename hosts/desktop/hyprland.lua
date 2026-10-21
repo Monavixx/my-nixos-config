@@ -19,8 +19,6 @@ hl.config({
     }
 })
 
--- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
-
 hl.device({
     name = "a4tech-usb-device",
     sensitivity = 0.5,

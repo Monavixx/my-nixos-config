@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   hostname,
+  username,
   ...
 }:
 
@@ -71,16 +72,14 @@ in
     options = "";
   };
 
-  users.users."monavixx" = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "monavixx";
     extraGroups = [
       "networkmanager"
       "wheel"
       "audio"
       "video"
     ];
-    packages = with pkgs; [ ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -89,7 +88,7 @@ in
     "flakes"
   ];
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     rebuild
   ];
 
