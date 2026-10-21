@@ -13,6 +13,7 @@ let
 in
 {
   imports = [
+    ./virt-manager.nix
     ./rqbit.nix
     ./docker.nix
     ./thunar.nix
@@ -118,12 +119,14 @@ in
   networking.firewall = {
     allowedTCPPortRanges = [
       {
+        # kdeconnect
         from = 1714;
         to = 1764;
       }
     ];
     allowedUDPPortRanges = [
       {
+        # kdeconnect
         from = 1714;
         to = 1764;
       }
