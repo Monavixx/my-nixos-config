@@ -23,6 +23,7 @@ require("neo-tree").setup({
             ["h"] = "close_node",
             ["<C-l>"] = "open_in_new_instance",
             ["Z"] = "expand_all_nodes",
+            ["<Tab>"] = "none",
         },
     },
     commands = {

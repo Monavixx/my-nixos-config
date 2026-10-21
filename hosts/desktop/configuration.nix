@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ...} :
+{ config, ... }:
 {
   imports = [
     ../../modules/nixos/common.nix
@@ -9,8 +9,13 @@
   fileSystems."/home".options = [ "noatime" ];
   fileSystems."/hdd".options = [ "noatime" ];
 
-  services.xserver.videoDrivers = ["nvidia"];
-  boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
+  boot.initrd.kernelModules = [
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
   boot.blacklistedKernelModules = [ "nouveau" ];
   hardware = {
     nvidia = {
