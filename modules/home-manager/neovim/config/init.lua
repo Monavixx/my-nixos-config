@@ -1,4 +1,5 @@
 require("catppuccin-config")
+require("flake-root")
 require("languages.all")
 require("keybinds")
 require("blink-cmp-config")

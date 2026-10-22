@@ -17,7 +17,7 @@ in
   imports = [
     ./melodec.nix
     inputs.melodec.homeManagerModules.default
-    ./custom-commands/new-dotnet.nix
+    ./custom-commands/new-dotnet/new-dotnet.nix
     ./streamrip.nix
     ./mpd.nix
     ./kitty.nix
@@ -33,8 +33,8 @@ in
     ./hourly-productivity-control.nix
     ./waybar.nix
     ./hyprland-config/hyprland.nix
+    ./xdg.nix
   ];
-  programs.home-manager.enable = true;
 
   services.swaync = {
     enable = true;
@@ -42,23 +42,15 @@ in
 
   services.playerctld.enable = true;
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "application/json" = "nvim.desktop";
-      "application/schema+json" = "nvim.desktop";
-    };
-  };
-  xdg.configFile."mimeapps.list".force = true;
-  xdg.terminal-exec = {
-    enable = true;
-    settings = {
-      default = [ "kitty.desktop" ];
-    };
-  };
-
   programs.hyprlock.enable = true;
-  programs.bash.enable = true;
+  programs.bash = {
+    enable = true;
+    profileExtra = ''
+      if uwsm check may-start; then
+          exec uwsm start hyprland.desktop
+      fi
+    '';
+  };
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 }

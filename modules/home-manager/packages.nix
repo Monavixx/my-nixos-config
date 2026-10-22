@@ -16,11 +16,11 @@
     qt6Packages.qtstyleplugin-kvantum
     discord-canary
     pavucontrol
-    libreoffice-fresh
+    libreoffice
     wl-clipboard
     grim
     slurp
-    (import ./awww-random.nix { inherit pkgs; })
+    (import ./custom-commands/awww-random/awww-random.nix { inherit pkgs; })
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
     hyprpolkitagent
     libnotify # notify-send

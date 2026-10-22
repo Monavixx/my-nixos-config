@@ -1,8 +1,8 @@
 {
-  config,
   pkgs,
   inputs,
   flakeRoot,
+  hostname,
   ...
 }:
 let
@@ -53,12 +53,25 @@ in
       vscode-langservers-extracted # HTML, CSS, JSON and ESLint language servers
       tailwindcss-language-server # Tailwind CSS class completion and diagnostics
       emmet-language-server # HTML/JSX abbreviation expansion
+      bash-language-server
+      shellcheck
     ];
     extraLuaPackages = ps: [
       ps.jsregexp
     ];
     sideloadInitLua = true;
   };
-  xdg.configFile."nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/modules/home-manager/neovim/config";
+  # xdg.configFile."nvim".source =
+  #   config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/modules/home-manager/neovim/config";
+  xdg.configFile = {
+    "nvim" = {
+      source = ./config;
+      recursive = true;
+    };
+
+    "nvim/lua/flake-root.lua".text = ''
+      vim.g.flake_root = "${flakeRoot}"
+      vim.g.nix_hostname = "${hostname}"
+    '';
+  };
 }
