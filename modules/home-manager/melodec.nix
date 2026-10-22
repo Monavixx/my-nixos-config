@@ -2,7 +2,7 @@
 {
   programs.melodec = {
     enable = true;
-    musicPath = "${config.home.homeDirectory}/Music";
+    musicPath = config.xdg.userDirs.music;
     keepUndeclared = false;
     tracks = [
       {

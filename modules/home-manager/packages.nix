@@ -1,6 +1,9 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
+    statix
+    deadnix
+    streamrip
     kdePackages.krdp
     kdePackages.krdc
     roslyn-ls

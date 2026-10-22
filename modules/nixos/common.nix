@@ -6,18 +6,13 @@
   ...
 }:
 
-let
-  rebuild = pkgs.writeShellScriptBin "rebuild" ''
-    cd ~/nixos && git add .
-    sudo nixos-rebuild switch --flake ~/nixos#${hostname}
-  '';
-in
 {
   imports = [
     ./virt-manager.nix
     ./rqbit.nix
     ./docker.nix
     ./thunar.nix
+    ./firewall.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -88,10 +83,6 @@ in
     "flakes"
   ];
 
-  environment.systemPackages = [
-    rebuild
-  ];
-
   fonts.packages = with pkgs; [
     nerd-fonts.fantasque-sans-mono
     font-awesome_4
@@ -113,23 +104,6 @@ in
     };
     kdeconnect.enable = true;
     amnezia-vpn.enable = true;
-  };
-
-  networking.firewall = {
-    allowedTCPPortRanges = [
-      {
-        # kdeconnect
-        from = 1714;
-        to = 1764;
-      }
-    ];
-    allowedUDPPortRanges = [
-      {
-        # kdeconnect
-        from = 1714;
-        to = 1764;
-      }
-    ];
   };
 
   system.stateVersion = "26.05";

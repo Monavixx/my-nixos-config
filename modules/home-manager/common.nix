@@ -1,6 +1,4 @@
 { inputs, username, ... }:
-let
-in
 {
   home.stateVersion = "26.05";
   home.username = username;
@@ -15,10 +13,12 @@ in
   ];
 
   imports = [
+    ./nh.nix
+    ./btop.nix
+    ./custom-commands/rebuild/rebuild.nix
     ./melodec.nix
     inputs.melodec.homeManagerModules.default
     ./custom-commands/new-dotnet/new-dotnet.nix
-    ./streamrip.nix
     ./mpd.nix
     ./kitty.nix
     ./yazi.nix

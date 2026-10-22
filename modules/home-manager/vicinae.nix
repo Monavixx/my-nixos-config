@@ -2,14 +2,7 @@
 {
   programs.vicinae =
     let
-      vicinae-extensions =
-        # pkgs.fetchFromGitHub {
-        #   owner = "vicinaehq";
-        #   repo = "extensions";
-        #   rev = "5d1d31a698d5ac0b25b7391fcce3d920cd9c552e";
-        #   hash = "sha256-u9QmD1FnLf+64o60L4ldx81m88eeK5/EgNYTEAt9qIo=";
-        # }
-        inputs.vicinae-extensions + "/extensions";
+      vicinae-extensions = inputs.vicinae-extensions + "/extensions";
     in
     {
       enable = true;

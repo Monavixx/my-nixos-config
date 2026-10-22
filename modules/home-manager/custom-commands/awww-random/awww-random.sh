@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-WALLPAPER_DIR="$HOME/Pictures/wallpapers"
+WALLPAPER_DIR="$HOME/pictures/wallpapers"
 
 # Pick a random image (jpg/jpeg/png/gif/webp/bmp), one level deep
 mapfile -t images < <(find -L "$WALLPAPER_DIR" -maxdepth 1 -type f \( \

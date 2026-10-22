@@ -3,7 +3,7 @@
   services.mpd = {
     enable = true;
     network.startWhenNeeded = true;
-    musicDirectory = "${config.home.homeDirectory}/Music";
+    musicDirectory = config.xdg.userDirs.music;
     extraConfig = ''
       audio_output {
         type "pipewire"
@@ -13,6 +13,6 @@
   };
   services.mpdris2 = {
     enable = true;
-    multimediaKeys = true;
+    settings.Bling.mmkeys = true;
   };
 }

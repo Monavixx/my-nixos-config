@@ -1,6 +1,6 @@
 { ... }:
 {
-  programs.pi-coding-agent = {
+  programs.btop = {
     enable = true;
   };
 }

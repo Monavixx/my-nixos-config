@@ -52,7 +52,6 @@
 
   outputs =
     {
-      self,
       home-manager,
       nixpkgs,
       ...

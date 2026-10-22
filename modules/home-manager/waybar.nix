@@ -10,7 +10,7 @@ in
         "layer" = "top";
         "position" = "top";
         "modules-left" = [ "hyprland/workspaces" ];
-        "modules-center" = [ "hyprland/window" ]; # "custom/music"];
+        "modules-center" = [ "hyprland/window" ];
         "modules-right" = [
           "pulseaudio"
         ]
@@ -65,15 +65,6 @@ in
           "icon-size" = 17;
           "spacing" = 10;
         };
-        #"custom/music" = {
-        #    "format" = "  {}";
-        #    "escape" = true;
-        #    "interval" = 5;
-        #    "tooltip" = false;
-        #    "exec" = "playerctl metadata --format='{{ title }}'";
-        #    "on-click" = "playerctl play-pause";
-        #    "max-length" = 50;
-        #};
         "clock" = {
           "tooltip-format" = "<big>{:%d/%m/%Y}</big>\n<tt><small>{calendar}</small></tt>";
           "format" = "{:%I:%M %p %d %B}";
@@ -265,10 +256,6 @@ in
       margin-left: 1rem;
       }
 
-      #custom-music {
-      color: @mauve;
-      border-radius: 1rem;
-      }
       #language {
       padding: 0 1rem;
       color: @pink;

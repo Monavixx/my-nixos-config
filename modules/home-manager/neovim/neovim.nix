@@ -61,8 +61,6 @@ in
     ];
     sideloadInitLua = true;
   };
-  # xdg.configFile."nvim".source =
-  #   config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/modules/home-manager/neovim/config";
   xdg.configFile = {
     "nvim" = {
       source = ./config;
