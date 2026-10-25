@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   inputs,
   hostname,
@@ -75,7 +76,12 @@
       "audio"
       "video"
     ];
+    shell = pkgs.zsh;
   };
+  environment.shells = [ pkgs.zsh ];
+  system.userActivationScripts.zshrc = "touch ${
+    config.home-manager.users.${username}.home.homeDirectory
+  }/.zshrc";
 
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [
@@ -88,6 +94,9 @@
     font-awesome_4
   ];
   programs = {
+    zsh = {
+      enable = true;
+    };
     bash = {
       enable = true;
       shellAliases = {

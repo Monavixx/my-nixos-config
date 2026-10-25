@@ -13,6 +13,8 @@
   ];
 
   imports = [
+    ./starship.nix
+    ./zsh.nix
     ./walker.nix
     ./nh.nix
     ./btop.nix
