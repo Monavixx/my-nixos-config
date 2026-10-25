@@ -3,27 +3,30 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # roslynUpdatePatch = {
-    #   url = "https://github.com/NixOS/nixpkgs/pull/572156.patch";
-    #   flake = false;
-    # };
+    elephant.url = "github:abenz1267/elephant";
+
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    walker-catppuccin = {
+      url = "github:krymancer/walker";
+      flake = false;
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nix-jetbrains-plugins = {
-    #   url = "github:nix-community/nix-jetbrains-plugins";
+    # vicinae = {
+    #   url = "github:vicinaehq/vicinae";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-    vicinae = {
-      url = "github:vicinaehq/vicinae";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    vicinae-extensions = {
-      url = "github:vicinaehq/extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # vicinae-extensions = {
+    #   url = "github:vicinaehq/extensions";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -61,6 +64,11 @@
         username = "monavixx";
         flakeRoot = "/home/${username}/nixos";
         system = "x86_64-linux";
+        theme = rec {
+          flavor = "mocha";
+          accent = "flamingo";
+          name = "catppuccin-${flavor}-${accent}-standard";
+        };
       };
       mkHost =
         {
@@ -72,7 +80,7 @@
         nixpkgs.lib.nixosSystem {
           inherit (host) system;
           specialArgs = {
-            inherit inputs;
+            inherit inputs host;
             inherit (host) hostname username flakeRoot;
           };
           modules = [
@@ -83,7 +91,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {
-                inherit inputs;
+                inherit inputs host;
                 inherit (host) hostname username flakeRoot;
               };
               home-manager.users.${host.username} = import ./hosts/${host.hostname}/home.nix;

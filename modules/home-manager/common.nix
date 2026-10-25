@@ -13,6 +13,7 @@
   ];
 
   imports = [
+    ./walker.nix
     ./nh.nix
     ./btop.nix
     ./custom-commands/rebuild/rebuild.nix
@@ -22,7 +23,7 @@
     ./mpd.nix
     ./kitty.nix
     ./yazi.nix
-    ./vicinae.nix
+    # ./vicinae.nix
     ./mpv.nix
     ./git.nix
     ./theme.nix
@@ -30,7 +31,7 @@
     ./wlogout.nix
     ./neovim/neovim.nix
     ./awww.nix
-    ./hourly-productivity-control.nix
+    # ./hourly-productivity-control.nix
     ./waybar.nix
     ./hyprland-config/hyprland.nix
     ./xdg.nix

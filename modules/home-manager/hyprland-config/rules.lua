@@ -42,18 +42,25 @@ hl.window_rule({
 })
 
 
-hl.layer_rule({
-    match = {
-        namespace = "^vicinae$"
-    },
-    blur = true,
-})
-hl.window_rule({
-    match = {
-        class = "^vicinae$"
-    },
-    opacity = "0.7",
-})
+-- hl.layer_rule({
+--     match = {
+--         namespace = "^walker$"
+--     },
+--     blur = true,
+-- })
+
+-- hl.layer_rule({
+--     match = {
+--         namespace = "^vicinae$"
+--     },
+--     blur = true,
+-- })
+-- hl.window_rule({
+--     match = {
+--         class = "^vicinae$"
+--     },
+--     opacity = "0.7",
+-- })
 hl.window_rule({
     match = {
         class = "^bruno$"
@@ -71,25 +78,6 @@ hl.window_rule({
         class = "^obsidian$"
     },
     opacity = "0.9",
-})
-hl.window_rule({
-    match = {
-        class = "^jetbrains-rider$"
-    },
-    opacity = "0.9"
-})
-hl.window_rule({
-    match = {
-        class = "^jetbrains",
-        float = true
-    },
-    stay_focused = true
-})
-hl.window_rule({
-    match = {
-        class = "^code$"
-    },
-    opacity = "0.88"
 })
 hl.window_rule({
     match = {
