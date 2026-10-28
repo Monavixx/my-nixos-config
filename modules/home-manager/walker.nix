@@ -6,13 +6,20 @@
     enable = true;
     runAsService = true;
     themes.${host.theme.name} = {
-      style = builtins.readFile "${inputs.walker-catppuccin}/themes/catppuccin-${host.theme.flavor}/style.css";
+      style =
+        (builtins.readFile "${inputs.walker-catppuccin}/themes/catppuccin-${host.theme.flavor}/style.css")
+        + ''
+          .window {
+            opacity: 0.7;
+          }
+        '';
     };
     config = {
       theme = host.theme.name;
       hide_quick_activation = true;
       actions_as_menu = true;
-      ext_background_effect_blur = true;
+      # ext_background_effect_blur = true;
+      selection_wrap = true;
 
       keybinds = {
         show_actions = [ "ctrl b" ];

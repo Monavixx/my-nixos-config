@@ -21,6 +21,9 @@
           NixOS = " ";
         };
       };
+      nix_shell = {
+        symbol = " ";
+      };
     };
   };
 }
