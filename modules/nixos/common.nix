@@ -9,6 +9,7 @@
 
 {
   imports = [
+    ./nix.nix
     ./virt-manager.nix
     ./rqbit.nix
     ./docker.nix
