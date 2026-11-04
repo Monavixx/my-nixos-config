@@ -1,18 +1,21 @@
 { inputs, username, ... }:
 {
-  home.stateVersion = "26.05";
-  home.username = username;
-  home.homeDirectory = "/home/${username}";
-
-  home.sessionVariables = {
-    SAL_USE_VCLPLUGIN = "gtk4"; # or "gtk" for GTK3
-    GDK_BACKEND = "wayland";
-    NIXOS_OZONE_WL = "1";
+  home = {
+    stateVersion = "26.05";
+    username = username;
+    homeDirectory = "/home/${username}";
+    sessionVariables = {
+      SAL_USE_VCLPLUGIN = "gtk4"; # or "gtk" for GTK3
+      GDK_BACKEND = "wayland";
+      NIXOS_OZONE_WL = "1";
+    };
+    sessionPath = [
+    ];
   };
-  home.sessionPath = [
-  ];
 
   imports = [
+    ./agenix.nix
+    ./email.nix
     ./starship.nix
     ./zsh.nix
     ./walker.nix
@@ -21,11 +24,11 @@
     ./custom-commands/rebuild/rebuild.nix
     ./melodec.nix
     inputs.melodec.homeManagerModules.default
+    inputs.agenix.homeManagerModules.default
     ./custom-commands/new-dotnet/new-dotnet.nix
     ./mpd.nix
     ./kitty.nix
     ./yazi.nix
-    # ./vicinae.nix
     ./mpv.nix
     ./git.nix
     ./theme.nix

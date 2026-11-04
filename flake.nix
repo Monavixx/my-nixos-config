@@ -4,11 +4,15 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     elephant.url = "github:abenz1267/elephant";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     walker = {
       url = "github:abenz1267/walker";
       inputs.elephant.follows = "elephant";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     walker-catppuccin = {
       url = "github:krymancer/walker";
@@ -95,6 +99,7 @@
                 inherit (host) hostname username flakeRoot;
               };
               home-manager.users.${host.username} = import ./hosts/${host.hostname}/home.nix;
+              environment.systemPackages = [ ];
             }
           ];
         };

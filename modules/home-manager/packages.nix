@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
+    inputs.agenix.packages.${host.system}.default
     statix
     deadnix
     streamrip

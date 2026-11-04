@@ -14,6 +14,7 @@ in
   ];
   catppuccin = {
     enable = true;
+    cache.enable = true;
     autoEnable = true;
     inherit flavor;
     inherit accent;
