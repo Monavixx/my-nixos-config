@@ -21,7 +21,30 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.initrd.systemd.enable = true;
-  security.polkit.enable = true;
+  security = {
+    polkit.enable = true;
+    rtkit.enable = true;
+    pam.loginLimits = [
+      {
+        domain = "@audio";
+        item = "memlock";
+        type = "-";
+        value = "unlimited";
+      }
+      {
+        domain = "@audio";
+        item = "rtprio";
+        type = "-";
+        value = "95";
+      }
+      {
+        domain = "@audio";
+        item = "nice";
+        type = "-";
+        value = "-19";
+      }
+    ];
+  };
 
   nix.optimise.automatic = true;
   nix.optimise.dates = [ "daily" ];
@@ -46,8 +69,8 @@
     pulse.enable = true;
     jack.enable = true;
   };
-  security.rtkit.enable = true;
-  services.pulseaudio.enable = false;
+
+  hardware.pulseaudio.enable = false;
 
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";

@@ -162,6 +162,27 @@
         "type": "github"
       }
     },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "reaper-flake",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790898470,
+        "narHash": "sha256-zTwuwezD0w3hpga6a6P8emidzAZFyWqlNeRBlpWOOl8=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "024633cd702b10285db5cb19b40ad48d2399ba60",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -554,6 +575,22 @@
     },
     "nixpkgs_3": {
       "locked": {
+        "lastModified": 1793294725,
+        "narHash": "sha256-loLMnbbS4KhmG2ln9EY6f0YMNCA273Yx02oWYQ9IMeE=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "6f06d204d8f2d8761d9da78778745974a3216381",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
         "lastModified": 1793540411,
         "narHash": "sha256-fiPJ88izTVucjeo2EQ3jk4aWmLg03I1D4vxnX2QjEgE=",
         "owner": "NixOS",
@@ -590,6 +627,25 @@
         "type": "github"
       }
     },
+    "reaper-flake": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1793397924,
+        "narHash": "sha256-eO719lQ8cvcBjEMc4sgPrsmtFQESS1d12L/K2CZKAhU=",
+        "owner": "9Prestidigitator",
+        "repo": "reaper-flake",
+        "rev": "fa0713a65f28eb9faa0f3fd6e47a8d8765afa5a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "9Prestidigitator",
+        "repo": "reaper-flake",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -601,6 +657,7 @@
         "hyprland": "hyprland",
         "melodec": "melodec",
         "nixpkgs": "nixpkgs_2",
+        "reaper-flake": "reaper-flake",
         "telescope-luasnip": "telescope-luasnip",
         "walker": "walker",
         "walker-catppuccin": "walker-catppuccin"
@@ -693,7 +750,7 @@
         "elephant": [
           "elephant"
         ],
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "systems": "systems_3"
       },
       "locked": {

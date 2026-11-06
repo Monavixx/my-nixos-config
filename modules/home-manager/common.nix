@@ -14,6 +14,7 @@
   };
 
   imports = [
+    ./reaper.nix
     ./agenix.nix
     ./email.nix
     ./starship.nix

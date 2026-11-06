@@ -8,18 +8,15 @@ vim.lsp.config("nixd", {
     settings = {
         nixd = {
             nixpkgs = {
-                expr = flake .. ".inputs.nixpkgs {}",
-            },
-            formatting = {
-                command = { "nixfmt" },
+                expr = "import " .. flake .. ".inputs.nixpkgs { }",
             },
             options = {
                 nixos = {
-                    expr = flake .. ".nixosConfigurations.laptop.options",
+                    expr = flake .. ".nixosConfigurations." .. hostname .. ".options",
                 },
                 home_manager = {
-                    expr = flake ..
-                    '.nixosConfigurations.' .. hostname .. '.options.home-manager.users.type.getSubOptions []',
+                    expr = flake .. ".nixosConfigurations." ..
+                        hostname .. ".options.home-manager.users.type.getSubOptions []",
                 },
             },
         },

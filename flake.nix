@@ -8,29 +8,20 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     walker = {
       url = "github:abenz1267/walker";
       inputs.elephant.follows = "elephant";
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
     walker-catppuccin = {
       url = "github:krymancer/walker";
       flake = false;
     };
+    reaper-flake.url = "github:9Prestidigitator/reaper-flake";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # vicinae = {
-    #   url = "github:vicinaehq/vicinae";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-    # vicinae-extensions = {
-    #   url = "github:vicinaehq/extensions";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
