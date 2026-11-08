@@ -14,11 +14,13 @@
   };
 
   imports = [
+    ./fzf.nix
+    ./trashy.nix
     ./reaper.nix
     ./agenix.nix
     ./email.nix
     ./starship.nix
-    ./zsh.nix
+    ./shell/default.nix
     ./walker.nix
     ./nh.nix
     ./btop.nix

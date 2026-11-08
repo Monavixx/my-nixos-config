@@ -52,9 +52,6 @@
       fi
     '';
     defaultKeymap = "viins";
-    shellAliases = {
-      rm = "rm -i";
-    };
   };
   catppuccin.zsh-syntax-highlighting.enable = true;
 }

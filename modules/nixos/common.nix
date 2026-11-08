@@ -102,7 +102,12 @@
     ];
     shell = pkgs.zsh;
   };
-  environment.shells = [ pkgs.zsh ];
+  environment = {
+    shells = [ pkgs.zsh ];
+    systemPackages = [
+      inputs.catppuccin.packages.${pkgs.system}.whiskers
+    ];
+  };
   system.userActivationScripts.zshrc = "touch ${
     config.home-manager.users.${username}.home.homeDirectory
   }/.zshrc";
@@ -123,9 +128,6 @@
     };
     bash = {
       enable = true;
-      shellAliases = {
-        rm = "rm -i";
-      };
     };
     hyprland = {
       withUWSM = true;

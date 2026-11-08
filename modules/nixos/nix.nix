@@ -1,6 +1,7 @@
-{ ... }:
+{ username, ... }:
 {
   nix.settings = {
+    trusted-users = [ username ];
     extra-substituters = [
       "https://walker.cachix.org"
       "https://walker-git.cachix.org"

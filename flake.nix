@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    trashy = {
+      url = "github:oberblastmeister/trashy";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     elephant.url = "github:abenz1267/elephant";
     agenix = {
       url = "github:ryantm/agenix";
