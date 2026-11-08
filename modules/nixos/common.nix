@@ -17,9 +17,15 @@
     ./firewall.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [
+      "usbcore.autosuspend=-1"
+    ];
+  };
+
   # boot.initrd.systemd.enable = true;
   security = {
     polkit.enable = true;

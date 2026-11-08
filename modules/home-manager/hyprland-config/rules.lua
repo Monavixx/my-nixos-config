@@ -61,6 +61,13 @@ hl.window_rule({
 --     },
 --     opacity = "0.7",
 -- })
+
+hl.window_rule({
+    match = {
+        class = "^reaper$"
+    },
+    opacity = "0.9",
+})
 hl.window_rule({
     match = {
         class = "^bruno$"

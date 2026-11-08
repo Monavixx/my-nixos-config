@@ -14,6 +14,8 @@
   };
 
   imports = [
+    ./quickshell/default.nix
+    ./bat.nix
     ./fzf.nix
     ./trashy.nix
     ./reaper.nix
