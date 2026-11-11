@@ -10,7 +10,7 @@
     activeConfig = "main";
 
     systemd = {
-      enable = true;
+      # enable = true;
       target = "graphical-session.target";
     };
   };

@@ -37,5 +37,6 @@
     config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/modules/home-manager/hyprland-config/rules.lua";
   xdg.configFile."hypr/host.lua".source =
     config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/hosts/${hostname}/hyprland.lua";
+  xdg.configFile."hypr/shaders".source = ../../../shaders;
 
 }

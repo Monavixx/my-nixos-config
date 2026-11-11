@@ -52,20 +52,57 @@
     ];
   };
 
-  nix.optimise.automatic = true;
-  nix.optimise.dates = [ "daily" ];
-  nix.gc = {
-    automatic = true;
-    dates = "*-*-* 00:00:00/3";
-    options = "--delete-older-than 14d";
+  nix = {
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
+
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "*-*-* 00:00:00/3";
+  #   options = "--delete-older-than 14d";
+  # };
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  networking.hostName = hostname; # must match flake.nix's nixosConfigurations.<name>
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = hostname; # must match flake.nix's nixosConfigurations.<name>
+    networkmanager = {
+      enable = true;
+    };
+    nameservers = [ "127.0.0.67" ];
+  };
+  services.dnsproxy = {
+    enable = true;
+    settings = {
+      # Local interface and port
+      listen-addrs = [ "127.0.0.67" ];
+      listen-ports = [ 53 ];
+
+      # Upstream DNS-over-HTTPS server
+      upstream = [
+        "https://dns.quad9.net/dns-query"
+        "tls://dns10.quad9.net"
+      ];
+      cache = true;
+    };
+  };
+  services.resolved = {
+    enable = true;
+
+    settings.Resolve = {
+      DNS = [ "127.0.0.67" ];
+      FallbackDNS = [ ];
+    };
+  };
 
   services.logind.settings.Login.HandlePowerKey = "ignore";
   services.pipewire = {
@@ -119,15 +156,16 @@
   }/.zshrc";
 
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.fantasque-sans-mono
-    font-awesome_4
-  ];
+  fonts = {
+    enableDefaultPackages = true;
+    enableGhostscriptFonts = true;
+    packages = with pkgs; [
+      corefonts
+      nerd-fonts.fantasque-sans-mono
+      font-awesome_4
+    ];
+  };
   programs = {
     zsh = {
       enable = true;

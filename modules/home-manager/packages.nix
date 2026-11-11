@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
+    bind
     kdePackages.qtdeclarative
     inputs.agenix.packages.${host.system}.default
     statix

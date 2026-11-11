@@ -12,8 +12,13 @@
     sessionPath = [
     ];
   };
+  programs.nix-index.enable = true;
+  programs.nix-index-database.comma.enable = true;
 
   imports = [
+    ./ripgrep.nix
+    inputs.nix-index-database.homeModules.default
+    ./firefox.nix
     ./quickshell/default.nix
     ./bat.nix
     ./fzf.nix

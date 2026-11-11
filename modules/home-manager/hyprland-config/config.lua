@@ -1,4 +1,9 @@
 hl.config({
+    -- Uncomment if using time-dependent shaders.
+    -- debug = {
+    --     damage_tracking = 0,
+    --     vfr = false,
+    -- },
     general = {
         gaps_in          = 5,
         gaps_out         = 10,
@@ -10,20 +15,22 @@ hl.config({
     },
 
     decoration = {
-        rounding         = 10,
-        rounding_power   = 2,
+        rounding           = 10,
+        rounding_power     = 2,
 
-        active_opacity   = 1.0,
-        inactive_opacity = 0.95,
+        active_opacity     = 0.9,
+        inactive_opacity   = 0.85,
+        fullscreen_opacity = 1,
+        -- screen_shader      = "shaders/laudanum.frag",
 
-        shadow           = {
+        shadow             = {
             enabled = true,
             color = { colors = { "rgba(ff66b55a)", "rgba(cba6f75a)" }, angle = 45 },
             color_inactive = "rgba(5959595a)",
             range = 8,
             render_power = 4
         },
-        blur             = {
+        blur               = {
             enabled  = true,
             size     = 4,
             passes   = 2,

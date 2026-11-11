@@ -42,53 +42,39 @@ hl.window_rule({
 })
 
 
--- hl.layer_rule({
---     match = {
---         namespace = "^walker$"
---     },
---     blur = true,
--- })
-
--- hl.layer_rule({
---     match = {
---         namespace = "^vicinae$"
---     },
---     blur = true,
--- })
--- hl.window_rule({
---     match = {
---         class = "^vicinae$"
---     },
---     opacity = "0.7",
--- })
-
 hl.window_rule({
     match = {
         class = "^reaper$"
     },
-    opacity = "0.9",
+    opacity = "0.9 override",
 })
 hl.window_rule({
     match = {
         class = "^bruno$"
     },
-    opacity = "0.8",
+    opacity = "0.8 override",
 })
 hl.window_rule({
     match = {
         class = "^org.telegram.desktop$"
     },
-    opacity = "0.95",
+    opacity = "0.95 override",
+})
+hl.window_rule({
+    match = {
+        class = "^kitty$"
+    },
+    opacity = "1 override",
 })
 hl.window_rule({
     match = {
         class = "^obsidian$"
     },
-    opacity = "0.9",
+    opacity = "0.9 override",
 })
 hl.window_rule({
     match = {
         class = "^google-chrome$"
     },
-    opacity = "0.9 0.85 1 override"
+    opacity = "0.9 override 0.85 override 1 override"
 })

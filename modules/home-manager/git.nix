@@ -11,6 +11,8 @@
         s = "status";
         ac = "commit -am";
       };
+      init.defaultBranch = "main";
+      pull.rebase = true;
     };
   };
 }

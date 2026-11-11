@@ -3,6 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     trashy = {
       url = "github:oberblastmeister/trashy";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -86,6 +94,7 @@
             ./hosts/${host.hostname}/configuration.nix
             home-manager.nixosModules.home-manager
             {
+              nixpkgs.overlays = [ inputs.nur.overlays.default ];
               home-manager.backupFileExtension = "backup";
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
