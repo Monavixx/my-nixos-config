@@ -1,4 +1,9 @@
-{ inputs, username, ... }:
+{
+  inputs,
+  username,
+  hostname,
+  ...
+}:
 {
   home = {
     stateVersion = "26.05";
@@ -8,6 +13,7 @@
       SAL_USE_VCLPLUGIN = "gtk4"; # or "gtk" for GTK3
       GDK_BACKEND = "wayland";
       NIXOS_OZONE_WL = "1";
+      QS_HOST_TYPE = hostname;
     };
     sessionPath = [
     ];

@@ -1,4 +1,10 @@
 hl.layer_rule({ match = { namespace = "waybar" }, blur = true })
+hl.layer_rule({
+    match = { namespace = "qs-bar" },
+    blur = true,
+    ignore_alpha = 0.2,
+    blur_popups = true,
+})
 
 hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
 hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })

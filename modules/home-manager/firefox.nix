@@ -37,6 +37,19 @@
           "network.trr.mode" = 3;
           "network.trr.uri" = "https://dns.quad9.net/dns-query";
 
+          #Sponsor
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+          "browser.newtabpage.activity-stream.showSponsored" = false;
+          "browser.newtabpage.activity-stream.showSponsoredCheckboxes" = false;
+
+          #Privacy
+          "privacy.fingerprintingProtection" = true;
+          "privacy.resistFingerprinting" = false;
+          "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme";
+
+          "layout.spellcheckDefault" = 2;
+          "browser.tabs.closeWindowWithLastTab" = false;
+
         };
         extensions = {
           force = true;
@@ -50,6 +63,13 @@
       };
     };
   };
+  catppuccin.firefox = {
+    enable = true;
+    profiles.default = {
+      enable = true;
+      force = true;
+    };
+  };
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -59,5 +79,16 @@
       "x-scheme-handler/about" = "firefox.desktop";
       "x-scheme-handler/unknown" = "firefox.desktop";
     };
+  };
+  xdg.desktopEntries."firefix-private-window" = {
+    name = "Firefox (Private window)";
+    genericName = "Web Browser";
+    exec = "firefox --private-window";
+    icon = "firefox";
+    terminal = false;
+    categories = [
+      "Network"
+      "WebBrowser"
+    ];
   };
 }

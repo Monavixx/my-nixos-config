@@ -5,6 +5,7 @@ hl.bind("SHIFT + ALT_L", hl.dsp.exec_cmd("hyprctl switchxkblayout main next"), {
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("nc -U /run/user/1000/walker/walker.sock"), { release = true })
 hl.bind("XF86PowerOff", hl.dsp.exec_cmd("wlogout"))
 hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"));
+hl.bind("SUPER + W", hl.dsp.exec_cmd("uwsm app -- firefox"));
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp -d)" - | wl-copy'))
 
 hl.bind("SUPER + Q", hl.dsp.exec_cmd("uwsm app -- kitty"))

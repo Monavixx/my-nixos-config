@@ -31,15 +31,4 @@
     };
   };
 
-  xdg.desktopEntries."google-chrome-incognito" = {
-    name = "Google Chrome (Incognito)";
-    genericName = "Web Browser";
-    exec = "google-chrome-stable --incognito";
-    icon = "google-chrome";
-    terminal = false;
-    categories = [
-      "Network"
-      "WebBrowser"
-    ];
-  };
 }

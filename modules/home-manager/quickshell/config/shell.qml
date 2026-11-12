@@ -1,7 +1,11 @@
-pragma ComponentBehavior: Bound
+//@ pragma UseQApplication
 import Quickshell
-import QtQuick
+import qs.bar
 
-Scope {
-    Bar {}
+ShellRoot {
+    // One bar per screen. Variants hands each delegate `modelData` (the screen).
+    Variants {
+        model: Quickshell.screens
+        Bar {}
+    }
 }

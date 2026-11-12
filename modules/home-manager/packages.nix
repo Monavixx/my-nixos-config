@@ -33,7 +33,7 @@
     obsidian
     bruno
     pkgs.catppuccin-cursors.mochaDark
-    google-chrome
+    # google-chrome
     telegram-desktop
   ];
 }
