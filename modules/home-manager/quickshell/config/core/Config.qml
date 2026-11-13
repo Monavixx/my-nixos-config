@@ -29,4 +29,6 @@ Singleton {
     readonly property var awwwArgs: ["--transition-type", "grow", "--transition-duration", "1.2"]
     readonly property var randomCommand: ["awww-random"]
     readonly property string wallpaperTimer: "awww-random.timer"
+
+    readonly property var taskFilter: ["status:pending"]   // e.g. ["+READY"] or ["project:home", "status:pending"]
 }

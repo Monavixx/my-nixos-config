@@ -50,6 +50,7 @@ PopupPanel {
         if (open) {
             Toggles.refreshWifi();
             Wallpaper.refreshState();
+            Tasks.refresh();
         }
     }
     // Start on the main page next time (changes while hidden, so nobody sees it)
@@ -202,6 +203,14 @@ PopupPanel {
                         onClicked: root.page = "wallpaper"
                         onHoveredChanged: root.hint = hovered ? label : ""
                     }
+                    CircleButton {
+                        glyph: "\uf0ae"
+                        label: "Tasks"
+                        badge: Tasks.overdue > 0
+                        badgeColor: Theme.red
+                        onClicked: root.page = "tasks"
+                        onHoveredChanged: root.hint = hovered ? label : ""
+                    }
 
                     Item {
                         Layout.fillWidth: true
@@ -257,6 +266,10 @@ PopupPanel {
 
         // ── submenus (add new pages here) ──
         WallpaperPage {
+            current: root.page
+            onBack: root.page = "main"
+        }
+        TasksPage {
             current: root.page
             onBack: root.page = "main"
         }

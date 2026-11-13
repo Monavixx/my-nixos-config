@@ -24,6 +24,7 @@
   programs.nix-index-database.comma.enable = true;
 
   imports = [
+    ./taskwarrior.nix
     ./ayugram-desktop/ayugram-desktop.nix
     ./ripgrep.nix
     inputs.nix-index-database.homeModules.default

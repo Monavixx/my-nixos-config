@@ -20,6 +20,10 @@ PopupWindow {
 
     onOpenChanged: if (open)
         hasHovered = false
+    onContentHeightChanged: {
+        leaveTimer.stop();
+        hasHovered = false;
+    }
 
     default property alias content: body.data
 
@@ -94,6 +98,9 @@ PopupWindow {
             NumberAnimation {
                 duration: 220
                 easing.type: Easing.OutCubic
+                // Resize done: if the mouse is inside, closing on leave is armed again
+                onRunningChanged: if (!running && hover.hovered)
+                    root.hasHovered = true
             }
         }
 

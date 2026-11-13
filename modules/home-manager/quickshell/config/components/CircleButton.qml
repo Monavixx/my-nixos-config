@@ -8,6 +8,7 @@ Rectangle {
     property string glyph
     property string label
     property bool badge: false
+    property color badgeColor: Theme.green
     readonly property bool hovered: ma.containsMouse
     signal clicked
 
@@ -47,7 +48,7 @@ Rectangle {
         width: 9
         height: 9
         radius: 4.5
-        color: Theme.green
+        color: root.badgeColor
         border.width: 2
         border.color: Theme.mantle
         anchors {
