@@ -1,10 +1,11 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
+    llm-agents.dsh
     unzip
     bind
     kdePackages.qtdeclarative
-    inputs.agenix.packages.${host.system}.default
+    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     statix
     deadnix
     streamrip
@@ -35,6 +36,6 @@
     bruno
     pkgs.catppuccin-cursors.mochaDark
     # google-chrome
-    telegram-desktop
+    # telegram-desktop
   ];
 }

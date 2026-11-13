@@ -2,6 +2,7 @@
   inputs,
   username,
   hostname,
+  config,
   ...
 }:
 {
@@ -14,6 +15,7 @@
       GDK_BACKEND = "wayland";
       NIXOS_OZONE_WL = "1";
       QS_HOST_TYPE = hostname;
+      GROQ_API_KEY = "$(cat ${config.age.secrets.groq.path})";
     };
     sessionPath = [
     ];
@@ -22,6 +24,7 @@
   programs.nix-index-database.comma.enable = true;
 
   imports = [
+    ./ayugram-desktop/ayugram-desktop.nix
     ./ripgrep.nix
     inputs.nix-index-database.homeModules.default
     ./firefox.nix

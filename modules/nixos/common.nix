@@ -151,9 +151,9 @@
       inputs.catppuccin.packages.${pkgs.system}.whiskers
     ];
   };
-  system.userActivationScripts.zshrc = "touch ${
-    config.home-manager.users.${username}.home.homeDirectory
-  }/.zshrc";
+  # system.userActivationScripts.zshrc = "touch ${
+  #   config.home-manager.users.${username}.home.homeDirectory
+  # }/.zshrc";
 
   nixpkgs.config.allowUnfree = true;
 

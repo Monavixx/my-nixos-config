@@ -21,7 +21,7 @@ hl.config({
         active_opacity     = 0.9,
         inactive_opacity   = 0.85,
         fullscreen_opacity = 1,
-        -- screen_shader      = "shaders/laudanum.frag",
+        -- screen_shader      = "shaders/cozy.frag",
 
         shadow             = {
             enabled = true,
@@ -35,12 +35,27 @@ hl.config({
             size     = 4,
             passes   = 2,
             vibrancy = 0.1696,
-            special  = true
+            special  = true,
+            variant  = "water",
+            water    = {
+                damping = 1,
+                duration = 15,
+                radius = 50,
+            },
+        },
+        motion_blur        = {
+            enabled = true,
+        },
+        wobble             = {
+            enabled = true,
+            stiffness = 700,
+            -- value_epsilon = 8,
         },
     },
 
     animations = {
         enabled = true,
+        workspace_wraparound = true,
     },
 
     ecosystem = {

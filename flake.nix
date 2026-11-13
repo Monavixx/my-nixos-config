@@ -3,6 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    llm-agents.url = "github:numtide/llm-agents.nix";
+    ayugram-desktop = {
+      url = "github:ndfined-crp/ayugram-desktop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -94,7 +99,10 @@
             ./hosts/${host.hostname}/configuration.nix
             home-manager.nixosModules.home-manager
             {
-              nixpkgs.overlays = [ inputs.nur.overlays.default ];
+              nixpkgs.overlays = [
+                inputs.nur.overlays.default
+                inputs.llm-agents.overlays.shared-nixpkgs
+              ];
               home-manager.backupFileExtension = "backup";
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

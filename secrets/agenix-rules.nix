@@ -18,4 +18,8 @@ in
     laptop
     desktop
   ];
+  "groq.age".publicKeys = monavixx ++ [
+    laptop
+    desktop
+  ];
 }
