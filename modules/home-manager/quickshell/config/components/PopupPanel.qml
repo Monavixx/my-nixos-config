@@ -18,6 +18,15 @@ PopupWindow {
     property bool closeOnLeave: true      // set to false on a popup to opt out
     property bool hasHovered: false       // true once the mouse has been over the popup
 
+    signal keyPressed(var event)
+    signal escapePressed
+    property bool escapeCloses: true   // set to false while Escape should do something else
+
+    // Take keyboard focus back (needed after a submenu's text field had it)
+    function focusFrame() {
+        frame.forceActiveFocus();
+    }
+
     onOpenChanged: if (open)
         hasHovered = false
     onContentHeightChanged: {
@@ -106,7 +115,13 @@ PopupWindow {
 
         // Escape: the popup holds keyboard focus (via the focus grab), so apps never see it
         focus: true
-        Keys.onEscapePressed: root.open = false
+        Keys.onEscapePressed: {
+            const close = root.escapeCloses;   // decide before the handler below changes any state
+            root.escapePressed();
+            if (close)
+                root.open = false;
+        }
+        Keys.onPressed: event => root.keyPressed(event)
 
         HoverHandler {
             id: hover

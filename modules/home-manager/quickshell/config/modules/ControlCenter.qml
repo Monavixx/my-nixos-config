@@ -54,8 +54,35 @@ PopupPanel {
         }
     }
     // Start on the main page next time (changes while hidden, so nobody sees it)
-    onVisibleChanged: if (!visible)
-        page = "main"
+    onVisibleChanged: if (!visible) {
+        page = "main";
+    }
+
+    onKeyPressed: event => {
+        if (page !== "main")
+            return;
+        if (event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier))
+            return;
+        const kids = viewport.children;
+        for (let i = 0; i < kids.length; i++) {
+            const k = kids[i].key;
+            if (k && event.key === k.toUpperCase().charCodeAt(0)) {
+                page = kids[i].name;
+                event.accepted = true;
+                return;
+            }
+        }
+    }
+
+    // After returning from a submenu, make sure Escape and the letter keys work again
+    onPageChanged: if (page === "main") {
+        Qt.callLater(focusFrame);
+    }
+
+    escapeCloses: page === "main"
+    onEscapePressed: if (page !== "main") {
+        page = "main";
+    }
 
     component StatRing: ColumnLayout {
         id: sr
@@ -199,17 +226,19 @@ PopupPanel {
                     CircleButton {
                         glyph: "\uf03e"
                         label: "Wallpaper"
+                        key: wallpaperPage.key
                         badge: Wallpaper.timerActive
                         onClicked: root.page = "wallpaper"
-                        onHoveredChanged: root.hint = hovered ? label : ""
+                        onHoveredChanged: root.hint = hovered ? hintText : ""
                     }
                     CircleButton {
                         glyph: "\uf0ae"
                         label: "Tasks"
+                        key: tasksPage.key
                         badge: Tasks.overdue > 0
                         badgeColor: Theme.red
                         onClicked: root.page = "tasks"
-                        onHoveredChanged: root.hint = hovered ? label : ""
+                        onHoveredChanged: root.hint = hovered ? hintText : ""
                     }
 
                     Item {
@@ -266,10 +295,14 @@ PopupPanel {
 
         // ── submenus (add new pages here) ──
         WallpaperPage {
+            id: wallpaperPage
+            key: "w"
             current: root.page
             onBack: root.page = "main"
         }
         TasksPage {
+            id: tasksPage
+            key: "t"
             current: root.page
             onBack: root.page = "main"
         }

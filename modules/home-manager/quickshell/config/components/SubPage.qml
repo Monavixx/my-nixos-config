@@ -10,7 +10,8 @@ Item {
     property string name
     property string title
     property string current
-    signal back()
+    property string key       // single letter or digit that opens this page from the main page
+    signal back
 
     default property alias content: body.data
     readonly property bool shown: current === name
@@ -24,8 +25,18 @@ Item {
     visible: opacity > 0.01
     enabled: shown
 
-    Behavior on x { NumberAnimation { duration: 240; easing.type: Easing.OutCubic } }
-    Behavior on opacity { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
+    Behavior on x {
+        NumberAnimation {
+            duration: 240
+            easing.type: Easing.OutCubic
+        }
+    }
+    Behavior on opacity {
+        NumberAnimation {
+            duration: 200
+            easing.type: Easing.OutCubic
+        }
+    }
 
     ColumnLayout {
         id: col
@@ -39,7 +50,9 @@ Item {
             BarButton {
                 horizontalPadding: 9
                 onClicked: root.back()
-                BarIcon { text: "\uf053" }
+                BarIcon {
+                    text: "\uf053"
+                }
             }
             BarText {
                 Layout.fillWidth: true

@@ -10,6 +10,9 @@ Rectangle {
     property bool badge: false
     property color badgeColor: Theme.green
     readonly property bool hovered: ma.containsMouse
+    property string key
+    readonly property string hintText: label + (key ? "  [" + key.toUpperCase() + "]" : "")
+
     signal clicked
 
     implicitWidth: 38
