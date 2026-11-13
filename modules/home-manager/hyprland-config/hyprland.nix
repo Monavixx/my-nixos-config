@@ -14,6 +14,9 @@
     portalPackage = null;
 
     extraConfig = ''
+      hl.on("hyprland.start", function()
+          hl.exec_cmd("uwsm app -- qs -p ${flakeRoot}/modules/home-manager/quickshell/config")
+          end)
       require("autostart")
       require("config")
       require("animations")

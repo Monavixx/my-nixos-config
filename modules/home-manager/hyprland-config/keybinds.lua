@@ -7,6 +7,7 @@ hl.bind("XF86PowerOff", hl.dsp.exec_cmd("wlogout"))
 hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"));
 hl.bind("SUPER + W", hl.dsp.exec_cmd("uwsm app -- firefox"));
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp -d)" - | wl-copy'))
+hl.bind("SUPER + P", hl.dsp.global("quickshell:dashboard"))
 
 hl.bind("SUPER + Q", hl.dsp.exec_cmd("uwsm app -- kitty"))
 hl.bind("SUPER + C", hl.dsp.window.close())

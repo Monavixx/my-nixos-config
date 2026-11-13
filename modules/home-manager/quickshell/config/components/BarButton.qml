@@ -9,7 +9,8 @@ Item {
     default property alias content: row.data
     readonly property bool hovered: ma.containsMouse
     property bool active: false
-    property color hoverColor: Theme.hover
+    property color tint: Theme.fg
+    property color hoverColor: Theme.alpha(tint, 0.14)
     property int horizontalPadding: 10
 
     signal clicked(var mouse)
@@ -19,13 +20,22 @@ Item {
     implicitHeight: Config.barHeight - 14
 
     scale: ma.pressed ? 0.95 : 1.0
-    Behavior on scale { NumberAnimation { duration: Theme.animFast; easing.type: Easing.OutCubic } }
+    Behavior on scale {
+        NumberAnimation {
+            duration: Theme.animFast
+            easing.type: Easing.OutCubic
+        }
+    }
 
     Rectangle {
         anchors.fill: parent
         radius: height / 2
         color: root.active ? Theme.pressed : root.hovered ? root.hoverColor : "transparent"
-        Behavior on color { ColorAnimation { duration: Theme.animFast } }
+        Behavior on color {
+            ColorAnimation {
+                duration: Theme.animFast
+            }
+        }
     }
 
     RowLayout {

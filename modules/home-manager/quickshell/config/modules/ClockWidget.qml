@@ -17,7 +17,7 @@ BarButton {
         color: Theme.fgDim
     }
     BarText {
-        text: Qt.formatDateTime(clock.date, "HH:mm")
+        text: Qt.formatDateTime(clock.date, "h:mm AP")
         font.bold: true
     }
 

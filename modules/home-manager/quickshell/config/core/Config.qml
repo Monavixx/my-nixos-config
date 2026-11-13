@@ -20,4 +20,7 @@ Singleton {
     readonly property var audioMixer: ["pavucontrol"]
     readonly property var networkTui: ["nmtui"]
     readonly property var powerMenu: ["wlogout"]
+
+    readonly property string cpuTempPath: "/sys/class/thermal/thermal_zone0/temp"
+    readonly property string diskPath: "/"
 }

@@ -65,19 +65,18 @@ PanelWindow {
             id: workspaces
             targetScreen: bar.screen
         }
-        WindowTitle {
-            Layout.maximumWidth: Math.max(100, bar.width / 2 - 140 - workspaces.width - 24)
-        }
     }
 
-    // ── center: clock ──
-    Capsule {
+    // ── center: window title ──
+    WindowTitle {
         anchors.centerIn: parent
-        ClockWidget {}
+        // Never grow into the left or right groups
+        width: Math.min(implicitWidth, bar.width - 2 * Math.max(workspaces.width, rightRow.width) - 80)
     }
 
     // ── right: tray, status, power ──
     RowLayout {
+        id: rightRow
         anchors {
             right: parent.right
             rightMargin: 12
@@ -85,20 +84,25 @@ PanelWindow {
         }
         spacing: 8
 
-        Tray {}
-
         Capsule {
-            KeyboardWidget {}
-            BluetoothWidget {}
-            NetworkWidget {}
             VolumeWidget {}
             Loader {
                 active: Host.isLaptop
                 visible: active
                 sourceComponent: BatteryWidget {}
             }
+            KeyboardWidget {}
+            // BluetoothWidget {}
+            NetworkWidget {}
+            ControlCenterButton {
+                targetScreen: bar.screen
+            }
         }
 
+        Tray {}
+        Capsule {
+            ClockWidget {}
+        }
         Capsule {
             PowerWidget {}
         }

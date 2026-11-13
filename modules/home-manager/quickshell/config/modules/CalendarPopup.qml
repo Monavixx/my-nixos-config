@@ -18,22 +18,32 @@ PopupPanel {
     contentHeight: col.implicitHeight + 28
 
     onOpenChanged: if (open) {
-        today = new Date()
-        viewDate = new Date()
+        today = new Date();
+        viewDate = new Date();
     }
 
-    function shift(n) { viewDate = new Date(year, month + n, 1) }
+    function shift(n) {
+        viewDate = new Date(year, month + n, 1);
+    }
 
     component NavButton: Rectangle {
         id: nav
         property string glyph
-        signal clicked()
+        signal clicked
         implicitWidth: 28
         implicitHeight: 28
         radius: 14
         color: navMa.containsMouse ? Theme.hover : "transparent"
-        Behavior on color { ColorAnimation { duration: Theme.animFast } }
-        BarIcon { anchors.centerIn: parent; text: nav.glyph; font.pixelSize: Config.fontSize - 1 }
+        Behavior on color {
+            ColorAnimation {
+                duration: Theme.animFast
+            }
+        }
+        BarIcon {
+            anchors.centerIn: parent
+            text: nav.glyph
+            font.pixelSize: Config.fontSize - 1
+        }
         MouseArea {
             id: navMa
             anchors.fill: parent
@@ -50,7 +60,10 @@ PopupPanel {
 
         RowLayout {
             Layout.fillWidth: true
-            NavButton { glyph: "\uf053"; onClicked: root.shift(-1) }
+            NavButton {
+                glyph: "\uf053"
+                onClicked: root.shift(-1)
+            }
             BarText {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
@@ -62,7 +75,10 @@ PopupPanel {
                     onClicked: root.viewDate = new Date()
                 }
             }
-            NavButton { glyph: "\uf054"; onClicked: root.shift(1) }
+            NavButton {
+                glyph: "\uf054"
+                onClicked: root.shift(1)
+            }
         }
 
         RowLayout {
@@ -91,10 +107,7 @@ PopupPanel {
                     required property int index
                     readonly property int day: index - root.offset + 1
                     readonly property bool valid: day >= 1 && day <= root.daysInMonth
-                    readonly property bool isToday: valid
-                        && day === root.today.getDate()
-                        && root.month === root.today.getMonth()
-                        && root.year === root.today.getFullYear()
+                    readonly property bool isToday: valid && day === root.today.getDate() && root.month === root.today.getMonth() && root.year === root.today.getFullYear()
                     width: 40
                     height: 34
 
@@ -103,9 +116,12 @@ PopupPanel {
                         width: 30
                         height: 30
                         radius: 15
-                        color: dayCell.isToday ? Theme.accent
-                             : dayMa.containsMouse && dayCell.valid ? Theme.hover : "transparent"
-                        Behavior on color { ColorAnimation { duration: Theme.animFast } }
+                        color: dayCell.isToday ? Theme.accent : dayMa.containsMouse && dayCell.valid ? Theme.hover : "transparent"
+                        Behavior on color {
+                            ColorAnimation {
+                                duration: Theme.animFast
+                            }
+                        }
                     }
                     BarText {
                         anchors.centerIn: parent
@@ -114,7 +130,11 @@ PopupPanel {
                         color: dayCell.isToday ? Theme.crust : Theme.fg
                         font.bold: dayCell.isToday
                     }
-                    MouseArea { id: dayMa; anchors.fill: parent; hoverEnabled: true }
+                    MouseArea {
+                        id: dayMa
+                        anchors.fill: parent
+                        hoverEnabled: true
+                    }
                 }
             }
         }

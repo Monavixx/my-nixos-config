@@ -13,7 +13,11 @@ BarButton {
     BarIcon {
         text: "\uf293"
         color: !root.powered ? Theme.fgMuted : root.connectedCount > 0 ? Theme.blue : Theme.fg
-        Behavior on color { ColorAnimation { duration: Theme.animNormal } }
+        Behavior on color {
+            ColorAnimation {
+                duration: Theme.animNormal
+            }
+        }
     }
     BarText {
         visible: root.connectedCount > 0
@@ -22,5 +26,6 @@ BarButton {
     }
 
     // For now: click toggles the adapter. A device list popup comes later.
-    onClicked: if (root.adapter) root.adapter.enabled = !root.adapter.enabled
+    onClicked: if (root.adapter)
+        root.adapter.enabled = !root.adapter.enabled
 }

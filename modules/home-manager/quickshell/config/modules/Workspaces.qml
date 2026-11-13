@@ -17,7 +17,7 @@ Rectangle {
     property real lastWheel: 0
 
     function exists(id) {
-        return Hyprland.workspaces.values.some(w => w.id === id)
+        return Hyprland.workspaces.values.some(w => w.id === id);
     }
 
     implicitWidth: count * cell + pad * 2
@@ -38,8 +38,18 @@ Rectangle {
         color: Theme.accent
         opacity: inRange ? 1 : 0
 
-        Behavior on x { NumberAnimation { duration: 280; easing.type: Easing.OutBack; easing.overshoot: 0.9 } }
-        Behavior on opacity { NumberAnimation { duration: Theme.animNormal } }
+        Behavior on x {
+            NumberAnimation {
+                duration: 280
+                easing.type: Easing.OutBack
+                easing.overshoot: 0.9
+            }
+        }
+        Behavior on opacity {
+            NumberAnimation {
+                duration: Theme.animNormal
+            }
+        }
     }
 
     Repeater {
@@ -63,16 +73,23 @@ Rectangle {
                 radius: height / 2
                 color: Theme.hover
                 opacity: ma.containsMouse && !cellItem.isActive ? 1 : 0
-                Behavior on opacity { NumberAnimation { duration: Theme.animFast } }
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: Theme.animFast
+                    }
+                }
             }
 
             BarText {
                 anchors.centerIn: parent
                 text: cellItem.wsId
                 font.bold: cellItem.isActive
-                color: cellItem.isActive ? Theme.crust
-                     : cellItem.isOccupied ? Theme.fg : Theme.fgMuted
-                Behavior on color { ColorAnimation { duration: Theme.animNormal } }
+                color: cellItem.isActive ? Theme.crust : cellItem.isOccupied ? Theme.fg : Theme.fgMuted
+                Behavior on color {
+                    ColorAnimation {
+                        duration: Theme.animNormal
+                    }
+                }
             }
 
             MouseArea {
@@ -80,17 +97,8 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onClicked: Hyprland.dispatch("workspace " + cellItem.wsId)
+                onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = " + cellItem.wsId + " })")
             }
-        }
-    }
-
-    WheelHandler {
-        onWheel: e => {
-            const now = Date.now()
-            if (now - root.lastWheel < 120) return
-            root.lastWheel = now
-            Hyprland.dispatch(e.angleDelta.y > 0 ? "workspace e-1" : "workspace e+1")
         }
     }
 }

@@ -19,8 +19,10 @@ PopupWindow {
 
     // Toggle that survives the "click on the button that also dismisses the grab" race.
     function toggle() {
-        if (open) open = false
-        else if (Date.now() - closedAt > 250) open = true
+        if (open)
+            open = false;
+        else if (Date.now() - closedAt > 250)
+            open = true;
     }
 
     anchor.item: anchorItem
@@ -36,8 +38,8 @@ PopupWindow {
         windows: [root]
         active: root.open
         onCleared: {
-            root.closedAt = Date.now()
-            root.open = false
+            root.closedAt = Date.now();
+            root.open = false;
         }
     }
 
@@ -52,15 +54,31 @@ PopupWindow {
         border.width: 1
         border.color: Theme.glassBorder
 
-        Behavior on opacity { NumberAnimation { duration: 170; easing.type: Easing.OutCubic } }
-        Behavior on y { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 170
+                easing.type: Easing.OutCubic
+            }
+        }
+        Behavior on y {
+            NumberAnimation {
+                duration: 200
+                easing.type: Easing.OutCubic
+            }
+        }
 
         Rectangle {
             anchors.fill: parent
             radius: parent.radius
             gradient: Gradient {
-                GradientStop { position: 0.0; color: Theme.highlightTop }
-                GradientStop { position: 0.5; color: Theme.highlightBottom }
+                GradientStop {
+                    position: 0.0
+                    color: Theme.highlightTop
+                }
+                GradientStop {
+                    position: 0.5
+                    color: Theme.highlightBottom
+                }
             }
         }
 
