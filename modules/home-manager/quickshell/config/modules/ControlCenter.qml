@@ -10,8 +10,31 @@ import qs.services
 PopupPanel {
     id: root
 
+    // Router state: "main" or a submenu name
+    property string page: "main"
+    property string hint: ""
+
+    // Height of the page being shown / of the tallest page (the window is sized
+    // for the tallest one so the frame can animate between heights smoothly)
+    readonly property real pageHeight: {
+        const kids = viewport.children;
+        for (let i = 0; i < kids.length; i++)
+            if (kids[i].shown === true)
+                return kids[i].implicitHeight;
+        return 0;
+    }
+    readonly property real maxPageHeight: {
+        let m = 0;
+        const kids = viewport.children;
+        for (let i = 0; i < kids.length; i++)
+            if (kids[i].shown !== undefined)
+                m = Math.max(m, kids[i].implicitHeight);
+        return m;
+    }
+
     contentWidth: 340
-    contentHeight: col.implicitHeight + 28
+    contentHeight: pageHeight + 28
+    windowHeight: maxPageHeight + 28
 
     readonly property var sink: Pipewire.defaultAudioSink
     readonly property real volume: sink && sink.audio ? sink.audio.volume : 0
@@ -24,9 +47,14 @@ PopupPanel {
 
     onOpenChanged: {
         SystemStats.active = open;
-        if (open)
+        if (open) {
             Toggles.refreshWifi();
+            Wallpaper.refreshState();
+        }
     }
+    // Start on the main page next time (changes while hidden, so nobody sees it)
+    onVisibleChanged: if (!visible)
+        page = "main"
 
     component StatRing: ColumnLayout {
         id: sr
@@ -68,113 +96,169 @@ PopupPanel {
         }
     }
 
-    ColumnLayout {
-        id: col
+    // All pages live here and slide horizontally
+    Item {
+        id: viewport
         width: parent.width
-        spacing: 12
+        height: root.pageHeight
 
-        MediaCard {
-            active: root.open
-        }
+        // ── main page ──
+        Item {
+            id: mainPage
+            readonly property bool shown: root.page === "main"
 
-        // ── volume ──
-        RowLayout {
-            Layout.fillWidth: true
-            spacing: 6
+            width: parent.width
+            height: implicitHeight
+            implicitHeight: mainCol.implicitHeight
+            x: shown ? 0 : -(width + 24)
+            opacity: shown ? 1 : 0
+            visible: opacity > 0.01
+            enabled: shown
 
-            BarButton {
-                horizontalPadding: 8
-                onClicked: if (root.sink && root.sink.audio)
-                    root.sink.audio.muted = !root.sink.audio.muted
-                BarIcon {
-                    Layout.preferredWidth: 20
-                    horizontalAlignment: Text.AlignHCenter
-                    text: root.muted || root.volume < 0.01 ? "\uf026" : root.volume < 0.5 ? "\uf027" : "\uf028"
-                    color: root.muted ? Theme.fgMuted : Theme.fg
+            Behavior on x {
+                NumberAnimation {
+                    duration: 240
+                    easing.type: Easing.OutCubic
                 }
             }
-            GlassSlider {
-                Layout.fillWidth: true
-                value: root.volume
-                tint: root.muted ? Theme.fgMuted : Theme.accent
-                onMoved: v => {
-                    if (root.sink && root.sink.audio)
-                        root.sink.audio.volume = v;
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 200
+                    easing.type: Easing.OutCubic
                 }
             }
-            BarText {
-                Layout.preferredWidth: 38
-                horizontalAlignment: Text.AlignRight
-                text: Math.round(root.volume * 100) + "%"
-                color: Theme.fgDim
+
+            ColumnLayout {
+                id: mainCol
+                width: parent.width
+                spacing: 12
+
+                MediaCard {
+                    active: root.open
+                }
+
+                // ── volume ──
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 6
+
+                    BarButton {
+                        horizontalPadding: 8
+                        onClicked: if (root.sink && root.sink.audio)
+                            root.sink.audio.muted = !root.sink.audio.muted
+                        BarIcon {
+                            Layout.preferredWidth: 20
+                            horizontalAlignment: Text.AlignHCenter
+                            text: root.muted || root.volume < 0.01 ? "\uf026" : root.volume < 0.5 ? "\uf027" : "\uf028"
+                            color: root.muted ? Theme.fgMuted : Theme.fg
+                        }
+                    }
+                    GlassSlider {
+                        Layout.fillWidth: true
+                        value: root.volume
+                        tint: root.muted ? Theme.fgMuted : Theme.accent
+                        onMoved: v => {
+                            if (root.sink && root.sink.audio)
+                                root.sink.audio.volume = v;
+                        }
+                    }
+                    BarText {
+                        Layout.preferredWidth: 38
+                        horizontalAlignment: Text.AlignRight
+                        text: Math.round(root.volume * 100) + "%"
+                        color: Theme.fgDim
+                    }
+                }
+
+                // ── quick toggles ──
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    QuickTile {
+                        glyph: "\uf1eb"
+                        label: "Wi-Fi"
+                        on: Toggles.wifi
+                        onClicked: Toggles.toggleWifi()
+                    }
+                    QuickTile {
+                        glyph: "\uf293"
+                        label: "Bluetooth"
+                        on: root.adapter ? root.adapter.enabled : false
+                        onColor: Theme.blue
+                        onClicked: if (root.adapter)
+                            root.adapter.enabled = !root.adapter.enabled
+                    }
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    CircleButton {
+                        glyph: "\uf03e"
+                        label: "Wallpaper"
+                        badge: Wallpaper.timerActive
+                        onClicked: root.page = "wallpaper"
+                        onHoveredChanged: root.hint = hovered ? label : ""
+                    }
+
+                    Item {
+                        Layout.fillWidth: true
+                    }   // pushes the hint to the right
+
+                    BarText {
+                        text: root.hint
+                        color: Theme.fgMuted
+                        font.pixelSize: Config.fontSize - 1
+                    }
+                }
+
+                Rectangle {
+                    Layout.fillWidth: true
+                    height: 1
+                    color: Theme.capsuleBorder
+                }
+
+                // ── system stats ──
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 4
+
+                    StatRing {
+                        value: SystemStats.cpu
+                        tint: Theme.blue
+                        center: Math.round(SystemStats.cpu * 100) + "%"
+                        label: "CPU"
+                    }
+                    StatRing {
+                        value: SystemStats.memUsed / SystemStats.memTotal
+                        tint: Theme.mauve
+                        center: Math.round(SystemStats.memUsed / SystemStats.memTotal * 100) + "%"
+                        label: "RAM"
+                        detail: SystemStats.memUsed.toFixed(1) + "/" + SystemStats.memTotal.toFixed(0) + "G"
+                    }
+                    StatRing {
+                        value: SystemStats.temp / 100
+                        tint: SystemStats.temp >= 80 ? Theme.red : SystemStats.temp >= 60 ? Theme.yellow : Theme.green
+                        center: SystemStats.temp < 0 ? "--" : Math.round(SystemStats.temp) + "°"
+                        label: "Temp"
+                    }
+                    StatRing {
+                        value: SystemStats.diskUsed / SystemStats.diskTotal
+                        tint: Theme.teal
+                        center: Math.round(SystemStats.diskUsed / SystemStats.diskTotal * 100) + "%"
+                        label: "Disk"
+                        detail: SystemStats.diskUsed.toFixed(0) + "/" + SystemStats.diskTotal.toFixed(0) + "G"
+                    }
+                }
             }
         }
 
-        // ── quick toggles ──
-        RowLayout {
-            Layout.fillWidth: true
-            spacing: 8
-
-            QuickTile {
-                glyph: "\uf1eb"
-                label: "Wi-Fi"
-                on: Toggles.wifi
-                onClicked: Toggles.toggleWifi()
-            }
-            QuickTile {
-                glyph: "\uf293"
-                label: "Bluetooth"
-                on: root.adapter ? root.adapter.enabled : false
-                onColor: Theme.blue
-                onClicked: if (root.adapter)
-                    root.adapter.enabled = !root.adapter.enabled
-            }
-            // QuickTile {
-            //     glyph: "\uf0f4"
-            //     label: "Caffeine"
-            //     on: Toggles.caffeine
-            //     onColor: Theme.peach
-            //     onClicked: Toggles.caffeine = !Toggles.caffeine
-            // }
-        }
-
-        Rectangle {
-            Layout.fillWidth: true
-            height: 1
-            color: Theme.capsuleBorder
-        }
-
-        // ── system stats ──
-        RowLayout {
-            Layout.fillWidth: true
-            spacing: 4
-
-            StatRing {
-                value: SystemStats.cpu
-                tint: Theme.blue
-                center: Math.round(SystemStats.cpu * 100) + "%"
-                label: "CPU"
-            }
-            StatRing {
-                value: SystemStats.memUsed / SystemStats.memTotal
-                tint: Theme.mauve
-                center: Math.round(SystemStats.memUsed / SystemStats.memTotal * 100) + "%"
-                label: "RAM"
-                detail: SystemStats.memUsed.toFixed(1) + "/" + SystemStats.memTotal.toFixed(0) + "G"
-            }
-            StatRing {
-                value: SystemStats.temp / 100
-                tint: SystemStats.temp >= 80 ? Theme.red : SystemStats.temp >= 60 ? Theme.yellow : Theme.green
-                center: SystemStats.temp < 0 ? "--" : Math.round(SystemStats.temp) + "°"
-                label: "Temp"
-            }
-            StatRing {
-                value: SystemStats.diskUsed / SystemStats.diskTotal
-                tint: Theme.teal
-                center: Math.round(SystemStats.diskUsed / SystemStats.diskTotal * 100) + "%"
-                label: "Disk"
-                detail: SystemStats.diskUsed.toFixed(0) + "/" + SystemStats.diskTotal.toFixed(0) + "G"
-            }
+        // ── submenus (add new pages here) ──
+        WallpaperPage {
+            current: root.page
+            onBack: root.page = "main"
         }
     }
 }

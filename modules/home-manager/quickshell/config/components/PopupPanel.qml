@@ -15,6 +15,12 @@ PopupWindow {
     property int contentHeight: 300
     readonly property int gap: 8
 
+    property bool closeOnLeave: true      // set to false on a popup to opt out
+    property bool hasHovered: false       // true once the mouse has been over the popup
+
+    onOpenChanged: if (open)
+        hasHovered = false
+
     default property alias content: body.data
 
     // Toggle that survives the "click on the button that also dismisses the grab" race.
@@ -30,7 +36,16 @@ PopupWindow {
     anchor.gravity: Edges.Bottom
 
     implicitWidth: contentWidth
-    implicitHeight: contentHeight + gap
+    // new property, next to contentHeight
+    property int windowHeight: contentHeight
+
+    // replace the implicitHeight line
+    implicitHeight: windowHeight + gap
+
+    // new line, right under `color: "transparent"` (clicks pass through the empty area)
+    mask: Region {
+        item: frame
+    }
     visible: open || frame.opacity > 0.01
     color: "transparent"
 
@@ -40,6 +55,15 @@ PopupWindow {
         onCleared: {
             root.closedAt = Date.now();
             root.open = false;
+        }
+    }
+    // Small grace period so a brief slip out of the popup doesn't close it
+    Timer {
+        id: leaveTimer
+        interval: 10
+        onTriggered: {
+            if (root.open && root.hasHovered && !hover.hovered && !press.active)
+                root.open = false;
         }
     }
 
@@ -64,6 +88,38 @@ PopupWindow {
             NumberAnimation {
                 duration: 200
                 easing.type: Easing.OutCubic
+            }
+        }
+        Behavior on height {
+            NumberAnimation {
+                duration: 220
+                easing.type: Easing.OutCubic
+            }
+        }
+
+        // Escape: the popup holds keyboard focus (via the focus grab), so apps never see it
+        focus: true
+        Keys.onEscapePressed: root.open = false
+
+        HoverHandler {
+            id: hover
+            onHoveredChanged: {
+                if (hovered) {
+                    root.hasHovered = true;
+                    leaveTimer.stop();
+                } else if (root.hasHovered && root.closeOnLeave) {
+                    leaveTimer.restart();
+                }
+            }
+        }
+
+        // Don't close while a button is held, so dragging a slider out of the popup is safe
+        PointHandler {
+            id: press
+            acceptedButtons: Qt.AllButtons
+            onActiveChanged: {
+                if (!active && !hover.hovered && root.hasHovered && root.closeOnLeave)
+                    leaveTimer.restart();
             }
         }
 

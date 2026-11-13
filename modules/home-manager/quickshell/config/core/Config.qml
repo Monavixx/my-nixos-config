@@ -23,4 +23,10 @@ Singleton {
 
     readonly property string cpuTempPath: "/sys/class/thermal/thermal_zone0/temp"
     readonly property string diskPath: "/"
+
+    readonly property string wallpaperDir: Quickshell.env("XDG_PICTURES_DIR") + "/wallpapers"
+    // TODO: random
+    readonly property var awwwArgs: ["--transition-type", "grow", "--transition-duration", "1.2"]
+    readonly property var randomCommand: ["awww-random"]
+    readonly property string wallpaperTimer: "awww-random.timer"
 }
