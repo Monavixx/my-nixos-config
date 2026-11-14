@@ -59,11 +59,20 @@ PopupPanel {
     }
 
     onKeyPressed: event => {
-        if (page !== "main")
-            return;
         if (event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier))
             return;
         const kids = viewport.children;
+
+        if (page !== "main") {
+            for (let i = 0; i < kids.length; i++) {
+                if (kids[i].shown === true && kids[i].name === page) {
+                    kids[i].keyPressed(event);
+                    return;
+                }
+            }
+            return;
+        }
+
         for (let i = 0; i < kids.length; i++) {
             const k = kids[i].key;
             if (k && event.key === k.toUpperCase().charCodeAt(0)) {

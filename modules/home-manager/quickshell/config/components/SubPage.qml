@@ -12,6 +12,7 @@ Item {
     property string current
     property string key       // single letter or digit that opens this page from the main page
     signal back
+    signal keyPressed(var event)   // keys forwarded by the popup while this page is shown
 
     default property alias content: body.data
     readonly property bool shown: current === name
