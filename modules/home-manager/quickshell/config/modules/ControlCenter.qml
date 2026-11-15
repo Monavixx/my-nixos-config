@@ -226,6 +226,13 @@ PopupPanel {
                         onClicked: if (root.adapter)
                             root.adapter.enabled = !root.adapter.enabled
                     }
+                    QuickTile {
+                        glyph: "\uf1f6"
+                        label: "DND"
+                        on: Notifs.dnd
+                        onColor: Theme.mauve
+                        onClicked: Notifs.dnd = !Notifs.dnd
+                    }
                 }
 
                 RowLayout {
@@ -247,6 +254,15 @@ PopupPanel {
                         badge: Tasks.overdue > 0
                         badgeColor: Theme.red
                         onClicked: root.page = "tasks"
+                        onHoveredChanged: root.hint = hovered ? hintText : ""
+                    }
+                    CircleButton {
+                        glyph: "\uf0f3"
+                        label: "Notifications"
+                        key: notificationsPage.key
+                        badge: Notifs.unread > 0
+                        badgeColor: Theme.peach
+                        onClicked: root.page = "notifications"
                         onHoveredChanged: root.hint = hovered ? hintText : ""
                     }
 
@@ -312,6 +328,12 @@ PopupPanel {
         TasksPage {
             id: tasksPage
             key: "t"
+            current: root.page
+            onBack: root.page = "main"
+        }
+        NotificationsPage {
+            id: notificationsPage
+            key: "n"
             current: root.page
             onBack: root.page = "main"
         }

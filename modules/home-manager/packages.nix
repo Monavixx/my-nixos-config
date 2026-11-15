@@ -1,7 +1,6 @@
 { pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
-    llm-agents.dsh
     unzip
     bind
     kdePackages.qtdeclarative

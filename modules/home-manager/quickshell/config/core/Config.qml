@@ -21,7 +21,7 @@ Singleton {
     readonly property var networkTui: ["nmtui"]
     readonly property var powerMenu: ["wlogout"]
 
-    readonly property string cpuTempPath: "/sys/class/thermal/thermal_zone0/temp"
+    readonly property string cpuTempPath: ""
     readonly property string diskPath: "/"
 
     readonly property string wallpaperDir: Quickshell.env("XDG_PICTURES_DIR") + "/wallpapers"
@@ -31,4 +31,10 @@ Singleton {
     readonly property string wallpaperTimer: "awww-random.timer"
 
     readonly property var taskFilter: ["status:pending"]   // e.g. ["+READY"] or ["project:home", "status:pending"]
+
+    readonly property int notifTimeout: 6        // seconds, when the app doesn't specify one
+    readonly property int notifMaxPopups: 4
+    readonly property int notifCriticalTimeout: 0   // seconds for critical popups that don't set their own timeout; 0 = never
+    readonly property bool notifDebug: false        // logs every incoming notification
+    readonly property int notifMaxHistory: 30
 }

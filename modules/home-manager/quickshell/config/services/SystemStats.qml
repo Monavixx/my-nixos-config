@@ -20,13 +20,15 @@ Singleton {
     property real prevTotal: 0
     property real prevIdle: 0
 
-    onActiveChanged: if (!active) prevTotal = 0
+    onActiveChanged: if (!active)
+        prevTotal = 0
 
     function update() {
-        statFile.reload()
-        memFile.reload()
-        tempFile.reload()
-        if (!diskProc.running) diskProc.running = true
+        statFile.reload();
+        memFile.reload();
+        tempFile.reload();
+        if (!diskProc.running)
+            diskProc.running = true;
     }
 
     Timer {
@@ -41,14 +43,15 @@ Singleton {
         id: statFile
         path: "/proc/stat"
         onLoaded: {
-            const f = text().split("\n")[0].trim().split(/\s+/).slice(1).map(Number)
-            const idle = f[3] + (f[4] || 0)
-            const total = f.slice(0, 8).reduce((a, b) => a + b, 0)
-            const dt = total - root.prevTotal
-            const di = idle - root.prevIdle
-            if (root.prevTotal > 0 && dt > 0) root.cpu = Math.max(0, Math.min(1, 1 - di / dt))
-            root.prevTotal = total
-            root.prevIdle = idle
+            const f = text().split("\n")[0].trim().split(/\s+/).slice(1).map(Number);
+            const idle = f[3] + (f[4] || 0);
+            const total = f.slice(0, 8).reduce((a, b) => a + b, 0);
+            const dt = total - root.prevTotal;
+            const di = idle - root.prevIdle;
+            if (root.prevTotal > 0 && dt > 0)
+                root.cpu = Math.max(0, Math.min(1, 1 - di / dt));
+            root.prevTotal = total;
+            root.prevIdle = idle;
         }
     }
 
@@ -56,22 +59,36 @@ Singleton {
         id: memFile
         path: "/proc/meminfo"
         onLoaded: {
-            const t = text()
+            const t = text();
             const get = k => {
-                const m = t.match(new RegExp(k + ":\\s+(\\d+)"))
-                return m ? Number(m[1]) : 0
+                const m = t.match(new RegExp(k + ":\\s+(\\d+)"));
+                return m ? Number(m[1]) : 0;
+            };
+            root.memTotal = get("MemTotal") / 1048576;
+            root.memUsed = root.memTotal - get("MemAvailable") / 1048576;
+        }
+    }
+    // Detected at startup, unless Config.cpuTempPath overrides it
+    property string tempPath: Config.cpuTempPath
+
+    Process {
+        running: Config.cpuTempPath === ""
+        command: ["sh", Quickshell.shellPath("scripts/cpu-temp-path.sh")]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const p = text.trim();
+                if (p)
+                    root.tempPath = p;
             }
-            root.memTotal = get("MemTotal") / 1048576
-            root.memUsed = root.memTotal - get("MemAvailable") / 1048576
         }
     }
 
     FileView {
         id: tempFile
-        path: Config.cpuTempPath
+        path: root.tempPath
         onLoaded: {
-            const v = Number(text())
-            root.temp = isNaN(v) ? -1 : v / 1000
+            const v = Number(text());
+            root.temp = isNaN(v) ? -1 : v / 1000;
         }
     }
 
@@ -80,11 +97,12 @@ Singleton {
         command: ["df", "-B1", "--output=used,size", Config.diskPath]
         stdout: StdioCollector {
             onStreamFinished: {
-                const l = text.trim().split("\n")[1]
-                if (!l) return
-                const p = l.trim().split(/\s+/).map(Number)
-                root.diskUsed = p[0] / 1073741824
-                root.diskTotal = p[1] / 1073741824
+                const l = text.trim().split("\n")[1];
+                if (!l)
+                    return;
+                const p = l.trim().split(/\s+/).map(Number);
+                root.diskUsed = p[0] / 1073741824;
+                root.diskTotal = p[1] / 1073741824;
             }
         }
     }

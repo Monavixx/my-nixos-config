@@ -15,7 +15,11 @@ in
     "/dev/disk/by-uuid/3815679e-a773-4c82-be2c-ca08327105af";
 
   hardware.bluetooth.enable = true;
-  services.upower.enable = true;
+  services.upower = {
+    enable = true;
+    percentageLow = 20;
+    percentageCritical = 10;
+  };
 
   services.auto-cpufreq = {
     enable = true;

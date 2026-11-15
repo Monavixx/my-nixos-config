@@ -45,6 +45,10 @@
       bindkey -M menuselect '^I' menu-complete
       bindkey -M menuselect '^[[Z' reverse-menu-complete
       bindkey '^[[Z' reverse-menu-complete
+
+      if [[ -o interactive ]]; then
+        fastfetch
+      fi
     '';
     profileExtra = ''
       if uwsm check may-start; then

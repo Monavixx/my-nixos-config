@@ -2,7 +2,6 @@
   inputs,
   username,
   hostname,
-  config,
   ...
 }:
 {
@@ -15,7 +14,6 @@
       GDK_BACKEND = "wayland";
       NIXOS_OZONE_WL = "1";
       QS_HOST_TYPE = hostname;
-      GROQ_API_KEY = "$(cat ${config.age.secrets.groq.path})";
     };
     sessionPath = [
     ];
@@ -24,6 +22,8 @@
   programs.nix-index-database.comma.enable = true;
 
   imports = [
+    ./dsh.nix
+    ./fastfetch.nix
     ./taskwarrior.nix
     ./ayugram-desktop/ayugram-desktop.nix
     ./ripgrep.nix
@@ -56,19 +56,16 @@
     ./wlogout.nix
     ./neovim/neovim.nix
     ./awww.nix
-    # ./hourly-productivity-control.nix
     ./waybar.nix
     ./hyprland-config/hyprland.nix
     ./xdg.nix
   ];
 
-  services.swaync = {
-    enable = true;
-  };
+  services.poweralertd.enable = true;
 
   services.playerctld.enable = true;
 
-  programs.hyprlock.enable = true;
+  # programs.hyprlock.enable = true;
   programs.bash = {
     enable = true;
     profileExtra = ''

@@ -8,11 +8,21 @@ import Quickshell.Hyprland
 Singleton {
     id: root
 
-    signal dashboardToggled()
+    signal dashboardToggled
 
     GlobalShortcut {
         name: "dashboard"
         description: "Toggle the control center"
         onPressed: root.dashboardToggled()
+    }
+    GlobalShortcut {
+        name: "notification-dnd"
+        description: "Toggle Do Not Disturb"
+        onPressed: Notifs.dnd = !Notifs.dnd
+    }
+    GlobalShortcut {
+        name: "notification-dismiss"
+        description: "Hide the visible notification popups"
+        onPressed: Notifs.dismissPopups()
     }
 }
