@@ -636,6 +636,25 @@
         "type": "github"
       }
     },
+    "libfprint-ft9362-src": {
+      "flake": false,
+      "locked": {
+        "host": "gitlab.freedesktop.org",
+        "lastModified": 1777815125,
+        "narHash": "sha256-vDRsp+dNqiCiS2aM2Jm2xVr2IJDpRamFMJBTFSq4kDI=",
+        "owner": "libfprint",
+        "repo": "libfprint",
+        "rev": "19375e57cbb95839330505f465e3428c7120f0e5",
+        "type": "gitlab"
+      },
+      "original": {
+        "host": "gitlab.freedesktop.org",
+        "owner": "libfprint",
+        "repo": "libfprint",
+        "rev": "19375e57cbb95839330505f465e3428c7120f0e5",
+        "type": "gitlab"
+      }
+    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix",
@@ -872,6 +891,7 @@
         "elephant": "elephant",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "libfprint-ft9362-src": "libfprint-ft9362-src",
         "llm-agents": "llm-agents",
         "melodec": "melodec",
         "nix-index-database": "nix-index-database",

@@ -37,4 +37,8 @@ Singleton {
     readonly property int notifCriticalTimeout: 0   // seconds for critical popups that don't set their own timeout; 0 = never
     readonly property bool notifDebug: false        // logs every incoming notification
     readonly property int notifMaxHistory: 30
+
+    readonly property string lockPamPassword: "quickshell-lock"
+    readonly property string lockPamFingerprint: "quickshell-fprint"
+    readonly property string avatarPath: Quickshell.env("HOME") + "/.face"
 }

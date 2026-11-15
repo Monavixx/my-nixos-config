@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   inputs,
   hostname,
@@ -9,6 +8,7 @@
 
 {
   imports = [
+    ./quickshell.nix
     ./nix.nix
     ./virt-manager.nix
     ./rqbit.nix

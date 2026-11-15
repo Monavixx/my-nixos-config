@@ -3,6 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    libfprint-ft9362-src = {
+      type = "gitlab";
+      host = "gitlab.freedesktop.org";
+      owner = "libfprint";
+      repo = "libfprint";
+      rev = "19375e57cbb95839330505f465e3428c7120f0e5";
+      flake = false;
+    };
     llm-agents.url = "github:numtide/llm-agents.nix";
     ayugram-desktop = {
       url = "github:ndfined-crp/ayugram-desktop";
@@ -102,6 +110,7 @@
               nixpkgs.overlays = [
                 inputs.nur.overlays.default
                 inputs.llm-agents.overlays.shared-nixpkgs
+                (import ./overlays/libfprint.nix { inherit inputs; })
               ];
               home-manager.backupFileExtension = "backup";
               home-manager.useGlobalPkgs = true;

@@ -5,9 +5,17 @@ let
 in
 {
   imports = [
+    ../../modules/nixos/fprintd.nix
     ../../modules/nixos/common.nix
     ./hardware-configuration.nix
   ];
+
+  security.pam.services = {
+    quickshell-fprint = {
+      fprintAuth = true;
+      unixAuth = false; # fingerprint only; the password has its own service
+    };
+  };
 
   fileSystems."/".options = [ "noatime" ];
 

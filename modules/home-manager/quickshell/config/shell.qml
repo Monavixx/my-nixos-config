@@ -13,4 +13,5 @@ ShellRoot {
         model: Quickshell.screens
         NotificationPopups {}
     }
+    Lock {}
 }
