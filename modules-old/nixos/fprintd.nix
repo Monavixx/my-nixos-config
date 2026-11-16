@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   # fprintd-enroll to register a new fingerprint.
   services.fprintd = {

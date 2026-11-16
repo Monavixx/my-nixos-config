@@ -1,8 +1,15 @@
 {
   description = "monavixx's NixOS config";
 
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    import-tree.url = "github:denful/import-tree";
     libfprint-ft9362-src = {
       type = "gitlab";
       host = "gitlab.freedesktop.org";
@@ -72,63 +79,4 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  outputs =
-    {
-      home-manager,
-      nixpkgs,
-      ...
-    }@inputs:
-    let
-      defaults = rec {
-        username = "monavixx";
-        flakeRoot = "/home/${username}/nixos";
-        system = "x86_64-linux";
-        theme = rec {
-          flavor = "mocha";
-          accent = "flamingo";
-          name = "catppuccin-${flavor}-${accent}-standard";
-        };
-      };
-      mkHost =
-        {
-          ...
-        }@args:
-        let
-          host = defaults // args;
-        in
-        nixpkgs.lib.nixosSystem {
-          inherit (host) system;
-          specialArgs = {
-            inherit inputs host;
-            inherit (host) hostname username flakeRoot;
-          };
-          modules = [
-            ./hosts/${host.hostname}/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              nixpkgs.overlays = [
-                inputs.nur.overlays.default
-                inputs.llm-agents.overlays.shared-nixpkgs
-                (import ./overlays/libfprint.nix { inherit inputs; })
-              ];
-              home-manager.backupFileExtension = "backup";
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit inputs host;
-                inherit (host) hostname username flakeRoot;
-              };
-              home-manager.users.${host.username} = import ./hosts/${host.hostname}/home.nix;
-              environment.systemPackages = [ ];
-            }
-          ];
-        };
-    in
-    {
-      nixosConfigurations = {
-        laptop = mkHost { hostname = "laptop"; };
-        desktop = mkHost { hostname = "desktop"; };
-      };
-    };
 }
