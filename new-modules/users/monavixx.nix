@@ -11,10 +11,11 @@ in
       "video"
     ];
     fullName = "Monavixx";
+    flakeRoot = "${home}/nixos";
 
     home = "/home/${username}";
     xdg = {
-      download = "${home}/download";
+      download = "${home}/downloads";
     };
 
     rqbit.instances = {
@@ -30,5 +31,9 @@ in
     users.users.${username} = {
       shell = pkgs.zsh;
     };
+  };
+
+  flake.modules.homeManager."user-${username}" = { ... }: {
+
   };
 }

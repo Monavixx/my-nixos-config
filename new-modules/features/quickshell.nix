@@ -1,3 +1,4 @@
+{ self, ... }:
 {
   flake.modules.nixos.quickshell = {
     security.pam.services = {
@@ -6,5 +7,9 @@
         fprintAuth = false;
       };
     };
+  };
+
+  flake.modules.homeManager.quickshell = {
+    imports = [ self.modules.homeManager.wallpapers ];
   };
 }

@@ -55,7 +55,6 @@
     ./packages.nix
     ./wlogout.nix
     ./neovim/neovim.nix
-    ./awww.nix
     ./waybar.nix
     ./hyprland-config/hyprland.nix
     ./xdg.nix

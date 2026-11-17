@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 let
   host = "laptop";
 in
@@ -11,7 +11,9 @@ in
     in
     {
       imports = [
-        inputs.self.modules.nixos.base
+        self.modules.nixos.base
+        self.modules.nixos.workstation
+
         ./_hardware-configuration.nix
       ];
       security.pam.services = {

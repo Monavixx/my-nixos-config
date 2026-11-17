@@ -13,6 +13,10 @@
             type = lib.types.listOf lib.types.str;
             default = [ ];
           };
+          flakeRoot = lib.mkOption {
+            type = lib.types.str;
+            description = "Absolute path of this user's live checkout of the flake.";
+          };
           locale = lib.mkOption {
             type = lib.types.str;
             default = "en_US.UTF-8";

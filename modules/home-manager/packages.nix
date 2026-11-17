@@ -19,21 +19,16 @@
     rmpc
     ffmpeg
     fd
-    qt6Packages.qt6ct
-    qt6Packages.qtstyleplugin-kvantum
     discord-canary
     pavucontrol
     libreoffice
     wl-clipboard
     grim
     slurp
-    (import ./custom-commands/awww-random/awww-random.nix { inherit pkgs; })
-    inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
     hyprpolkitagent
     libnotify # notify-send
     obsidian
     bruno
-    pkgs.catppuccin-cursors.mochaDark
     # google-chrome
     # telegram-desktop
   ];

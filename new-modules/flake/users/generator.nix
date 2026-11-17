@@ -18,9 +18,7 @@
 
       home-manager.users.${name} = {
         imports = [ self.modules.homeManager."user-${name}" ];
-        home.stateVersion = lib.mkDefault config.system.stateVersion;
       };
-
     }
   ) config.users;
 
@@ -32,6 +30,7 @@
         self.modules.homeManager.base
       ];
       home.language.base = user.locale;
+      my.flakeRoot = lib.mkDefault user.flakeRoot;
     }
   ) config.users;
 }
