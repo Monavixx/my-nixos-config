@@ -29,7 +29,18 @@
       imports = [
         self.modules.homeManager.base
       ];
-      home.language.base = user.locale;
+      home = {
+        username = name;
+        homeDirectory = "/home/${name}";
+        language.base = user.locale;
+        sessionVariables = {
+          SAL_USE_VCLPLUGIN = "gtk4"; # or "gtk" for GTK3
+          GDK_BACKEND = "wayland";
+          NIXOS_OZONE_WL = "1";
+          # TODO: replace this mechanic
+          # QS_HOST_TYPE = hostname;
+        };
+      };
       my.flakeRoot = lib.mkDefault user.flakeRoot;
     }
   ) config.users;

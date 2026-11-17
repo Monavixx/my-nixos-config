@@ -8,7 +8,9 @@
       useGlobalPkgs = true;
       useUserPackages = true;
       sharedModules = [
-        { home.stateVersion = lib.mkDefault config.system.stateVersion; }
+        {
+          home.stateVersion = lib.mkDefault config.system.stateVersion;
+        }
       ];
     };
   };

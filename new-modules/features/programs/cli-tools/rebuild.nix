@@ -1,10 +1,14 @@
 {
   flake.modules.homeManager.rebuild =
-    { pkgs, ... }:
+    {
+      config,
+      pkgs,
+      ...
+    }:
     let
       rebuild = pkgs.writeShellScriptBin "rebuild" ''
         cd ~/nixos && git add .
-        sudo nixos-rebuild switch --flake ~/nixos#${hostname}
+        sudo nixos-rebuild switch --flake ~/nixos#${config.my.hostname}
       '';
     in
     {
