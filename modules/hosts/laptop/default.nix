@@ -59,5 +59,6 @@ in
     users = [
       "monavixx"
     ];
+    stateVersion = "26.05";
   };
 }
