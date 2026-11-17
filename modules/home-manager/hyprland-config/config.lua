@@ -21,7 +21,7 @@ hl.config({
         active_opacity     = 0.9,
         inactive_opacity   = 0.85,
         fullscreen_opacity = 1,
-        -- screen_shader      = "shaders/cozy.frag",
+        screen_shader      = "shaders/night-work.frag",
 
         shadow             = {
             enabled = true,

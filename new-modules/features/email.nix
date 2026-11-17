@@ -1,4 +1,5 @@
 { self, ... }: {
+  # TODO: split it
   flake.modules.homeManager.email =
     {
       pkgs,
