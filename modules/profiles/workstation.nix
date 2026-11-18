@@ -4,5 +4,6 @@
     ignore-power-key
     nix
     nixpkgs
+    boot-systemd
   ];
 }

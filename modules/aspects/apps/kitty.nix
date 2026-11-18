@@ -9,7 +9,6 @@
           enable_audio_bell = false;
         };
       };
-      catppuccin.kitty.enable = true;
       xdg = {
         terminal-exec = {
           enable = true;
