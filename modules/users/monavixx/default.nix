@@ -10,6 +10,7 @@
       hyprland
       nix-index
       kitty
+      quickshell
     ]);
   };
 }
