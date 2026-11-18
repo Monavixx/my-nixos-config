@@ -6,7 +6,7 @@
       (den.batteries.user-shell "zsh")
     ]
     ++ (with den.aspects; [
-      agenix
+      email
       hyprland
       nix-index
       kitty

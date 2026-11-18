@@ -1,5 +1,9 @@
 { den, ... }: {
-  den.hosts.x86_64-linux.laptop.users.monavixx = { };
+  den.hosts.x86_64-linux.laptop.users.monavixx = {
+    email = "dperelygin0@gmail.com";
+    fullName = "Monavixx";
+    emailPasswordSecret = "dp0-gmail-app-password";
+  };
 
   den.aspects.laptop = {
     includes = with den.aspects; [
