@@ -1,0 +1,104 @@
+hl.config({
+    -- Uncomment if using time-dependent shaders.
+    -- debug = {
+    --     damage_tracking = 0,
+    --     vfr = false,
+    -- },
+    general = {
+        gaps_in          = 5,
+        gaps_out         = 10,
+
+        resize_on_border = true,
+        allow_tearing    = false,
+        layout           = "master",
+        border_size      = 0,
+    },
+
+    decoration = {
+        rounding           = 10,
+        rounding_power     = 2,
+
+        active_opacity     = 0.9,
+        inactive_opacity   = 0.85,
+        fullscreen_opacity = 1,
+        screen_shader      = "shaders/night-work.frag",
+
+        shadow             = {
+            enabled = true,
+            color = { colors = { "rgba(ff66b55a)", "rgba(cba6f75a)" }, angle = 45 },
+            color_inactive = "rgba(5959595a)",
+            range = 8,
+            render_power = 4
+        },
+        blur               = {
+            enabled  = true,
+            size     = 4,
+            passes   = 2,
+            vibrancy = 0.1696,
+            special  = true,
+            variant  = "water",
+            water    = {
+                damping = 1,
+                duration = 15,
+                radius = 50,
+            },
+        },
+        motion_blur        = {
+            enabled = true,
+        },
+        wobble             = {
+            enabled = true,
+            stiffness = 700,
+            -- value_epsilon = 8,
+        },
+    },
+
+    animations = {
+        enabled = true,
+        workspace_wraparound = true,
+    },
+
+    ecosystem = {
+        no_donation_nag = true
+    }
+})
+hl.config({
+    master = {
+        new_status = "inherit",
+        mfact = 0.75,
+        orientation = "left",
+        focus_master_on_close = true
+    },
+})
+hl.config({
+    dwindle = {
+        preserve_split = true,
+    },
+})
+hl.config({
+    scrolling = {
+        fullscreen_on_one_column = true,
+    },
+})
+hl.config({
+    misc = {
+        force_default_wallpaper = -1,
+        disable_hyprland_logo   = false,
+        focus_on_activate       = true,
+    },
+})
+hl.config({
+    input = {
+        kb_layout          = "us,ru",
+        kb_variant         = "",
+        kb_model           = "",
+        kb_options         = "caps:escape",
+        kb_rules           = "",
+
+        follow_mouse       = 1,
+
+        sensitivity        = 0, -- -1.0 - 1.0, 0 means no modification.
+
+        numlock_by_default = false
+    },
+})

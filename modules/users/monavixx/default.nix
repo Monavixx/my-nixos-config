@@ -7,7 +7,9 @@
     ]
     ++ (with den.aspects; [
       agenix
+      hyprland
       nix-index
+      kitty
     ]);
   };
 }
