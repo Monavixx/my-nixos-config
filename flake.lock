@@ -166,6 +166,21 @@
         "type": "github"
       }
     },
+    "den": {
+      "locked": {
+        "lastModified": 1794889876,
+        "narHash": "sha256-4RqSFoccwakuCWob78d28kUOjuHdhT1TVETLNaX8NdA=",
+        "owner": "denful",
+        "repo": "den",
+        "rev": "12b2146708a7bc96f26604ae6dd4fd1d0c0d4691",
+        "type": "github"
+      },
+      "original": {
+        "owner": "denful",
+        "repo": "den",
+        "type": "github"
+      }
+    },
     "elephant": {
       "inputs": {
         "nixpkgs": "nixpkgs",
@@ -923,6 +938,7 @@
         "ayugram-desktop": "ayugram-desktop",
         "boilersharp": "boilersharp",
         "catppuccin": "catppuccin",
+        "den": "den",
         "elephant": "elephant",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",

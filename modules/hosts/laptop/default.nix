@@ -1,0 +1,21 @@
+{ den, ... }: {
+  den.hosts.x86_64-linux.laptop.users.monavixx = { };
+
+  den.aspects.laptop = {
+    includes = with den.aspects; [
+      workstation
+      bluetooth
+      battery
+      brightness
+    ];
+    nixos = {
+      imports = [ ./_hardware-configuration.nix ];
+
+      fileSystems."/".options = [ "noatime" ];
+
+      boot.initrd.luks.devices."luks-3815679e-a773-4c82-be2c-ca08327105af".device =
+        "/dev/disk/by-uuid/3815679e-a773-4c82-be2c-ca08327105af";
+
+    };
+  };
+}
