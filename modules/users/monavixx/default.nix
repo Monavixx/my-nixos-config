@@ -11,6 +11,7 @@
       nix-index
       kitty
       quickshell
+      catppuccin
     ]);
   };
 }

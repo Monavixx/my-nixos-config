@@ -28,6 +28,11 @@
         ...
       }:
       {
+        home.sessionVariables = {
+          SAL_USE_VCLPLUGIN = "gtk4"; # or "gtk" for GTK3
+          GDK_BACKEND = "wayland";
+          NIXOS_OZONE_WL = "1";
+        };
         wayland.windowManager.hyprland = {
           enable = true;
           systemd.enable = false;
