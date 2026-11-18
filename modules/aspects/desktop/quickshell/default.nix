@@ -20,7 +20,7 @@
         configs.main = ./config;
         activeConfig = "main";
         systemd = {
-          enable = false;
+          enable = true;
           target = "graphical-session.target";
         };
       };

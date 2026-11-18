@@ -5,6 +5,7 @@
       desktop-session
       ignore-power-key
     ];
+    # TODO: I expect a warning in here, change to provides.to-hosts.nixos
     nixos =
       { pkgs, ... }:
       let
@@ -33,11 +34,10 @@
           xwayland.enable = true;
           package = null;
           portalPackage = null;
-          # TODO: finish quickshell config and run it from the store instead of repo
+          # hl.on("hyprland.start", function()
+          #     hl.exec_cmd("uwsm app -- qs -p /home/monavixx/nixos-den/quickshell")
+          # end)
           extraConfig = ''
-            hl.on("hyprland.start", function()
-                hl.exec_cmd("uwsm app -- qs -p /home/monavixx/nixos-den/quickshell")
-            end)
             require("autostart")
             require("config")
             require("animations")
