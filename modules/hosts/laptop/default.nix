@@ -11,7 +11,6 @@
       bluetooth
       battery
       brightness
-      hyprland
     ];
     nixos = {
       imports = [ ./_hardware-configuration.nix ];

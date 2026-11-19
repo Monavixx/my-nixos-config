@@ -5,5 +5,11 @@
     nix
     nixpkgs
     boot-systemd
+    kernel
+    locale
+    dns-quad9
+    fonts
+    networking
+    poweralertd
   ];
 }
