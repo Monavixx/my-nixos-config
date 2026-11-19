@@ -16,6 +16,7 @@
       bluetooth
       battery
       brightness
+      poweralertd
     ];
     nixos = {
       imports = [ ./_hardware-configuration.nix ];

@@ -1,6 +1,9 @@
 { den, ... }:
 {
   den.aspects.workstation.includes = with den.aspects; [
+    audio
+    audio-realtime
+    agenix
     ignore-power-key
     nix
     nixpkgs
@@ -10,6 +13,8 @@
     dns-quad9
     fonts
     networking
-    poweralertd
+    kdeconnect
+    amnezia-vpn
+    thunar
   ];
 }

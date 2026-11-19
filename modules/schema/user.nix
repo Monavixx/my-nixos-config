@@ -38,7 +38,4 @@
     }
   ];
   den.schema.user.classes = lib.mkDefault [ "homeManager" ];
-  den.schema.user.includes = [
-    den.aspects.home-manager
-  ];
 }

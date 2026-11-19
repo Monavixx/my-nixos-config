@@ -1,15 +1,11 @@
 {
   den.aspects.home-manager = {
-    homeManager = {
-
-    };
-    provides.to-hosts.nixos = { user }: {
+    nixos = {
       home-manager = {
         backupFileExtension = "backup";
         useGlobalPkgs = true;
         useUserPackages = true;
       };
-
     };
   };
 }
