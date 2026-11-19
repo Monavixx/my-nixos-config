@@ -66,6 +66,13 @@
           color-scheme = "prefer-dark";
           gtk-theme = "catppuccin-${flavor}-${accent}-standard";
         };
+        catppuccin.firefox = {
+          enable = true;
+          profiles.default = {
+            enable = true;
+            force = true;
+          };
+        };
       };
   };
 }

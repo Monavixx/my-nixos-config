@@ -1,4 +1,4 @@
-{ lib, den, ... }:
+{ lib, ... }:
 {
   den.schema.user.imports = [
     {

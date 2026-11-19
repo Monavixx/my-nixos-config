@@ -20,6 +20,31 @@
       mpd
       wallpapers
       poweralertd
+      dsh
+      firefox
+      zsh
+      direnv
+      fastfetch
+      starship
     ]);
   };
+
+  homeManager =
+    { config, ... }:
+    {
+      xdg.userDirs = {
+        enable = true;
+        createDirectories = true;
+        setSessionVariables = true;
+        pictures = "${config.home.homeDirectory}/pictures";
+        videos = "${config.home.homeDirectory}/videos";
+        music = "${config.home.homeDirectory}/music";
+        download = "${config.home.homeDirectory}/downloads";
+        documents = "${config.home.homeDirectory}/documents";
+        desktop = null;
+        projects = null;
+        publicShare = null;
+        templates = null;
+      };
+    };
 }

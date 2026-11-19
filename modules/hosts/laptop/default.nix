@@ -3,6 +3,7 @@
     email = "dperelygin0@gmail.com";
     fullName = "Monavixx";
     emailPasswordSecret = "dp0-gmail-app-password";
+    groqApiKeySecret = "groq";
     rqbit = {
       httpPort = 3030;
       listenPort = 4240;
