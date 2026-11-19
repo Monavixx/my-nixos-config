@@ -3,6 +3,11 @@
     email = "dperelygin0@gmail.com";
     fullName = "Monavixx";
     emailPasswordSecret = "dp0-gmail-app-password";
+    rqbit = {
+      httpPort = 3030;
+      listenPort = 4240;
+      downloadDir = "downloads";
+    };
   };
 
   den.aspects.laptop = {

@@ -12,6 +12,8 @@
       kitty
       quickshell
       catppuccin
+      rqbit
+      libvirt
     ]);
   };
 }
