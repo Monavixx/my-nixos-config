@@ -22,7 +22,6 @@
     llm-agents.url = "github:numtide/llm-agents.nix";
     ayugram-desktop = {
       url = "github:ndfined-crp/ayugram-desktop";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -65,7 +64,6 @@
     };
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     boilersharp = {
       url = "github:angeljreyes/boilersharp.nvim";

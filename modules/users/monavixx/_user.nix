@@ -4,6 +4,7 @@
   emailPasswordSecret = "dp0-gmail-app-password";
   groqApiKeySecret = "groq";
   flakeRoot = "/home/monavixx/nixos";
+  autostartHyprland = true;
   rqbit = {
     instances.default = {
       httpPort = 3030;

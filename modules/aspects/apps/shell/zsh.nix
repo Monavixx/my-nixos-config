@@ -58,11 +58,6 @@
             fastfetch
           fi
         '';
-        profileExtra = ''
-          if uwsm check may-start; then
-              exec uwsm start hyprland.desktop
-          fi
-        '';
         defaultKeymap = "viins";
       };
       catppuccin.zsh-syntax-highlighting.enable = true;

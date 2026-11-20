@@ -6,7 +6,6 @@
         alsa.enable = true;
         alsa.support32Bit = true;
         pulse.enable = true;
-        jack.enable = true;
       };
 
       services.pulseaudio.enable = false;
@@ -16,7 +15,12 @@
     homeManager =
       { pkgs, ... }:
       {
-        home.packages = [ pkgs.pavucontrol ];
+        home.packages = [
+          pkgs.pavucontrol
+
+          # Run jack-programs by `pw-jack <run-command>`
+          pkgs.pipewire.jack
+        ];
         services.playerctld.enable = true;
       };
   };

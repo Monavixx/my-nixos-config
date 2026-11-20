@@ -1,4 +1,5 @@
 hl.on("hyprland.start", function()
+    hl.exec_cmd("uwsm finalize")
     -- hl.exec_cmd("uwsm app -- waybar")
     hl.exec_cmd("uwsm app -- AmneziaVPN")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")

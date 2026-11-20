@@ -1,6 +1,9 @@
 { den, inputs, ... }: {
   den.aspects.dsh = {
-    includes = [ den.aspects.agenix ];
+    includes = [
+      den.aspects.agenix
+      den.aspects.llm-agents
+    ];
 
     homeManager =
       {
@@ -31,8 +34,7 @@
         };
       in
       {
-        age.secrets.${user.groqApiKeySecret}.file =
-          ../../../../secrets/${user.groqApiKeySecret}.age;
+        age.secrets.${user.groqApiKeySecret}.file = ../../../../secrets/${user.groqApiKeySecret}.age;
         home.packages = [ dsh ];
       };
   };

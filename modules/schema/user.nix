@@ -23,6 +23,10 @@
           type = lib.types.str;
           description = "Path to this user's NixOS flake.";
         };
+        autostartHyprland = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+        };
         rqbit.instances = lib.mkOption {
           default = { };
           type = lib.types.attrsOf (

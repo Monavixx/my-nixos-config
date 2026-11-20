@@ -5,8 +5,7 @@
       desktop-session
       ignore-power-key
     ];
-    # TODO: I expect a warning in here, change to provides.to-hosts.nixos
-    nixos =
+    provides.to-hosts.nixos =
       { pkgs, ... }:
       let
         system = pkgs.stdenv.hostPlatform.system;
@@ -20,11 +19,20 @@
           package = hyprland.hyprland;
           portalPackage = hyprland.xdg-desktop-portal-hyprland;
         };
+        nix.settings = {
+          extra-substituters = [
+            "https://hyprland.cachix.org"
+          ];
+          extra-trusted-public-keys = [
+            "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+          ];
+        };
       };
     homeManager =
       {
         pkgs,
         lib,
+        user,
         ...
       }:
       {
@@ -53,16 +61,20 @@
           plugins = [ ];
         };
 
-        programs.bash.profileExtra = lib.mkAfter ''
-          if uwsm check may-start; then
-              exec uwsm start hyprland.desktop
-          fi
-        '';
-        programs.zsh.profileExtra = lib.mkAfter ''
-          if uwsm check may-start; then
-              exec uwsm start hyprland.desktop
-          fi
-        '';
+        programs.bash.profileExtra = lib.mkIf user.autostartHyprland (
+          lib.mkAfter ''
+            if uwsm check may-start; then
+                exec uwsm start hyprland.desktop
+            fi
+          ''
+        );
+        programs.zsh.profileExtra = lib.mkIf user.autostartHyprland (
+          lib.mkAfter ''
+            if uwsm check may-start; then
+                exec uwsm start hyprland.desktop
+            fi
+          ''
+        );
 
         home.packages = [ pkgs.hyprpolkitagent ];
         # TODO: Before switching to this config, remove all current home-manager symlinks
