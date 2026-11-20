@@ -5,8 +5,10 @@
   groqApiKeySecret = "groq";
   flakeRoot = "/home/monavixx/nixos";
   rqbit = {
-    httpPort = 3030;
-    listenPort = 4240;
-    downloadDir = "downloads";
+    instances.default = {
+      httpPort = 3030;
+      listenPort = 4240;
+      downloadDir = "downloads";
+    };
   };
 }

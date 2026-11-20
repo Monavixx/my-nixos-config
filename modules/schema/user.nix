@@ -15,8 +15,13 @@
           type = lib.types.str;
           description = "Name of the agenix secret containing this user's email app password.";
         };
-        options.flakeRoot = lib.mkOption {
+        groqApiKeySecret = lib.mkOption {
           type = lib.types.str;
+          description = "Name of the agenix secret containing this user's Groq API key.";
+        };
+        flakeRoot = lib.mkOption {
+          type = lib.types.str;
+          description = "Path to this user's NixOS flake.";
         };
         rqbit.instances = lib.mkOption {
           default = { };

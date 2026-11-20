@@ -44,50 +44,50 @@
       nh
       github-copilot-cli
     ]);
-  };
 
-  homeManager =
-    { config, pkgs, ... }:
-    {
-      xdg = {
-        userDirs = {
-          enable = true;
-          createDirectories = true;
-          setSessionVariables = true;
-          pictures = "${config.home.homeDirectory}/pictures";
-          videos = "${config.home.homeDirectory}/videos";
-          music = "${config.home.homeDirectory}/music";
-          download = "${config.home.homeDirectory}/downloads";
-          documents = "${config.home.homeDirectory}/documents";
-          desktop = null;
-          projects = null;
-          publicShare = null;
-          templates = null;
+    homeManager =
+      { config, pkgs, ... }:
+      {
+        xdg = {
+          userDirs = {
+            enable = true;
+            createDirectories = true;
+            setSessionVariables = true;
+            pictures = "${config.home.homeDirectory}/pictures";
+            videos = "${config.home.homeDirectory}/videos";
+            music = "${config.home.homeDirectory}/music";
+            download = "${config.home.homeDirectory}/downloads";
+            documents = "${config.home.homeDirectory}/documents";
+            desktop = null;
+            projects = null;
+            publicShare = null;
+            templates = null;
+          };
+          mimeApps.enable = true;
+          configFile."mimeapps.list".force = true;
         };
-        mimeApps.enable = true;
-        configFile."mimeapps.list".force = true;
+        home.packages = with pkgs; [
+          unzip
+          bind
+          statix
+          deadnix
+          streamrip
+          vlc
+          p7zip
+          wev
+          nodejs-slim_latest
+          rmpc
+          ffmpeg
+          fd
+          discord-canary
+          libreoffice
+          wl-clipboard
+          grim
+          slurp
+          libnotify # notify-send
+          obsidian
+          bruno
+        ];
       };
-      home.packages = with pkgs; [
-        unzip
-        bind
-        statix
-        deadnix
-        streamrip
-        vlc
-        p7zip
-        wev
-        nodejs-slim_latest
-        rmpc
-        ffmpeg
-        fd
-        discord-canary
-        libreoffice
-        wl-clipboard
-        grim
-        slurp
-        libnotify # notify-send
-        obsidian
-        bruno
-      ];
-    };
+  };
 }

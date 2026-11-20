@@ -86,11 +86,7 @@ PanelWindow {
 
         Capsule {
             VolumeWidget {}
-            Loader {
-                active: Host.isLaptop
-                visible: active
-                sourceComponent: BatteryWidget {}
-            }
+            BatteryWidget {}
             KeyboardWidget {}
             // BluetoothWidget {}
             NetworkWidget {}

@@ -1,5 +1,8 @@
 { den, ... }: {
-  den.hosts.x86_64-linux.laptop.users.monavixx = import ../../users/monavixx/_user.nix;
+  den.hosts.x86_64-linux.laptop = {
+    users.monavixx = import ../../users/monavixx/_user.nix;
+    settings.quickshell.fingerprint = true;
+  };
 
   den.aspects.laptop = {
     includes = with den.aspects; [

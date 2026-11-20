@@ -20,7 +20,7 @@ Singleton {
     property bool capsLock: false
     property string pending: ""        // the password being checked; cleared right after
 
-    readonly property bool fingerprint: Host.isLaptop
+    readonly property bool fingerprint: Host.fingerprintEnabled
 
     signal failed()
     signal succeeded()

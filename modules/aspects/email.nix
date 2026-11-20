@@ -27,7 +27,7 @@
         '';
       in
       {
-        age.secrets.${secretName}.file = ../../../secrets/${secretName}.age;
+        age.secrets.${secretName}.file = ../../secrets/${secretName}.age;
 
         accounts.email.maildirBasePath = "maildir";
         accounts.email.accounts.${accountName} = {

@@ -1,4 +1,4 @@
-{ den, ... }: {
+{ den, inputs, ... }: {
   den.aspects.dsh = {
     includes = [ den.aspects.agenix ];
 
@@ -15,7 +15,7 @@
 
         dsh = pkgs.symlinkJoin {
           name = "dsh-wrapped";
-          paths = [ pkgs.llm-agents.dsh ];
+          paths = [ inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.dsh ];
 
           nativeBuildInputs = [ pkgs.makeWrapper ];
 
@@ -31,11 +31,9 @@
         };
       in
       {
-        # imports = [ self.modules.homeManager.agenix ];
-        config.age.secrets.groq.file = ../../../../secrets/${user.groqApiKeySecret}.age;
-        home.packages = [
-          dsh
-        ];
+        age.secrets.${user.groqApiKeySecret}.file =
+          ../../../../secrets/${user.groqApiKeySecret}.age;
+        home.packages = [ dsh ];
       };
   };
 }

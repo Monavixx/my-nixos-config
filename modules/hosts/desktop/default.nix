@@ -1,6 +1,7 @@
 { den, ... }:
 {
   den.hosts.x86_64-linux.desktop.users.monavixx = import ../../users/monavixx/_user.nix;
+  den.hosts.x86_64-linux.desktop.settings.quickshell.fingerprint = false;
 
   den.aspects.desktop = {
     includes = [ den.aspects.workstation ];
@@ -53,11 +54,9 @@
       powerManagement.cpuFreqGovernor = "performance";
     };
 
-    homeManager = { pkgs, ... }: {
+    provides.to-users.homeManager = { pkgs, ... }: {
       home.packages = with pkgs; [ guitarix ];
-      provides.to-users.homeManager = {
-        xdg.configFile."hypr/host.lua".source = ./hyprland.lua;
-      };
+      xdg.configFile."hypr/host.lua".source = ./hyprland.lua;
     };
   };
 }

@@ -272,14 +272,11 @@ Item {
         }
     }
 
-    // ── bottom right: battery (laptop only) ──
+    // ── bottom right: battery ──
     Capsule {
-        visible: Host.isLaptop
+        visible: battery.visible
         anchors { right: parent.right; bottom: parent.bottom; margins: 24 }
 
-        Loader {
-            active: Host.isLaptop
-            sourceComponent: BatteryWidget {}
-        }
+        BatteryWidget { id: battery }
     }
 }
