@@ -25,7 +25,7 @@ Singleton {
     readonly property string diskPath: "/"
 
     readonly property string wallpaperDir: Quickshell.env("XDG_PICTURES_DIR") + "/wallpapers"
-    // TODO: random
+    // TODO: randomize transition
     readonly property var awwwArgs: ["--transition-type", "grow", "--transition-duration", "1.2"]
     readonly property var randomCommand: ["awww-random"]
     readonly property string wallpaperTimer: "awww-random.timer"
