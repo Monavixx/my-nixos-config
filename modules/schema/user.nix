@@ -15,6 +15,9 @@
           type = lib.types.str;
           description = "Name of the agenix secret containing this user's email app password.";
         };
+        options.flakeRoot = lib.mkOption {
+          type = lib.types.str;
+        };
         rqbit.instances = lib.mkOption {
           default = { };
           type = lib.types.attrsOf (
