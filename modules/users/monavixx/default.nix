@@ -6,6 +6,7 @@
       (den.batteries.user-shell "zsh")
     ]
     ++ (with den.aspects; [
+      audio
       email
       hyprland
       nix-index

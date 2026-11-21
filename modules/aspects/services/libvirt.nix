@@ -1,7 +1,6 @@
 {
-  # user aspect
   den.aspects.libvirt = {
-    provides.to-hosts.nixos = { lib, pkgs, ... }: {
+    nixos = { lib, pkgs, ... }: {
       virtualisation.libvirtd = {
         enable = true;
         qemu.swtpm.enable = true;

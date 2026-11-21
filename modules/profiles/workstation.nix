@@ -1,12 +1,21 @@
 { den, ... }:
 {
   den.aspects.workstation.includes = with den.aspects; [
+    zsh
+    hyprland
+    ayugram-desktop
+    firefox
+    walker
+    llm-agents
+    quickshell
+    libvirt
     audio
     audio-realtime
     agenix
     ignore-power-key
     nix
     nixpkgs
+    nur
     boot-systemd
     kernel
     locale

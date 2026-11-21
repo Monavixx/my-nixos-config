@@ -1,6 +1,6 @@
 {
   den.aspects.zsh = {
-    provides.to-hosts.nixos = { pkgs, ... }: {
+    nixos = { pkgs, ... }: {
       programs.zsh.enable = true;
       environment = {
         shells = [ pkgs.zsh ];

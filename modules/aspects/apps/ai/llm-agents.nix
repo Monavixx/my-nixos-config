@@ -1,6 +1,6 @@
 {
   den.aspects.llm-agents = {
-    provides.to-hosts.nixos = {
+    nixos = {
       nix.settings = {
         extra-substituters = [
           "https://cache.numtide.com"

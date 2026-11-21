@@ -5,7 +5,7 @@
       desktop-session
       ignore-power-key
     ];
-    provides.to-hosts.nixos =
+    nixos =
       { pkgs, ... }:
       let
         system = pkgs.stdenv.hostPlatform.system;

@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   den.aspects.ayugram-desktop = {
-    provides.to-hosts.nixos = {
+    nixos = {
       nix.settings = {
         extra-substituters = [
           "https://ayugram-desktop.cachix.org"

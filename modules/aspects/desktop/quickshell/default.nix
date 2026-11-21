@@ -7,7 +7,7 @@
       description = "Enable fingerprint authentication in Quickshell's lock screen.";
     };
     includes = with den.aspects; [ wallpapers ];
-    provides.to-hosts.nixos = { lib, config, ... }: {
+    nixos = { lib, config, ... }: {
       security.pam.services = {
         quickshell-fprint = lib.mkIf config.services.fprintd.enable {
           fprintAuth = true;

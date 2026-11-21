@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   den.aspects.walker = {
-    provides.to-hosts.nixos = {
+    nixos = {
       nix.settings = {
         extra-substituters = [
           "https://walker.cachix.org"

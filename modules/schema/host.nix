@@ -9,7 +9,6 @@
 
   den.schema.host.includes = [
     den.batteries.mutual-provider
-    den.batteries.user-aspects
     den.aspects.home-manager
   ];
   den.schema.host.imports = [
