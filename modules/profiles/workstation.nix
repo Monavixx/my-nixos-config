@@ -1,6 +1,8 @@
 { den, ... }:
 {
   den.aspects.workstation.includes = with den.aspects; [
+    docker
+    rqbit
     zsh
     hyprland
     ayugram-desktop
