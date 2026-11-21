@@ -12,7 +12,7 @@
       security.rtkit.enable = true; # lets PipeWire get realtime scheduling
     };
 
-    homeManager =
+    provides.to-users.homeManager =
       { pkgs, ... }:
       {
         home.packages = [
