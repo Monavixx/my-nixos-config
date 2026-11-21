@@ -8,6 +8,7 @@
           inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
       in
       {
+        hardware.amdgpu.initrd.enable = true;
         hardware.graphics = {
           package = hyprland-pkgs-unstable.mesa;
         };

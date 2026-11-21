@@ -7,6 +7,7 @@
   den.aspects.laptop = {
     includes = with den.aspects; [
       workstation
+      lanzaboote
       bluetooth
       battery
       brightness

@@ -1,6 +1,7 @@
 { den, ... }:
 {
   den.aspects.workstation.includes = with den.aspects; [
+    catppuccin
     docker
     rqbit
     zsh
