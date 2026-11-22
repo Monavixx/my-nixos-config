@@ -5,7 +5,9 @@
   };
 
   den.aspects.desktop = {
-    includes = [ den.aspects.workstation ];
+    includes = [
+    den.aspects.lanzaboote
+    den.aspects.workstation ];
     nixos = { config, ... }: {
       imports = [ ./_hardware-configuration.nix ];
 
