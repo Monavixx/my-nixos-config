@@ -19,7 +19,6 @@ Singleton {
     readonly property var terminal: ["kitty", "-e"]   // used as: terminal + command
     readonly property var audioMixer: ["pavucontrol"]
     readonly property var networkTui: ["nmtui"]
-    readonly property var powerMenu: ["wlogout"]
 
     readonly property string cpuTempPath: ""
     readonly property string diskPath: "/"

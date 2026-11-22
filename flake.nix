@@ -78,9 +78,5 @@
       url = "github:benfowler/telescope-luasnip.nvim";
       flake = false;
     };
-    melodec = {
-      url = "github:Monavixx/Melodec";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 }

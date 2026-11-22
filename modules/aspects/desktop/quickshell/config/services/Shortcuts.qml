@@ -9,6 +9,7 @@ Singleton {
     id: root
 
     signal dashboardToggled
+    signal powerToggled
 
     GlobalShortcut {
         name: "dashboard"
@@ -24,5 +25,10 @@ Singleton {
         name: "notification-dismiss"
         description: "Hide the visible notification popups"
         onPressed: Notifs.dismissPopups()
+    }
+    GlobalShortcut {
+        name: "power"
+        description: "Toggle the power menu"
+        onPressed: root.powerToggled()
     }
 }

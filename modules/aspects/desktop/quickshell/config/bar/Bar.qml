@@ -100,7 +100,9 @@ PanelWindow {
             ClockWidget {}
         }
         Capsule {
-            PowerWidget {}
+            PowerWidget {
+                targetScreen: bar.screen
+            }
         }
     }
 }

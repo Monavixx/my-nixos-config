@@ -6,6 +6,7 @@
       (den.batteries.user-shell "zsh")
     ]
     ++ (with den.aspects; [
+      syncthing
       audio
       email
       hyprland
@@ -33,7 +34,6 @@
       docker
       fzf
       git
-      melodec
       mpv
       rebuild
       ripgrep
