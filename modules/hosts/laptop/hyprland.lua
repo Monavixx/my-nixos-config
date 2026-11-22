@@ -29,8 +29,10 @@ hl.gesture({
         hl.exec_cmd("playerctl play-pause")
     end
 })
-local volume_gesture = function(change) hl.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ " ..
-    math.abs(change) .. "%" .. (change < 0 and "-" or "+")) end
+local volume_gesture = function(change)
+    hl.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ " ..
+        math.abs(change) .. "%" .. (change < 0 and "-" or "+"))
+end
 hl.gesture({
     fingers = 4,
     direction = "vertical",
@@ -53,6 +55,32 @@ hl.gesture({
         hl.exec_cmd("playerctl previous")
     end
 })
+local SECONDS_PER_UNIT = 0.15 -- sensitivity: seconds seeked per unit of finger movement
+local STEP_THRESHOLD   = 1    -- only call playerctl once at least this many seconds have built up
+
+local acc              = 0
+
+local function seek(dx)
+    acc = acc + dx * SECONDS_PER_UNIT
+    if math.abs(acc) >= STEP_THRESHOLD then
+        local secs = math.floor(math.abs(acc))
+        hl.exec_cmd(string.format("playerctl position %d%s", secs, acc > 0 and "+" or "-"))
+        acc = acc - (acc > 0 and secs or -secs)
+    end
+end
+
+hl.gesture({
+    fingers   = 4,
+    direction = "horizontal",
+    mods      = "SHIFT",
+    action    = {
+        start  = function(e)
+            acc = 0; seek(e.delta.x)
+        end,
+        update = function(e) seek(e.delta.x) end,
+        finish = function(e) acc = 0 end,
+    },
+})
 
 hl.bind("switch:Lid Switch", hl.dsp.exec_cmd("hyprlock"));
 
@@ -70,6 +98,5 @@ hl.bind("SHIFT + META + f23", function()
     })
     -- Optional: Send a desktop notification to confirm the toggle state
     hl.dispatch(hl.dsp.exec_cmd("notify-send -t 1000 'Touchpad' '" ..
-    (touchpad_enabled and "Enabled" or "Disabled") .. "'"))
+        (touchpad_enabled and "Enabled" or "Disabled") .. "'"))
 end)
-

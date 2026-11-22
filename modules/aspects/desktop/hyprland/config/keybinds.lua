@@ -47,6 +47,14 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+-- SHIFT + media next/prev = seek forward/back
+local SEEK_SECONDS = 5
+
+hl.bind("SHIFT + XF86AudioNext", hl.dsp.exec_cmd("playerctl position " .. SEEK_SECONDS .. "+"),
+    { locked = true, repeating = true, description = "Seek forward" })
+
+hl.bind("SHIFT + XF86AudioPrev", hl.dsp.exec_cmd("playerctl position " .. SEEK_SECONDS .. "-"),
+    { locked = true, repeating = true, description = "Seek backward" })
 
 hl.bind("SUPER + CTRL + right", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind("SUPER + CTRL + left", hl.dsp.focus({ workspace = "e-1" }))
