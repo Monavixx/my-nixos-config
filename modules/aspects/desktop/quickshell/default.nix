@@ -20,6 +20,9 @@
       };
     };
     homeManager = { host, pkgs, ... }: {
+      home.sessionVariables = {
+        QS_CONFIG_NAME = "main";
+      };
       programs.quickshell = {
         enable = true;
         configs.main = pkgs.runCommand "quickshell-main-config" { } ''
@@ -40,7 +43,7 @@
         activeConfig = "main";
         systemd = {
           enable = true;
-          target = "graphical-session.target";
+          # target = "graphical-session.target";
         };
       };
     };

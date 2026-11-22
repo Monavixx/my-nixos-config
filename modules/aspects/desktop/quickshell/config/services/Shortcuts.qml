@@ -9,7 +9,15 @@ Singleton {
     id: root
 
     signal dashboardToggled
-    signal powerToggled
+    property bool powerMenuOpen: false
+
+    function togglePowerMenu() {
+        powerMenuOpen = !powerMenuOpen;
+    }
+
+    function closePowerMenu() {
+        powerMenuOpen = false;
+    }
 
     GlobalShortcut {
         name: "dashboard"
@@ -29,6 +37,6 @@ Singleton {
     GlobalShortcut {
         name: "power"
         description: "Toggle the power menu"
-        onPressed: root.powerToggled()
+        onPressed: root.togglePowerMenu()
     }
 }

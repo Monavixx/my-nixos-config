@@ -12,6 +12,11 @@ hl.layer_rule({
     blur_popups = true,
     no_anim = true,
 })
+hl.layer_rule({
+    match = { namespace = "qs-power-menu" },
+    blur = true,
+    ignore_alpha = 0.2,
+})
 
 hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
 hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })

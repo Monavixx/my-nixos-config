@@ -77,7 +77,6 @@
         );
 
         home.packages = [ pkgs.hyprpolkitagent ];
-        # TODO: Before switching to this config, remove all current home-manager symlinks
         xdg.configFile = {
           "hypr/shaders" = {
             source = ./shaders;

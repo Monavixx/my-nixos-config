@@ -13,5 +13,9 @@ ShellRoot {
         model: Quickshell.screens
         NotificationPopups {}
     }
+    Variants {
+        model: Quickshell.screens
+        PowerMenu {}
+    }
     Lock {}
 }
