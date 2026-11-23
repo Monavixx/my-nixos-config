@@ -6,8 +6,9 @@
 
   den.aspects.desktop = {
     includes = [
-    den.aspects.lanzaboote
-    den.aspects.workstation ];
+      den.aspects.lanzaboote
+      den.aspects.workstation
+    ];
     nixos = { config, ... }: {
       imports = [ ./_hardware-configuration.nix ];
 
@@ -22,7 +23,9 @@
         "nvidia_uvm"
         "nvidia_drm"
       ];
-      boot.blacklistedKernelModules = [ "nouveau" ];
+      boot.blacklistedKernelModules = [
+        "nouveau"
+      ];
       hardware = {
         nvidia = {
           package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
