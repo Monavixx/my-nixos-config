@@ -1,14 +1,15 @@
 {
   den.aspects.sunshine = {
     nixos = {
-      #https://localhost:47990
+      # start the service manually before going to
+      # https://localhost:47990
       services.sunshine = {
         enable = true;
-        autoStart = true;
         openFirewall = true;
 
         settings = {
           capture = "wlr";
+          tray = "never";
         };
       };
     };
