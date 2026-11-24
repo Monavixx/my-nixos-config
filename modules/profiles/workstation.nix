@@ -1,6 +1,7 @@
 { den, ... }:
 {
   den.aspects.workstation.includes = with den.aspects; [
+    sunshine
     syncthing
     catppuccin
     docker

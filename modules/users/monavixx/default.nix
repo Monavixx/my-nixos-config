@@ -6,6 +6,7 @@
       (den.batteries.user-shell "zsh")
     ]
     ++ (with den.aspects; [
+      sunshine
       syncthing
       audio
       email

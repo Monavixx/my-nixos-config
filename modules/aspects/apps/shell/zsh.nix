@@ -1,66 +1,52 @@
+{ den, ... }:
 {
   den.aspects.zsh = {
+    includes = [ den.aspects.fzf ];
     nixos = { pkgs, ... }: {
       programs.zsh.enable = true;
       environment = {
         shells = [ pkgs.zsh ];
       };
     };
-    homeManager = { config, ... }: {
-      programs.zsh = {
-        enable = true;
-        enableCompletion = true;
-        autosuggestion.enable = true;
-        syntaxHighlighting.enable = true;
-        history = {
-          size = 10000;
-          ignoreAllDups = true;
-          path = "${config.home.homeDirectory}/.zsh_history";
+    homeManager =
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
+      {
+        programs.zsh = {
+          enable = true;
+          enableCompletion = true;
+          autosuggestion.enable = true;
+          syntaxHighlighting.enable = true;
+          plugins = [
+            {
+              name = "fzf-tab";
+              src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
+            }
+          ];
+          history = {
+            size = 10000;
+            ignoreAllDups = true;
+            path = "${config.home.homeDirectory}/.zsh_history";
+          };
+          initContent = lib.mkAfter ''
+            zstyle ':completion:*' menu no
+            zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+            zstyle ':completion:*:git-checkout:*' sort false
+            zstyle ':completion:*:descriptions' format '[%d]'
+            zstyle ':fzf-tab:*' switch-group '<' '>'
+            zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -la $realpath'
+
+            if [[ -o interactive ]]; then
+              fastfetch
+            fi
+          '';
+          defaultKeymap = "viins";
         };
-        initContent = ''
-          zmodload zsh/complist
-          zstyle ':completion:*' menu select
-
-          ZSH_AUTOSUGGEST_IGNORE_WIDGETS+=(tab-suggest-then-complete)
-
-          typeset -g _tab_prefix=""
-          typeset -gi _tab_accepted=0
-
-          tab-suggest-then-complete() {
-            if [[ $LASTWIDGET != tab-suggest-then-complete ]]; then
-              _tab_accepted=0
-            fi
-
-            if (( _tab_accepted )); then
-              _tab_accepted=0
-              BUFFER=$_tab_prefix
-              CURSOR=$#BUFFER
-              zle menu-complete
-
-            elif [[ -n $POSTDISPLAY && $CURSOR -eq $#BUFFER ]]; then
-              _tab_prefix=$BUFFER
-              zle autosuggest-accept
-              _tab_accepted=1
-
-            else
-              zle menu-complete
-            fi
-          }
-
-          zle -N tab-suggest-then-complete
-          bindkey '^I' tab-suggest-then-complete
-
-          bindkey -M menuselect '^I' menu-complete
-          bindkey -M menuselect '^[[Z' reverse-menu-complete
-          bindkey '^[[Z' reverse-menu-complete
-
-          if [[ -o interactive ]]; then
-            fastfetch
-          fi
-        '';
-        defaultKeymap = "viins";
+        catppuccin.zsh-syntax-highlighting.enable = true;
       };
-      catppuccin.zsh-syntax-highlighting.enable = true;
-    };
   };
 }
