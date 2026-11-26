@@ -8,9 +8,14 @@
     includes = [
       den.aspects.lanzaboote
       den.aspects.workstation
+      den.aspects.steam
     ];
-    nixos = { config, ... }: {
+    nixos = { config, pkgs, ... }: {
       imports = [ ./_hardware-configuration.nix ];
+
+      environment.systemPackages = with pkgs; [
+        itch
+      ];
 
       fileSystems."/".options = [ "noatime" ];
       fileSystems."/home".options = [ "noatime" ];
