@@ -47,10 +47,12 @@ PopupPanel {
 
     onOpenChanged: {
         SystemStats.active = open;
+        Timers.active = open;
         if (open) {
             Toggles.refreshWifi();
             Wallpaper.refreshState();
             Tasks.refresh();
+            Timers.refresh();
         }
     }
     // Start on the main page next time (changes while hidden, so nobody sees it)
@@ -265,6 +267,15 @@ PopupPanel {
                         onClicked: root.page = "notifications"
                         onHoveredChanged: root.hint = hovered ? hintText : ""
                     }
+                    CircleButton {
+                        glyph: "\uf017"
+                        label: "Timers"
+                        key: timersPage.key
+                        badge: Timers.count > 0
+                        badgeColor: Theme.accent
+                        onClicked: root.page = "timers"
+                        onHoveredChanged: root.hint = hovered ? hintText : ""
+                    }
 
                     Item {
                         Layout.fillWidth: true
@@ -334,6 +345,12 @@ PopupPanel {
         NotificationsPage {
             id: notificationsPage
             key: "n"
+            current: root.page
+            onBack: root.page = "main"
+        }
+        TimersPage {
+            id: timersPage
+            key: "a"
             current: root.page
             onBack: root.page = "main"
         }

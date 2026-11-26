@@ -19,33 +19,64 @@
         };
       };
     };
-    homeManager = { host, pkgs, ... }: {
-      home.sessionVariables = {
-        QS_CONFIG_NAME = "main";
-      };
-      programs.quickshell = {
-        enable = true;
-        configs.main = pkgs.runCommand "quickshell-main-config" { } ''
-          mkdir -p "$out"
-          cp -r ${./config}/. "$out/"
-          chmod u+w "$out/core"
-          cat > "$out/core/Host.qml" <<'EOF'
-          pragma Singleton
-          import Quickshell
+    homeManager =
+      { host, pkgs, ... }:
+      let
+        timersBackend = pkgs.writeShellApplication {
+          name = "quickshell-timers";
+          runtimeInputs = [
+            pkgs.python3
+            pkgs.libnotify
+            pkgs.pipewire
+          ];
+          text = ''
+            export QS_TIMER_SOUND="${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga"
+            exec python3 ${./config/scripts/timers.py} "$@"
+          '';
+        };
+      in
+      {
+        home.sessionVariables = {
+          QS_CONFIG_NAME = "main";
+        };
+        home.packages = [ timersBackend ];
 
-          Singleton {
-              readonly property bool fingerprintEnabled: ${
-                if host.settings.quickshell.fingerprint then "true" else "false"
-              }
-          }
-          EOF
-        '';
-        activeConfig = "main";
-        systemd = {
+        systemd.user.services.quickshell-timers = {
+          Unit = {
+            Description = "Persistent Quickshell timers and alarms scheduler";
+          };
+          Service = {
+            Type = "simple";
+            ExecStart = "${timersBackend}/bin/quickshell-timers daemon";
+            Restart = "on-failure";
+            RestartSec = "5s";
+          };
+          Install.WantedBy = [ "graphical-session.target" ];
+        };
+
+        programs.quickshell = {
           enable = true;
-          # target = "graphical-session.target";
+          configs.main = pkgs.runCommand "quickshell-main-config" { } ''
+            mkdir -p "$out"
+            cp -r ${./config}/. "$out/"
+            chmod u+w "$out/core"
+            cat > "$out/core/Host.qml" <<'EOF'
+            pragma Singleton
+            import Quickshell
+
+            Singleton {
+                readonly property bool fingerprintEnabled: ${
+                  if host.settings.quickshell.fingerprint then "true" else "false"
+                }
+            }
+            EOF
+          '';
+          activeConfig = "main";
+          systemd = {
+            enable = true;
+            # target = "graphical-session.target";
+          };
         };
       };
-    };
   };
 }
