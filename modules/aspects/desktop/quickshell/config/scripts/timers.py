@@ -168,7 +168,7 @@ def notify(item):
     title = "Timer finished" if item["kind"] == "timer" else "Alarm"
     try:
         subprocess.run(
-            ["notify-send", "--urgency=critical", "--app-name=Timers", title, item["label"]],
+            ["notify-send", "-t", "5000", "--app-name=Timers", title, item["label"]],
             check=True,
             timeout=10,
         )

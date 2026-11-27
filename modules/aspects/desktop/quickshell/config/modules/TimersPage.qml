@@ -76,6 +76,7 @@ SubPage {
         readonly property bool focused: field.activeFocus
 
         signal tabPressed(var event)
+        signal enterPressed(var event)
 
         function focusInput() {
             field.forceActiveFocus();
@@ -117,7 +118,10 @@ SubPage {
             verticalAlignment: TextInput.AlignVCenter
             validator: pill.timeMode ? timeValidator : pill.durationMode ? durationValidator : null
             Keys.onPressed: event => {
-                if (event.key === Qt.Key_Tab || event.key === Qt.Key_Backtab) {
+                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                    pill.enterPressed(event);
+                    event.accepted = true;
+                } else if (event.key === Qt.Key_Tab || event.key === Qt.Key_Backtab) {
                     pill.tabPressed(event);
                     event.accepted = true;
                 }
@@ -148,12 +152,14 @@ SubPage {
             placeholder: "Minutes"
             durationMode: true
             onTabPressed: event => root.handleTab(event)
+            onEnterPressed: event => root.addTimer()
         }
         PillInput {
             id: timerLabel
             Layout.fillWidth: true
             placeholder: "Timer name"
             onTabPressed: event => root.handleTab(event)
+            onEnterPressed: event => root.addTimer()
         }
         BarButton {
             horizontalPadding: 8
@@ -234,12 +240,14 @@ SubPage {
             placeholder: "HH:MM"
             timeMode: true
             onTabPressed: event => root.handleTab(event)
+            onEnterPressed: event => root.addAlarm()
         }
         PillInput {
             id: alarmLabel
             Layout.fillWidth: true
             placeholder: "Alarm name"
             onTabPressed: event => root.handleTab(event)
+            onEnterPressed: event => root.addAlarm()
         }
         BarButton {
             horizontalPadding: 8
