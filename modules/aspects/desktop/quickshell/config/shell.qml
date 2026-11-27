@@ -15,6 +15,10 @@ ShellRoot {
     }
     Variants {
         model: Quickshell.screens
+        Launcher {}
+    }
+    Variants {
+        model: Quickshell.screens
         PowerMenu {}
     }
     Lock {}

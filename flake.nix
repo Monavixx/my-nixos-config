@@ -40,18 +40,9 @@
       url = "github:oberblastmeister/trashy";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    elephant.url = "github:abenz1267/elephant";
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.elephant.follows = "elephant";
-    };
-    walker-catppuccin = {
-      url = "github:krymancer/walker";
-      flake = false;
     };
     reaper-flake.url = "github:9Prestidigitator/reaper-flake";
 

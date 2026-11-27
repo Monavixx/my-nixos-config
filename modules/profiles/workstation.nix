@@ -10,7 +10,6 @@
     hyprland
     ayugram-desktop
     firefox
-    walker
     llm-agents
     quickshell
     libvirt

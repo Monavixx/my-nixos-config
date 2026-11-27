@@ -10,6 +10,7 @@ Singleton {
 
     signal dashboardToggled
     property bool powerMenuOpen: false
+    property bool launcherOpen: false
 
     function togglePowerMenu() {
         powerMenuOpen = !powerMenuOpen;
@@ -19,6 +20,19 @@ Singleton {
         powerMenuOpen = false;
     }
 
+    function toggleLauncher() {
+        launcherOpen = !launcherOpen;
+    }
+
+    function closeLauncher() {
+        launcherOpen = false;
+    }
+
+    GlobalShortcut {
+        name: "launcher"
+        description: "Toggle the application launcher"
+        onPressed: root.toggleLauncher()
+    }
     GlobalShortcut {
         name: "dashboard"
         description: "Toggle the control center"

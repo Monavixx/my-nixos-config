@@ -19,6 +19,7 @@ Singleton {
     readonly property var terminal: ["kitty", "-e"]   // used as: terminal + command
     readonly property var audioMixer: ["pavucontrol"]
     readonly property var networkTui: ["nmtui"]
+    readonly property string webSearchUrlTemplate: "https://www.google.com/search?q={query}"
 
     readonly property string cpuTempPath: ""
     readonly property string diskPath: "/"

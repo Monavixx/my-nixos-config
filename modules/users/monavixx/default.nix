@@ -18,7 +18,6 @@
       rqbit
       libvirt
       reaper
-      walker
       yazi
       mpd
       wallpapers
