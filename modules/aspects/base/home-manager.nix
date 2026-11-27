@@ -1,8 +1,8 @@
 {
   den.aspects.home-manager = {
-    nixos = {
+    nixos = { pkgs, ... }: {
       home-manager = {
-        backupFileExtension = "backup";
+        backupCommand = "${pkgs.trashy}/bin/trashy put";
         useGlobalPkgs = true;
         useUserPackages = true;
       };
