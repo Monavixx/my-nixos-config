@@ -1,6 +1,7 @@
 pragma Singleton
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import Quickshell.Hyprland
 
 // Global shortcuts live here once, so multiple bars don't register duplicates.
@@ -26,6 +27,12 @@ Singleton {
 
     function closeLauncher() {
         launcherOpen = false;
+    }
+    IpcHandler {
+        target: "launcher"
+        function toggle(): void {
+            root.toggleLauncher();
+        }
     }
 
     GlobalShortcut {
