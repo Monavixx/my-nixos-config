@@ -4,24 +4,32 @@ import Quickshell
 import Quickshell.Io
 import qs.core
 import qs.services
+import "Calculator.js" as Calculator
 
 Singleton {
     id: root
 
+    property string prefix: ""
     property string query: ""
     property var results: []
     property var websites: []
 
-    readonly property string prefix: {
-        const first = query.charAt(0);
-        return ["=", "?", "!"].includes(first) ? first : "";
-    }
-    readonly property string searchText: prefix ? query.slice(1).trim() : query.trim()
     readonly property string mode: prefix === "=" ? "Calculator" : prefix === "?" ? "Web search" : prefix === "!" ? "Run command" : "Applications"
 
     onQueryChanged: refresh()
+    onPrefixChanged: refresh()
 
     Component.onCompleted: websiteFile.reload()
+
+    function setInput(value) {
+        if (["=", "?", "!"].includes(value.charAt(0))) {
+            prefix = value.charAt(0);
+            query = value.slice(1);
+            return query;
+        }
+        query = value;
+        return value;
+    }
 
     FileView {
         id: websiteFile
@@ -93,64 +101,10 @@ Singleton {
         return best;
     }
 
-    function calculate(expression) {
-        const compact = expression.replace(/\s+/g, "");
-        const tokens = compact.match(/\d+(?:\.\d*)?|\.\d+|[()+\-*/%]/g) || [];
-        if (!tokens.length || tokens.join("") !== compact)
-            return null;
-
-        let position = 0;
-        let valid = true;
-        function primary() {
-            const token = tokens[position++];
-            if (token === "+")
-                return primary();
-            if (token === "-")
-                return -primary();
-            if (token === "(") {
-                const value = sum();
-                if (tokens[position++] !== ")")
-                    valid = false;
-                return value;
-            }
-            if (!token || !/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(token)) {
-                valid = false;
-                return 0;
-            }
-            return Number(token);
-        }
-        function product() {
-            let value = primary();
-            while (["*", "/", "%"].includes(tokens[position])) {
-                const operator = tokens[position++];
-                const right = primary();
-                if (operator === "*")
-                    value *= right;
-                else if (operator === "/")
-                    value /= right;
-                else
-                    value %= right;
-            }
-            return value;
-        }
-        function sum() {
-            let value = product();
-            while (tokens[position] === "+" || tokens[position] === "-") {
-                const operator = tokens[position++];
-                const right = product();
-                value = operator === "+" ? value + right : value - right;
-            }
-            return value;
-        }
-
-        const value = sum();
-        return valid && position === tokens.length && Number.isFinite(value) ? value : null;
-    }
-
     function refresh() {
-        const term = searchText;
+        const term = query.trim();
         if (prefix === "=") {
-            const result = term ? calculate(term) : null;
+            const result = term ? Calculator.evaluate(term) : null;
             results = result === null ? [] : [
                 {
                     kind: "calc",
@@ -186,7 +140,9 @@ Singleton {
         for (const entry of DesktopEntries.applications.values) {
             if (!entry || entry.noDisplay)
                 continue;
-            const score = matchScore([entry.name, entry.genericName, entry.comment, Array.isArray(entry.keywords) ? entry.keywords.join(" ") : ""], term);
+            const keywords = entry.keywords ? Array.from(entry.keywords).join(" ") : "";
+            const categories = entry.categories ? Array.from(entry.categories).join(" ") : "";
+            const score = matchScore([entry.name, entry.genericName, entry.comment, keywords, categories], term);
             if (score >= 0)
                 matches.push({
                     kind: "app",
@@ -210,7 +166,7 @@ Singleton {
                 });
         }
         matches.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
-        results = matches.slice(0, 10);
+        results = matches;
     }
 
     function activate(result) {

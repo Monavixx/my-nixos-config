@@ -31,12 +31,17 @@ PanelWindow {
     WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
     onVisibleChanged: if (visible) {
+        root.normalizingInput = true;
         searchInput.text = "";
+        AppLauncher.prefix = "";
         AppLauncher.query = "";
+        root.normalizingInput = false;
         AppLauncher.refresh();
         selectedIndex = AppLauncher.results.length > 0 ? 0 : -1;
         Qt.callLater(() => searchInput.forceActiveFocus());
     }
+
+    property bool normalizingInput: false
 
     Connections {
         target: AppLauncher
@@ -119,7 +124,14 @@ PanelWindow {
                         clip: true
                         focus: true
                         onTextChanged: {
-                            AppLauncher.query = text;
+                            if (root.normalizingInput)
+                                return;
+                            const normalized = AppLauncher.setInput(text);
+                            if (normalized !== text) {
+                                root.normalizingInput = true;
+                                text = normalized;
+                                root.normalizingInput = false;
+                            }
                             root.selectedIndex = AppLauncher.results.length > 0 ? 0 : -1;
                         }
                         Keys.onPressed: event => {
@@ -127,6 +139,8 @@ PanelWindow {
                                 root.selectedIndex = (root.selectedIndex + 1) % AppLauncher.results.length;
                             } else if (event.key === Qt.Key_Up && AppLauncher.results.length > 0) {
                                 root.selectedIndex = (root.selectedIndex - 1 + AppLauncher.results.length) % AppLauncher.results.length;
+                            } else if (event.key === Qt.Key_Backspace && text === "" && AppLauncher.prefix !== "") {
+                                AppLauncher.prefix = "";
                             } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                                 AppLauncher.activate(AppLauncher.results[root.selectedIndex]);
                             } else if (event.key === Qt.Key_Escape) {
@@ -161,6 +175,8 @@ PanelWindow {
                     spacing: 4
                     model: AppLauncher.results
                     currentIndex: root.selectedIndex
+                    onCurrentIndexChanged: if (currentIndex >= 0)
+                        positionViewAtIndex(currentIndex, ListView.Contain)
 
                     delegate: Rectangle {
                         id: row
